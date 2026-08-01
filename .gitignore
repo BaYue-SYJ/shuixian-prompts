@@ -37,3 +37,18 @@ scripts/_*.json
 
 # ===== 已废弃的 9 桶设计稿（用户已 pass） =====
 新分类体系设计稿.html
+
+# ===== 工作笔记 / 草稿 markdown（非仓库文档，不进版本控制，本地保留） =====
+category_proposal_20260730.md
+category_proposal_v2.md
+prompt_category_analysis.md
+prompt_scenario_analysis.md
+prompt_singlelabel.md
+prompt_wordfreq_top30.md
+reclassify_17cat_strict_report.md
+twitter_changes_20260727.md
+twitter_changes_20260728.md
+twitter_changes_20260728_collect.md
+twitter_changes_20260728_pm.md
+twitter_dup88_report.md
+
