@@ -1,15 +1,26 @@
+# ===== 系统/环境垃圾 =====
 .DS_Store
 Thumbs.db
 *.log
 __pycache__/
 *.pyc
 node_modules/
+
+# ===== 项目记忆（不对外） =====
 .workbuddy/
+
+# ===== 历史备份与废弃分支（不对外） =====
 backup_*/
 shuixian-*.bak-*/
 shuixian-new/
+
+# ===== 大图/原图（网站走 R2，不进 git） =====
 shuixian-prompts/images/
+
+# ===== 明文 R2 密钥（绝不外传） =====
 Upload Images/
+
+# ===== 本地工作草稿/分析脚本（不进仓库） =====
 _batch*.txt
 _residual*.txt
 _proposal_final.py
@@ -18,6 +29,8 @@ _verify_*.py
 _*.txt
 *.bak*
 新分类体系设计稿.html
+
+# ===== 工作笔记 markdown（不进仓库） =====
 category_proposal_20260730.md
 category_proposal_v2.md
 prompt_category_analysis.md
@@ -30,8 +43,12 @@ twitter_changes_20260728.md
 twitter_changes_20260728_collect.md
 twitter_changes_20260728_pm.md
 twitter_dup88_report.md
+
+# ===== 本地分类/上传工具数据（不进仓库） =====
 _person_overrides.json
 reclass_map.json
+
+# ===== 本地维护脚本与启动器（不进仓库，网站运行不需要） =====
 scripts/
 serve_*.py
 start_*.bat
