@@ -1,0 +1,27 @@
+<!-- Lightbox -->
+<div class="mask" id="mask">
+  <div class="lightbox">
+    <div class="lb-img">
+      <img id="lbImg" src="" alt="">
+      <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+      <button class="lb-nav lb-next" id="lbNext" aria-label="下一张">›</button>
+      <div class="lb-count" id="lbCount"></div>
+      <div class="lb-loading" id="lbLoading">小主，正在加载图片ing</div>
+    </div>
+    <div class="lb-body">
+      <div class="lb-top">
+        <span class="lbl">提示词详情</span>
+        <svg class="lb-close" id="lbClose" viewBox="0 0 24 24" fill="none"><path d="M6 6L18 18M18 6L6 18" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="prompt-lbl">PROMPT</div>
+      <div class="prompt-txt" id="lbPrompt"></div>
+      <div class="lb-actions">
+        <button class="copy-btn" id="copyBtn">复制提示词</button>
+        <a class="view-link" id="viewLink" href="#" target="_blank">查看原图</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>

@@ -1,0 +1,26 @@
+# Cloudflare Pages 缓存策略（部署后生效）
+# 静态资源长缓存；每次更新请务必同步递增 HTML 里的 ?v= 与 js/base.js 里的 ASSET_VERSION，否则边缘节点会返回旧版。
+
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/components/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/data/list*
+  Cache-Control: public, max-age=3600
+
+/data/prompts*
+  Cache-Control: public, max-age=3600
+
+/data/twitter_manifest.json
+  Cache-Control: public, max-age=3600
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

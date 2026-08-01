@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水仙的AI提示词</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
+  <link rel="dns-prefetch" href="https://r2.qqsrc.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=6">
+<style>
+/* ---------- 首页 Hero ---------- */
+.hero{
+  background:var(--blue-soft);padding:72px 48px 64px;
+}
+.hero-inner{max-width:1440px;width:100%;margin:0 auto;display:flex;flex-direction:row;gap:48px;align-items:center}
+.hero-left{flex:1;display:flex;flex-direction:column;gap:28px;min-width:0}
+.hero-qr{flex:none;width:240px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero-qr img{width:100%;height:auto;border-radius:16px;background:var(--white);box-shadow:var(--shadow);display:block}
+.hero-qr .qr-label{font-size:13px;color:var(--gray);text-align:center}
+.kicker{
+  font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;font-size:16px;
+  color:var(--blue);letter-spacing:.5px;margin:0;
+}
+.hero h1{margin:0;font-size:52px;font-weight:700;line-height:1.15;color:var(--ink)}
+.hero .sub{margin:0;font-size:17px;font-weight:400;line-height:1.6;color:var(--ink-2);max-width:640px}
+.search-bar{
+  width:560px;max-width:100%;height:56px;padding:0 20px;border-radius:28px;background:var(--white);
+  border:1px solid var(--line);display:flex;align-items:center;gap:12px;
+}
+.search-bar svg{flex:none}
+.search-bar input{flex:1;border:none;outline:none;font-size:16px;background:transparent;color:var(--ink)}
+.search-bar input::placeholder{color:var(--gray-2)}
+.search-btn{
+  flex:none;display:inline-flex;align-items:center;padding:10px 22px;border-radius:9999px;
+  background:var(--blue);color:var(--white);font-size:15px;font-weight:500;
+}
+
+/* 首页 chip 使用白底灰字 */
+.hero .chips{display:flex;flex-wrap:wrap;gap:10px}
+.hero .chip{
+  padding:8px 16px;border-radius:9999px;background:var(--white);border:1px solid var(--line);
+  font-size:14px;font-weight:500;color:var(--gray);transition:.15s;
+}
+.hero .chip:hover{border-color:var(--blue);color:var(--blue)}
+.hero .chip.active{background:var(--blue);border-color:var(--blue);color:var(--white)}
+
+/* 首页统计 */
+.hero .stats{display:flex;gap:48px;flex-wrap:wrap;align-items:center}
+.hero .stat-num{font-size:28px;font-weight:700;color:var(--ink)}
+.hero .stat-label{font-size:14px;color:var(--gray);margin-top:4px}
+
+/* 首页精选提示词 */
+.home-gallery{max-width:1440px;margin:0 auto;padding:48px 48px 64px;display:flex;flex-direction:column;gap:24px}
+.home-gallery .gallery-title{font-size:28px;font-weight:700;color:var(--ink);margin:0}
+.home-gallery .gallery-title span{color:var(--gray);font-size:18px;font-weight:500;margin-left:8px}
+
+/* 首页卡片（简版） */
+.home-card{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;padding:12px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:.18s;position:relative}
+.home-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.home-card .thumb-wrap{position:relative;width:100%;border-radius:12px;overflow:hidden;background:#eef2f4;flex:none}
+.home-card .thumb{width:100%;height:auto;border-radius:12px;display:block;background:#eef2f4}
+.home-card .thumb-ph{width:100%;min-height:200px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eaf4f7,#dfeef2);color:var(--gray-2);font-size:13px}
+.home-card .cap{font-size:15px;font-weight:500;color:var(--ink);line-height:1.4;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.home-card .badge{position:absolute;top:20px;right:20px;z-index:2;display:inline-flex;align-items:center;gap:4px;background:rgba(14,20,25,.62);color:#fff;font-size:12px;font-weight:600;line-height:1;padding:5px 9px;border-radius:999px;backdrop-filter:blur(2px);pointer-events:none}
+.home-card .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.home-card .likes{display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--gray);font-family:"DM Sans",sans-serif}
+.home-card .likes svg{width:12px;height:12px}
+.home-card .cat-chip{font-size:11px;font-weight:500;padding:3px 8px;border-radius:999px}
+
+@media(max-width:920px){
+  .hero-inner{flex-direction:column;align-items:flex-start;gap:32px}
+  .hero-qr{display:none}
+}
+@media(max-width:768px){
+  .hero{padding:40px 20px 32px}
+  .hero h1{font-size:32px}
+  .search-bar{width:100%;height:52px;padding:0 14px;gap:8px}
+  .search-bar input{font-size:15px}
+  .search-btn{padding:8px 16px;font-size:14px}
+  .hero .chips{gap:8px}
+  .hero .chip{padding:7px 13px;font-size:13px}
+  .hero .stats{gap:24px}
+  .hero .stat-num{font-size:26px}
+  .home-gallery{padding:32px 20px 48px}
+  .grid{columns:200px;column-gap:16px}
+}
+@media(max-width:480px){
+  .hero{padding:32px 20px 28px}
+  .hero h1{font-size:28px}
+  .hero .sub{font-size:15px}
+  .search-bar{height:48px;padding:0 12px}
+  .search-btn{padding:7px 14px;font-size:13px}
+  .hero .chips{gap:6px}
+  .hero .chip{padding:6px 11px;font-size:12px}
+  .hero .stats{gap:16px}
+  .hero .stat-num{font-size:22px}
+  .grid{columns:150px;column-gap:14px}
+}
+</style>
+</head>
+<body data-page="index">
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="kicker">Prompt Garden · 提示词花园</p>
+        <h1>水仙的 AI 提示词库</h1>
+        <p class="sub">14,000+ 精选提示词与原图，按关键词即搜即得。</p>
+        <div class="search-bar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#6B6B6B" stroke-width="2"/><path d="M16 16L21 21" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="heroSearch" type="text" placeholder="搜索提示词、风格…" autocomplete="off">
+          <button class="search-btn" id="heroSearchBtn">搜索</button>
+        </div>
+        <div class="chips" id="heroChips"></div>
+        <div class="stats" id="heroStats"></div>
+      </div>
+      <div class="hero-qr">
+        <img src="images/wechat-qr.jpg" alt="水仙的AI提示词 微信公众号">
+        <span class="qr-label">扫码关注公众号</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-gallery">
+    <div class="gallery-head">
+      <h2 class="gallery-title">全部提示词 <span id="homeCount"></span></h2>
+      <div class="sort-menu">
+        <button class="sort-pill" id="homeSortPill">排序 · 最热 <span>▾</span></button>
+        <div class="sort-list" id="homeSortList">
+          <button data-sort="latest">最新</button>
+          <button data-sort="hot" class="sel">最热</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid" id="homeGrid"></div>
+    <button class="show-more" id="homeShowMore" type="button" style="display:none">显示更多</button>
+    <div class="empty" id="homeEmpty" style="display:none">没有匹配的提示词，换个关键词或分类试试。</div>
+    <div class="loading" id="loading">加载中…</div>
+  </section>
+</main>
+<script src="js/base.js?v=6"></script>
+<script src="js/home.js?v=6"></script>
+</body>
+</html>

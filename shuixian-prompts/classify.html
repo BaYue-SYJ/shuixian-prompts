@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分类 · 水仙的AI提示词</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=6">
+</head>
+<body data-page="classify">
+<main>
+  <div class="page-title">
+    <p class="kicker-sm">CATEGORIZATION</p>
+    <h1>双维度筛选：主题 × 风格</h1>
+    <p class="sub">一个提示词可同时被打上多个主题和风格标签，「全部人像」自动聚合含人像的所有结果。</p>
+  </div>
+  <div class="filter-group">
+    <div class="filter-row">
+      <span class="filter-label">主题</span>
+      <div class="chips" id="themeChips"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">风格</span>
+      <div class="chips" id="styleChips"></div>
+    </div>
+  </div>
+  <section class="gallery">
+    <div class="gallery-head">
+      <h3 class="gallery-title" id="classifyResultTitle"></h3>
+    </div>
+    <div class="grid" id="classifyGrid"></div>
+    <button class="show-more" id="classifyShowMore" type="button" style="display:none">显示更多</button>
+    <div class="empty" id="classifyEmpty" style="display:none">请选择上方「主题」或「风格」标签开始筛选。</div>
+    <div class="loading" id="loading">加载中…</div>
+  </section>
+</main>
+<script src="js/base.js?v=6"></script>
+<script src="js/classify.js?v=6"></script>
+</body>
+</html>

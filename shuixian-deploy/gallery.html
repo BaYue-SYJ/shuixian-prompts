@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画廊 · 水仙的AI提示词</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
+  <link rel="dns-prefetch" href="https://r2.qqsrc.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=6">
+</head>
+<body data-page="gallery">
+<main>
+  <section class="gallery">
+    <div class="chips" id="chips"></div>
+    <div class="gallery-bar">
+      <div class="gallery-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#6B6B6B" stroke-width="2"/><path d="M16 16L21 21" stroke="#6B6B6B" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="searchInput" type="text" placeholder="搜索提示词、标签、作者…" autocomplete="off">
+      </div>
+      <div class="sort-menu">
+        <button class="sort-pill" id="sortPill">最热 <span>▾</span></button>
+        <div class="sort-list" id="sortList">
+          <button data-sort="latest">最新</button>
+          <button data-sort="hot" class="sel">最热</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <button class="show-more" id="showMore" type="button" style="display:none">显示更多</button>
+    <div class="empty" id="empty" style="display:none">没有匹配的提示词，换个关键词或分类试试。</div>
+    <div class="loading" id="loading">加载中…</div>
+  </section>
+</main>
+<script src="js/base.js?v=6"></script>
+<script src="js/gallery.js?v=6"></script>
+</body>
+</html>

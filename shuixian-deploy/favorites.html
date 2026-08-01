@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>收藏 · 水仙的AI提示词</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
+  <link rel="dns-prefetch" href="https://r2.qqsrc.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=6">
+</head>
+<body data-page="favorites">
+<main>
+  <div class="page-title">
+    <p class="kicker-sm">FAVORITES</p>
+    <h1>我的收藏</h1>
+    <p class="sub">无需登录，localStorage 本地保存；可创建多个画板，导出 Markdown。</p>
+  </div>
+  <div class="fav-bar">
+    <div class="board-tabs" id="boardTabs"></div>
+    <button class="board-new" id="newBoardBtn">+ 新建画板</button>
+    <button class="export-btn" id="exportMdBtn">导出 Markdown</button>
+  </div>
+  <section class="gallery">
+    <div class="grid" id="favGrid"></div>
+    <div class="empty" id="favEmpty" style="display:none">当前画板暂无收藏，去画廊点击星标添加吧。</div>
+    <div class="loading" id="loading">加载中…</div>
+  </section>
+</main>
+<script src="js/base.js?v=6"></script>
+<script src="js/favorites.js?v=6"></script>
+</body>
+</html>

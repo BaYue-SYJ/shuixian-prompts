@@ -1,0 +1,39 @@
+# ===== 操作系统 / 编辑器 / Python / Node =====
+.DS_Store
+Thumbs.db
+*.log
+__pycache__/
+*.pyc
+node_modules/
+
+# ===== WorkBuddy 项目数据（非源码，勿传） =====
+.workbuddy/
+
+# ===== 备份副本（历史快照，不进版本控制） =====
+backup_*/
+scripts/backup_*/
+shuixian-*.bak-*/
+
+# ===== 废弃分支（已被用户 pass） =====
+shuixian-new/
+
+# ===== 大图 / 原图（已托管在 R2，仓库保持轻量，严禁入库） =====
+# 本地版整个 images/ 都排除：originals 2.8G + twitter 5.7G + twitter-cat* + 微信图
+shuixian-prompts/images/
+# 明文 R2 密钥所在目录，绝对不能进 git
+Upload Images/
+
+# ===== 临时 / 草稿文件 =====
+_batch*.txt
+_residual*.txt
+_proposal_final.py
+reclass_full.json
+_verify_*.py
+_*.txt
+scripts/_*.json
+
+# ===== 旧备份快照（HTML 等） =====
+*.bak*
+
+# ===== 已废弃的 9 桶设计稿（用户已 pass） =====
+新分类体系设计稿.html

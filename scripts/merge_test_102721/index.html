@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>提示词风格图鉴 · Prompt Gallery</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Noto Sans SC',sans-serif;
+  background:#0F0F12;
+  color:#F5F5F0;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Background gradient */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 20%,rgba(255,107,157,.08),transparent 40%),
+    radial-gradient(ellipse at 85% 30%,rgba(0,255,255,.06),transparent 40%),
+    radial-gradient(ellipse at 50% 80%,rgba(201,168,76,.05),transparent 50%);
+}
+
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:60px 32px;
+  position:relative;z-index:1;
+}
+
+/* Header */
+.header{
+  text-align:center;
+  margin-bottom:60px;
+}
+.header-badge{
+  display:inline-block;
+  padding:6px 20px;
+  border:1px solid rgba(245,245,240,.2);
+  border-radius:30px;
+  font-family:'Space Mono',monospace;
+  font-size:12px;font-weight:700;
+  color:rgba(245,245,240,.6);
+  letter-spacing:.15em;
+  margin-bottom:24px;
+}
+.header-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(40px,6vw,72px);
+  font-weight:900;
+  line-height:1.1;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,#FF6B9D 0%,#00FFFF 25%,#C9A84C 50%,#2A9D8F 75%,#A06CD5 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.header-sub{
+  font-size:18px;font-weight:300;
+  color:rgba(245,245,240,.5);
+  margin-bottom:8px;
+}
+.header-stats{
+  display:flex;gap:40px;justify-content:center;flex-wrap:wrap;
+  margin-top:32px;
+}
+.header-stat{}
+.header-stat-num{
+  font-family:'Space Mono',monospace;
+  font-size:32px;font-weight:700;
+  color:#F5F5F0;
+}
+.header-stat-label{
+  font-size:12px;
+  color:rgba(245,245,240,.4);
+  margin-top:4px;
+}
+
+/* Grid */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:20px;
+}
+
+.card{
+  text-decoration:none;
+  border-radius:16px;
+  padding:36px 32px;
+  position:relative;
+  overflow:hidden;
+  transition:all .4s cubic-bezier(.2,.8,.2,1);
+  border:1px solid rgba(245,245,240,.08);
+  background:rgba(255,255,255,.02);
+}
+.card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(245,245,240,.2);
+}
+
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  opacity:.8;
+}
+
+/* Individual card themes */
+.card-1::before{background:linear-gradient(90deg,#FF6B9D,#A06CD5)}
+.card-1:hover{box-shadow:0 20px 60px rgba(255,107,157,.15)}
+.card-2::before{background:linear-gradient(90deg,#00FFFF,#FF00FF)}
+.card-2:hover{box-shadow:0 20px 60px rgba(0,255,255,.1)}
+.card-3::before{background:linear-gradient(90deg,#C73E1D,#C9A84C)}
+.card-3:hover{box-shadow:0 20px 60px rgba(199,62,29,.12)}
+.card-4::before{background:linear-gradient(90deg,#E94560,#1A1A2E)}
+.card-4:hover{box-shadow:0 20px 60px rgba(233,69,96,.12)}
+.card-5::before{background:linear-gradient(90deg,#C9A84C,#D4A5A5)}
+.card-5:hover{box-shadow:0 20px 60px rgba(201,168,76,.1)}
+.card-6::before{background:linear-gradient(90deg,#2A9D8F,#F4A261,#6A4C93)}
+.card-6:hover{box-shadow:0 20px 60px rgba(42,157,143,.1)}
+
+.card-num{
+  font-family:'Space Mono',monospace;
+  font-size:13px;font-weight:700;
+  opacity:.4;
+  margin-bottom:16px;
+}
+.card-title{
+  font-family:'Noto Serif SC',serif;
+  font-size:28px;font-weight:900;
+  margin-bottom:8px;
+  color:#F5F5F0;
+}
+.card-sub{
+  font-size:15px;font-weight:300;
+  color:rgba(245,245,240,.5);
+  margin-bottom:20px;
+}
+.card-desc{
+  font-size:13px;line-height:1.7;
+  color:rgba(245,245,240,.4);
+  margin-bottom:20px;
+}
+.card-meta{
+  display:flex;gap:16px;
+  padding-top:16px;
+  border-top:1px solid rgba(245,245,240,.08);
+}
+.card-meta-item{}
+.card-meta-num{
+  font-family:'Space Mono',monospace;
+  font-size:18px;font-weight:700;
+  color:#F5F5F0;
+}
+.card-meta-label{
+  font-size:11px;
+  color:rgba(245,245,240,.3);
+  margin-top:2px;
+}
+  .card-arrow{
+    position:absolute;bottom:32px;right:32px;
+    font-size:20px;
+    opacity:.3;
+    transition:all .3s;
+  }
+  .card:hover .card-arrow{
+    opacity:.8;
+    transform:translateX(4px);
+  }
+  .card-browse-btn{
+    display:inline-block;
+    margin-top:12px;
+    padding:8px 20px;
+    border:1px solid rgba(245,245,240,.15);
+    border-radius:20px;
+    font-size:12px;font-weight:500;
+    color:rgba(245,245,240,.6);
+    transition:all .3s;
+  }
+  .card:hover .card-browse-btn{
+    border-color:rgba(245,245,240,.3);
+    color:rgba(245,245,240,.9);
+  }
+
+.footer{
+  text-align:center;
+  padding:40px 0 20px;
+  margin-top:40px;
+}
+.footer-text{
+  font-size:13px;
+  color:rgba(245,245,240,.3);
+  font-family:'Space Mono',monospace;
+}
+
+@media(max-width:640px){
+  .container{padding:40px 20px}
+  .gallery-grid{grid-template-columns:1fr}
+  .header-stats{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="header-badge">PROMPT STYLE GALLERY</div>
+    <h1 class="header-title">提示词风格图鉴</h1>
+    <p class="header-sub">6 大视觉类别 · 13,387 条提示词的完整导航</p>
+    <div class="header-stats">
+      <div class="header-stat"><div class="header-stat-num">613,387/div><div class="header-stat-label">提示词总数</div></div>
+      <div class="header-stat"><div class="header-stat-num">613,371/div><div class="header-stat-label">配图总数</div></div>
+      <div class="header-stat"><div class="header-stat-num">66/div><div class="header-stat-label">视觉类别</div></div>
+    </div>
+  </div>
+
+  <div class="gallery-grid">
+
+    <a href="01_anime.html" class="card card-1">
+      <div class="card-num">01 / ANIME & CINEMA</div>
+      <div class="card-title">动漫影视</div>
+      <div class="card-sub">二次元宇宙的视觉万花筒</div>
+      <div class="card-desc">日系角色设定、RPG 游戏截图、VTuber 素材、漫画分镜、3D 卡通渲染——二次元视觉全光谱覆盖。</div>
+      <div class="card-meta">
+        <div class="card-meta-item"><div class="card-meta-num">15,020/div><div class="card-meta-label">提示词</div></div>
+        <div class="card-meta-item"><div class="card-meta-num">16.7%37.5%/div><div class="card-meta-label">占比</div></div>
+      </div>
+      <div class="card-browse-btn">点击浏览全部 →</div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="02_scifi.html" class="card card-2">
+      <div class="card-num">02 / SCI-FI & GAMING</div>
+      <div class="card-title">科幻游戏</div>
+      <div class="card-sub">未来世界的概念蓝图</div>
+      <div class="card-desc">赛博朋克、太空歌剧、3D 渲染、超现实梦境、未来 UI——想象力的最大释放场。</div>
+      <div class="card-meta">
+        <div class="card-meta-item"><div class="card-meta-num">12,997/div><div class="card-meta-label">提示词</div></div>
+        <div class="card-meta-item"><div class="card-meta-num">16.7%22.4%/div><div class="card-meta-label">占比</div></div>
+      </div>
+      <div class="card-browse-btn">点击浏览全部 →</div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="03_art.html" class="card card-3">
+      <div class="card-num">03 / PAINTING & ART</div>
+      <div class="card-title">绘画艺术</div>
+      <div class="card-sub">东西方笔触的交汇长廊</div>
+      <div class="card-desc">敦煌壁画、水墨书法、青花瓷、56 民族图鉴、复古摄影——文化底蕴最深厚的板块。</div>
+      <div class="card-meta">
+        <div class="card-meta-item"><div class="card-meta-num">02,828/div><div class="card-meta-label">提示词</div></div>
+        <div class="card-meta-item"><div class="card-meta-num">0.0%21.1%/div><div class="card-meta-label">占比</div></div>
+      </div>
+      <div class="card-browse-btn">点击浏览全部 →</div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="04_design.html" class="card card-4">
+      <div class="card-num">04 / COMMERCIAL DESIGN</div>
+      <div class="card-title">商业设计</div>
+      <div class="card-sub">品牌传播的落地工具箱</div>
+      <div class="card-desc">SaaS 落地页、品牌工具包、广告海报、UI 设计系统、信息图——可直接交付的商业方案。</div>
+      <div class="card-meta">
+        <div class="card-meta-item"><div class="card-meta-num">32,099/div><div class="card-meta-label">提示词</div></div>
+        <div class="card-meta-item"><div class="card-meta-num">50.0%15.7%/div><div class="card-meta-label">占比</div></div>
+      </div>
+      <div class="card-browse-btn">点击浏览全部 →</div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="05_fashion.html" class="card card-5">
+      <div class="card-num">05 / REALISTIC & FASHION</div>
+      <div class="card-title">写实时尚</div>
+      <div class="card-sub">镜头语言的高级表达</div>
+      <div class="card-desc">时尚杂志大片、美妆广告、高端产品摄影——照片级真实感的精准参照库。</div>
+      <div class="card-meta">
+        <div class="card-meta-item"><div class="card-meta-num">0262/div><div class="card-meta-label">提示词</div></div>
+        <div class="card-meta-item"><div class="card-meta-num">0.0%2.0%/div><div class="card-meta-label">占比</div></div>
+      </div>
+      <div class="card-browse-btn">点击浏览全部 →</div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a href="06_other.html" class="card card-6">
+      <div class="card-num">06 / WILD & MISC</div>
+      <div class="card-title">其他综合</div>
+      <div class="card-sub">创意实验的野生花园</div>
+      <div class="card-desc">功能工具、风格转换、虚构内容、幽默脑洞——AI 能力边界探测仪与跨界灵感库。</div>
+      <div class="card-meta">
+        <div class="card-meta-item"><div class="card-meta-num">1181/div><div class="card-meta-label">提示词</div></div>
+        <div class="card-meta-item"><div class="card-meta-num">16.7%1.4%/div><div class="card-meta-label">占比</div></div>
+      </div>
+      <div class="card-browse-btn">点击浏览全部 →</div>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="footer">
+    <p class="footer-text">PROMPT GALLERY · 6 entries · 6 categories</p>
+  </div>
+
+</div>
+
+</body>
+</html>
