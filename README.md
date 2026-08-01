@@ -12,7 +12,7 @@ AI 提示词画廊的源码仓库：本地开发版 + 部署版，单一源头�
 画廊通过 R2 域名加载，不依赖本地文件。因此 `shuixian-prompts/images/` 整体被 `.gitignore` 排除；
 部署版 `shuixian-deploy/images/` 仅含 2 张页脚微信二维码图。
 
-> ⚠️ 切勿把 `Upload Images/cloudfR2密钥.txt`（明文 R2 凭据）提交到任何仓库。
+
 
 ## 分类体系
 当前为 **17 类单标签**（人物优先，非人类主题零泄漏），详见 `reclassify_17cat_strict_report.md`。
