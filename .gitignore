@@ -11,7 +11,6 @@ node_modules/
 
 # ===== 备份副本（历史快照，不进版本控制） =====
 backup_*/
-scripts/backup_*/
 shuixian-*.bak-*/
 
 # ===== 废弃分支（已被用户 pass） =====
@@ -30,7 +29,6 @@ _proposal_final.py
 reclass_full.json
 _verify_*.py
 _*.txt
-scripts/_*.json
 
 # ===== 旧备份快照（HTML 等） =====
 *.bak*
