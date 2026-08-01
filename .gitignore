@@ -52,3 +52,12 @@ twitter_changes_20260728_collect.md
 twitter_changes_20260728_pm.md
 twitter_dup88_report.md
 
+# ===== 仓库只保留：shuixian-deploy + shuixian-prompts + README.md；其余本地工具不进仓库 =====
+_person_overrides.json
+reclass_map.json
+scripts/
+serve_*.py
+start_*.bat
+sync_to_deploy.py
+shuixian-deploy/README.md
+
