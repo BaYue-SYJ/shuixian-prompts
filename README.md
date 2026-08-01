@@ -21,10 +21,7 @@ AI 提示词画廊的源码仓库：本地开发版 + 部署版，单一源头�
   插画/艺术/概念、漫画/分镜/故事板、信息图/教育图解、3D/游戏/像素/等距、建筑/室内/空间、风景/自然、
   动物/宠物、车辆/机械/科幻、抽象/纹理/背景、其他/未归类
 
-## 部署
-部署内容即 `shuixian-deploy/` 目录。推送到 GitHub 后，从该目录拉取部署即可，无需手动搬运文件夹。
-图片上传到 R2：`scripts/upload_r2_req.py`（需先设置环境变量
-`R2_ACCOUNT_ID` / `R2_BUCKET` / `R2_ACCESS_KEY` / `R2_SECRET_KEY`）。
+
 
 ## 本地预览
 - 部署版预览：`python -m http.server 8091 --directory shuixian-deploy`
