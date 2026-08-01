@@ -5,7 +5,7 @@ AI 提示词画廊的源码仓库：本地开发版 + 部署版，单一源头�
 ## 目录结构
 - `shuixian-prompts/` —— 本地开发版（完整 prompts 数据、分类/重分类脚本、本地预览）
 - `shuixian-deploy/` —— 部署版静态站点（直接托管到静态空间即可上线）
-- `scripts/` —— 重分类、R2 上传/清理等脚本（密钥走环境变量，不入库）
+
 
 ## 重要：图片不在 git 中
 原图 `images/originals`（2.8G）与 twitter 图 `images/twitter`（5.7G）已托管在 **R2 对象存储**，
