@@ -1,6 +1,7 @@
 # 水仙的AI提示词
 
 AI 提示词画廊的源码仓库：本地开发版 + 部署版，单一源头管理。
+地址：https://prompt.qqsrc.com/
 
 ## 目录结构
 - `shuixian-prompts/` —— 本地开发版（完整 prompts 数据、分类/重分类脚本、本地预览）
