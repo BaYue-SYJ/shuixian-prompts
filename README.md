@@ -27,3 +27,4 @@ AI 提示词画廊的源码仓库：本地开发版 + 部署版，单一源头�
 ## 本地预览
 - 部署版预览：`python -m http.server 8091 --directory shuixian-deploy`
 - 本地版预览：`python -m http.server 8090 --directory shuixian-prompts`
+认可 LINUX DO 社区
