@@ -9,12 +9,12 @@
 <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
 <link rel="dns-prefetch" href="https://r2.qqsrc.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=15">
-<link rel="stylesheet" href="css/features.css?v=15">
+<link rel="stylesheet" href="css/base.css?v=17">
+<link rel="stylesheet" href="css/features.css?v=17">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#2C8CAB">
 <style>
-.masonry.uniform{columns:1}
+.masonry.uniform{display:block}
 .masonry.uniform .card{display:grid;grid-template-columns:200px 1fr;margin-bottom:14px}
 .masonry.uniform .card .thumb{height:100%}
 .masonry.uniform .card .thumb .ph{height:150px}
@@ -68,16 +68,16 @@
     </div>
   </div>
 </main>
-<script src="js/base.js?v=15"></script>
-<script src="js/i18n.js?v=15"></script>
-<script src="js/features.js?v=15"></script>
+<script src="js/base.js?v=17"></script>
+<script src="js/i18n.js?v=17"></script>
+<script src="js/features.js?v=17"></script>
 <script>
 App.init({ page:'gallery', onReady:function(){
   const D = App.D;
   const sub2maj = {};
   D.majors.forEach(m => m.subs.forEach(s => sub2maj[s.name] = m.name));
   const params = new URLSearchParams(location.search);
-  let state = { cat: params.get('cat') || '全部', q: params.get('q') || '', sort:'latest', view:'masonry', shown:24 };
+  let state = { cat: params.get('cat') || '全部', q: params.get('q') || '', sort:'random', view:'masonry', shown:24 };
 
   /* ---------- 左侧分类栏 ---------- */
   const fg = $('#filterGroup');
@@ -127,10 +127,11 @@ App.init({ page:'gallery', onReady:function(){
     return list;
   }
 
-  function render(){
+  function render(append){
     const list = filtered();
     $('#resultCount').textContent = FX.tf('gal_count', { n: list.length });
-    App.renderCards(list.slice(0, state.shown), $('#grid'));
+    const slice = list.slice(0, state.shown);
+    App.renderCards(slice, $('#grid'), { append: !!append });
     $('#showMore').style.display = list.length > state.shown ? 'block' : 'none';
     const lg = $('#hlLegend');
     if (lg){
@@ -163,9 +164,10 @@ App.init({ page:'gallery', onReady:function(){
     FX.filters.favOnly = false; FX.filters.usedOnly = false;
     syncFilterUI(); refreshAll();
   });
-  $('#showMore').addEventListener('click', () => { state.shown += 24; render(); });
+  $('#showMore').addEventListener('click', () => { state.shown += 24; render(true); });
 
   syncFilterUI();
+  $('#sortSel').value = state.sort;   // 默认随机：下拉框同步选中「随机」
   // features.js 会在 sx:ready 时注入分面宿主；这里首帧后主动建一次
   setTimeout(() => { if (window.__fxRebuildFacets) refreshAll(); }, 0);
   render();

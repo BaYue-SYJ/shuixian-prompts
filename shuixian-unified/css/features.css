@@ -268,7 +268,7 @@ mark.hl{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0
 .lang-btn{font-size:12px;font-weight:800;letter-spacing:.04em}
 
 /* ---------- 随机漫游按钮 ---------- */
-.dice-btn{position:fixed;right:22px;bottom:22px;z-index:40;width:52px;height:52px;border-radius:50%;
+.dice-btn{position:fixed;right:22px;bottom:22px;z-index:110;width:52px;height:52px;border-radius:50%;
   display:grid;place-items:center;background:linear-gradient(135deg,var(--garden),var(--garden-600));
   color:#fff;box-shadow:var(--shadow-lg);transition:.22s;font-size:21px}
 .dice-btn:hover{transform:translateY(-3px) rotate(-8deg)}

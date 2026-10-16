@@ -10,7 +10,7 @@
    ========================================================= */
 const App = (() => {
   // ---------- 配置 ----------
-  const ASSET_VERSION = '15';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
+  const ASSET_VERSION = '17';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
   const IMG_BASE = "https://r2.qqsrc.com";          // Cloudflare R2 公共图床
   const FAV_KEY = 'sx-boards-v2';
   const REC_KEY = 'sx-recent-v2';
@@ -25,7 +25,10 @@ const App = (() => {
   // 只影响「显示」；数据的 category、URL 的 ?cat= 一律保持中文原名。
   const T = (k, d) => (window.FX && typeof FX.t === 'function') ? FX.t(k) : (d != null ? d : k);
   const TF = (k, o) => (window.FX && typeof FX.tf === 'function') ? FX.tf(k, o) : k;
-  const catLabel = c => (window.FX && typeof FX.catName === 'function') ? FX.catName(c) : c;
+  const catLabel = c => {
+    if (c === '其他/未归类') return '杂项';   // 显示名改「杂项」，数据 key 不变（URL/筛选/数据引用不受影响）
+    return (window.FX && typeof FX.catName === 'function') ? FX.catName(c) : c;
+  };
 
   function heartSvg(filled){
     return `<svg viewBox="0 0 24 24" fill="${filled?'currentColor':'none'}" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2 5 5.3 5c2 0 3.4 1.2 4.7 3 1.3-1.8 2.7-3 4.7-3C18 5 19.7 8.4 22 11.7 19.5 16.4 12 21 12 21z"/></svg>`;
@@ -177,14 +180,70 @@ const App = (() => {
     </article>`;
   }
 
-  function renderCards(list, container){
-    if (!container) return;
-    if (!list.length){ container.innerHTML = '<div class="empty"><div class="big">🌱</div>' + esc(T('empty_no_match', '没有匹配的提示词，换个关键词或分类试试。')) + '</div>'; return; }
-    container.innerHTML = list.map(cardHTML).join('');
-    observeImages(container);
-    container.querySelectorAll('.act.fav').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); toggleFav(+b.dataset.id); }));
-    container.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const s = findSample(+b.dataset.copy); copyText(s ? s.prompt : ''); }));
+  // 瀑布流列数：与旧 CSS 断点一致（按视口，>1100→4, >760→3, >540→2, 否则 1）
+  function colsForWidth(){
+    const vw = window.innerWidth;
+    if (vw <= 540) return 1;
+    if (vw <= 760) return 2;
+    if (vw <= 1100) return 3;
+    return 4;
   }
+  function bindCardEvents(card){
+    card.querySelectorAll('.act.fav').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); toggleFav(+b.dataset.id); }));
+    card.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const s = findSample(+b.dataset.copy); copyText(s ? s.prompt : ''); }));
+  }
+  function cardEl(s){
+    const tmp = document.createElement('div');
+    tmp.innerHTML = cardHTML(s);
+    const el = tmp.firstElementChild;
+    bindCardEvents(el);
+    return el;
+  }
+  // 卡片轮询均分到各列：缩略图均 3:4、文字块高度接近，轮询即近似最优瀑布流平衡，
+  // 且保证「显示更多」时新卡横向铺开（左→右、上→下），杜绝 CSS columns 列优先导致的「只堆右边两列」。
+  function layoutCards(list, colEls){
+    const n = colEls.length;
+    list.forEach((s, k) => colEls[k % n].appendChild(cardEl(s)));
+  }
+  function renderCards(list, container, opts){
+    if (!container) return;
+    opts = opts || {};
+    if (!list || !list.length){ container.innerHTML = '<div class="empty"><div class="big">🌱</div>' + esc(T('empty_no_match', '没有匹配的提示词，换个关键词或分类试试。')) + '</div>'; container._mz = null; return; }
+    const isMasonry = container.classList.contains('masonry') && !container.classList.contains('uniform');
+    if (!isMasonry){
+      container.innerHTML = list.map(cardHTML).join('');
+      container.querySelectorAll('.card').forEach(bindCardEvents);
+      observeImages(container);
+      container._mz = null;
+      return;
+    }
+    const cols = opts.cols || colsForWidth(container);
+    const rebuild = !opts.append || !container._mz || container._mz.cols !== cols;
+    if (rebuild){
+      container.innerHTML = '';
+      const colEls = [];
+      for (let i = 0; i < cols; i++){ const d = document.createElement('div'); d.className = 'm-col'; container.appendChild(d); colEls.push(d); }
+      layoutCards(list, colEls);
+      container._mz = { list: list.slice(), cols: cols };
+    } else {
+      const colEls = $$('.m-col', container);
+      const start = container._mz.list.length;
+      layoutCards(list.slice(start), colEls);
+      container._mz.list = list.slice();
+    }
+    observeImages(container);
+  }
+  function relayoutMasonryAll(){
+    $$('.masonry').forEach(c => {
+      if (c.classList.contains('uniform')) return;
+      if (!c._mz) return;
+      const cols = colsForWidth(c);
+      if (cols === c._mz.cols) return;
+      (App.renderCards || renderCards)(c._mz.list, c, { append: false });
+    });
+  }
+  let _rzT;
+  window.addEventListener('resize', () => { clearTimeout(_rzT); _rzT = setTimeout(relayoutMasonryAll, 150); });
 
   // 12 大分类卡片
   const MAJ_EMOJI = {'（大凶）':'🔥','人物写真':'👤','其他/未归类':'🗂️','随手拍':'📸','动漫二次元':'🌸','产品电商':'🛍️','海报广告':'🖼️','插画艺术':'🎨','车辆机械3D':'🚗','游戏':'🎮','建筑空间场景':'🏛️','晓兰':'🌿'};

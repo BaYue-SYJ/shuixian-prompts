@@ -8,7 +8,7 @@
      · R2 图片：cache-first 并按条数修剪，避免无限膨胀
    更新：改动静态资源后递增 CACHE 版本号即可触发换新
    ========================================================= */
-const VERSION = 'sx-v15';
+const VERSION = 'sx-v17';
 const SHELL = VERSION + '-shell';
 const DATA = VERSION + '-data';
 const IMG = VERSION + '-img';
@@ -29,15 +29,15 @@ const PRECACHE = [
   './manifest.webmanifest',
   './images/icon.svg',
   './images/wechat-qr.jpg',
-  './css/base.css?v=15',
-  './css/features.css?v=15',
-  './js/i18n.js?v=15',
-  './js/base.js?v=15',
-  './js/features.js?v=15',
-  './components/header.html?v=15',
-  './components/footer.html?v=15',
-  './components/lightbox.html?v=15',
-  './components/modals.html?v=15',
+  './css/base.css?v=17',
+  './css/features.css?v=17',
+  './js/i18n.js?v=17',
+  './js/base.js?v=17',
+  './js/features.js?v=17',
+  './components/header.html?v=17',
+  './components/footer.html?v=17',
+  './components/lightbox.html?v=17',
+  './components/modals.html?v=17',
   './data/meta.json',
   './data/categories.json',
   './data/pinyin.json',

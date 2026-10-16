@@ -109,6 +109,7 @@
   const tf = (k, o) => t(k).replace(/\{(\w+)\}/g, (m, g) => (o && o[g] != null) ? String(o[g]) : m);
   // 分类名显示用（URL 与数据仍用中文原名）
   function catName(name) {
+    if (name === '其他/未归类') return '杂项';   // 显示名改「杂项」，数据 key 不变
     if (lang !== 'en') return name;
     return CAT_EN[name] || name;
   }
@@ -672,6 +673,7 @@
       const vars = parseVars(s.prompt || '');
       const bar = document.createElement('div'); bar.className = 'act-bar'; bar.style.marginTop = '10px';
       bar.appendChild(mk(vars.length ? t('fill_and_copy') : t('copy_prompt'), () => openVarFill(s.id), true, '✍️ '));
+      bar.appendChild(mk('换一个', () => randomPrompt(), false, '🎲 '));
       bar.appendChild(mk(t('dl_img'), () => downloadImage(s), false, '⬇️ '));
       bar.appendChild(mk(t('share'), () => { App.copyText(location.origin + location.pathname + '#id=' + s.id); App.toast(t('share_done')); }, false, '🔗 '));
       bar.appendChild(mk(t('used_mark'), () => {
@@ -696,17 +698,27 @@
       });
       body.appendChild(bar); body.appendChild(wrap);
     }
-    // 翻页按钮
+    // 翻页按钮：左右大箭头压在图片两侧，并带位置计数
     const panel = $('.lb-panel');
-    if (panel && !$('.lb-nav', panel)) {
-      const nav = document.createElement('div');
-      nav.className = 'lb-nav';
-      nav.style.cssText = 'position:absolute;left:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:5';
-      const pb = document.createElement('button'); pb.className = 'lb-close'; pb.style.cssText = 'position:static;width:40px;height:40px'; pb.innerHTML = '‹';
-      const nb = document.createElement('button'); nb.className = 'lb-close'; nb.style.cssText = 'position:static;width:40px;height:40px'; nb.innerHTML = '›';
-      pb.addEventListener('click', e => { e.stopPropagation(); lbStep(-1); });
-      nb.addEventListener('click', e => { e.stopPropagation(); lbStep(1); });
-      nav.appendChild(pb); nav.appendChild(nb); panel.appendChild(nav);
+    if (panel) {
+      let nav = $('.lb-img-nav', panel);
+      if (!nav) {
+        nav = document.createElement('div'); nav.className = 'lb-img-nav';
+        const pb = document.createElement('button'); pb.className = 'lb-nav lb-prev'; pb.setAttribute('aria-label', t('lb_prev') || '上一张'); pb.innerHTML = '‹';
+        const nb = document.createElement('button'); nb.className = 'lb-nav lb-next'; nb.setAttribute('aria-label', t('lb_next') || '下一张'); nb.innerHTML = '›';
+        pb.addEventListener('click', e => { e.stopPropagation(); lbStep(-1); });
+        nb.addEventListener('click', e => { e.stopPropagation(); lbStep(1); });
+        nav.appendChild(pb); nav.appendChild(nb);
+        const cnt = document.createElement('div'); cnt.className = 'lb-count'; nav.appendChild(cnt);
+        window.__lbCount = cnt;
+        panel.appendChild(nav);
+      }
+      const cntEl = window.__lbCount;
+      if (cntEl) {
+        const ids = lastList.ids.length ? lastList.ids : App.ALL.map(x => x.id);
+        const i = ids.indexOf(LB.id);
+        cntEl.textContent = (i >= 0 ? i + 1 : '?') + ' / ' + ids.length;
+      }
     }
   }
   function decorateLightboxReset() {
@@ -727,8 +739,13 @@
   const hasFacet = () => Object.keys(filters.facets).some(k => (filters.facets[k] || []).length);
   function toggleFacet(facet, name) {
     const cur = filters.facets[facet] || (filters.facets[facet] = []);
-    const i = cur.indexOf(name);
-    if (i >= 0) cur.splice(i, 1); else cur.push(name);
+    if (cur.length && cur[0] === name) cur.length = 0;   // 再点已选项 = 取消
+    else { cur.length = 0; cur.push(name); }             // 单选：选新项清空同组其他
+  }
+  function syncFacetGroup(container, facet){
+    $$('.facet-chip[data-n]', container).forEach(x => {
+      if (x.dataset.f === facet) x.classList.toggle('on', (filters.facets[facet] || []).includes(x.dataset.n));
+    });
   }
   function applyFilters(list) {
     let out = list;
@@ -768,8 +785,7 @@
     container.innerHTML = html;
     $$('.facet-chip[data-n]', container).forEach(b => b.addEventListener('click', () => {
       toggleFacet(b.dataset.f, b.dataset.n);
-      const on = (filters.facets[b.dataset.f] || []).includes(b.dataset.n);
-      b.classList.toggle('on', on);
+      syncFacetGroup(container, b.dataset.f);   // 单选：刷新同组兄弟高亮
       onChange && onChange();
     }));
     $$('.facet-chip[data-more]', container).forEach(b => b.addEventListener('click', () => {
@@ -780,13 +796,12 @@
       row.innerHTML = names.map(n => `<button class="facet-chip ${sel.includes(n) ? 'on' : ''}" data-f="${esc(facet)}" data-n="${esc(n)}">${esc(n)}<span class="n">${c[n]}</span></button>`).join('');
       $$('.facet-chip[data-n]', row).forEach(x => x.addEventListener('click', () => {
         toggleFacet(x.dataset.f, x.dataset.n);
-        const on = (filters.facets[x.dataset.f] || []).includes(x.dataset.n);
-        x.classList.toggle('on', on);
+        syncFacetGroup(container, x.dataset.f);   // 单选：刷新同组兄弟高亮
         onChange && onChange();
       }));
     }));
     const clr = $('#fxFacetClear', container);
-    if (clr) clr.addEventListener('click', () => { filters.facets = {}; onChange && onChange(); });
+    if (clr) clr.addEventListener('click', () => { filters.facets = {}; renderFacets(container, pool, onChange); onChange && onChange(); });
   }
   function renderFilterBar(container, onChange) {
     if (!container) return;

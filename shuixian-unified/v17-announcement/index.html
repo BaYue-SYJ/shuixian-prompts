@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水仙画廊更新说明 · v17</title>
+<style>
+  :root{
+    --bg:#F7F6F3; --surface:#FFFFFF; --ink:#16302F; --muted:#5B6B69;
+    --accent:#2B8AAB; --line:#E5E2DB; --red:#D93B3B;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    line-height:1.85; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:820px; margin:0 auto; padding:56px 28px 80px}
+  .kicker{font-size:13px; letter-spacing:.22em; color:var(--accent); font-weight:700; text-transform:uppercase}
+  h1{font-size:34px; line-height:1.3; margin:10px 0 6px; letter-spacing:-.01em}
+  .meta{color:var(--muted); font-size:14px; margin-bottom:34px}
+  .lead{font-size:17px; color:#2C4442; margin:0 0 30px}
+  h2.sub{font-size:19px; margin:8px 0 16px; letter-spacing:-.01em}
+  h2.sub span{color:var(--muted); font-weight:400; font-size:14px; margin-left:8px}
+  .items{display:flex; flex-direction:column; gap:16px; margin:0 0 44px}
+  .item{
+    display:flex; gap:16px; background:var(--surface); border:1px solid var(--line);
+    border-radius:14px; padding:20px 22px;
+  }
+  .num{
+    flex:none; width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff;
+    font-weight:700; font-size:15px; display:flex; align-items:center; justify-content:center; margin-top:2px;
+  }
+  .item h3{margin:0 0 4px; font-size:17px}
+  .item p{margin:0; color:#37504E; font-size:15px}
+  figure{margin:0 0 38px}
+  figure img{width:100%; height:auto; display:block; border:1px solid var(--line); border-radius:12px}
+  figcaption{color:var(--muted); font-size:13.5px; margin-top:10px; text-align:center}
+  .note{
+    background:#FBF3F3; border:1px solid #EFD5D5; border-left:4px solid var(--red);
+    border-radius:10px; padding:16px 20px; font-size:15px; color:#6B3434; margin:0 0 34px;
+  }
+  .ver{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; font-size:15px;
+  }
+  .ver b{color:var(--accent); font-size:18px}
+  .foot{color:var(--muted); font-size:13px; margin-top:40px; text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Update · 更新说明</div>
+  <h1>水仙画廊更新说明（v17）</h1>
+  <div class="meta">这次我们改了画廊里的几处体验，让你逛起来更顺手</div>
+
+  <p class="lead">下面是这次更新的四件事，另附上一轮已修好的灯箱两处交互，配合截图看会更清楚。</p>
+
+  <div class="items">
+    <div class="item">
+      <div class="num">1</div>
+      <div><h3>首页分类更清爽</h3>
+        <p>首页「挑一个主题」里的「其他/未归类」改名成了「杂项」。那一类本来就是个什么都往里塞的筐，名字改掉、弱化之后，剩下的 12 个主题更清楚、更好找。数据没动，只是显示的名字变了。</p></div>
+    </div>
+    <div class="item">
+      <div class="num">2</div>
+      <div><h3>画廊默认随机展示</h3>
+        <p>进画廊不再默认按时间排，而是随机打乱。每次进来看到的顺序都不一样，逛着不腻。想按最新或最热看，右上角的下拉框随时能切回去。</p></div>
+    </div>
+    <div class="item">
+      <div class="num">3</div>
+      <div><h3>筛选「一组只选一个」</h3>
+        <p>之前左侧的筛选标签可以一口气勾好几个，很容易勾出「0 条结果」的空页面。现在每一组（比如「风格」「色调」）最多选一个——选新的会自动取消旧的，再点一下也能取消。不同组之间还是能各选一个，足够把范围收窄。</p></div>
+    </div>
+    <div class="item">
+      <div class="num">4</div>
+      <div><h3>修好了「加载更多只往右边堆」的老毛病</h3>
+        <p>画廊点「显示更多」时，新出来的卡片以前总是只往右边两列塞，左边空着，看着很怪。这次重做了布局，新卡片会均匀地铺到每一列，从左到右、整整齐齐。</p></div>
+    </div>
+  </div>
+
+  <h2 class="sub">另外，上一轮已修好的灯箱两处交互<span>（v16，一并说明）</span></h2>
+  <div class="items">
+    <div class="item">
+      <div class="num">5</div>
+      <div><h3>灯箱打开后，随机骰子也能点了</h3>
+        <p>以前点开一张提示词，右下角的 🎲 骰子会被灯箱盖住、点不了。现在它浮在灯箱上面，随时能点，一键换一条；灯箱里也放了一枚「换一个 🎲」，想随机更方便。</p></div>
+    </div>
+    <div class="item">
+      <div class="num">6</div>
+      <div><h3>上一页 / 下一页看得清了</h3>
+        <p>以前翻页的小箭头又淡又小，几乎没人注意到。现在换成了图片两侧的大箭头，底部还有一个「第几个 / 共几个」的小计数，一条条翻着看不会再迷路。</p></div>
+    </div>
+  </div>
+
+  <figure>
+    <img src="01-home-category.png" alt="首页分类：其他/未归类 改为 杂项">
+    <figcaption>首页「挑一个主题」：① 原来的「其他/未归类」已改名为「杂项」</figcaption>
+  </figure>
+
+  <figure>
+    <img src="02-gallery.png" alt="画廊：默认随机、筛选单选、卡片均分四列">
+    <figcaption>画廊页：② 默认排序＝随机　③ 筛选每组只选一个（高亮项）　④ 卡片均分 4 列，显示更多会横向铺满</figcaption>
+  </figure>
+
+  <figure>
+    <img src="03-lightbox.png" alt="灯箱：随机骰子可点 + 左右大箭头翻页">
+    <figcaption>灯箱页：⑤ 右下角 🎲 不再被挡住，随时能换一条　⑥ 图片两侧的大箭头 + 底部位置计数</figcaption>
+  </figure>
+
+  <div class="note">
+    <b>看到旧样子？</b>如果你是从网站访问的，更新后记得强制刷新一下页面（电脑上按 Ctrl+Shift+R，手机上清一下缓存），不然可能还是旧样子。本地版是源头，网站是从本地同步过去的。
+  </div>
+
+  <div class="ver">版本号：<b>v16 → v17</b>　（本次 v17 四项，另含上一轮 v16 灯箱两处交互修复）</div>
+
+  <div class="foot">水仙 · Prompt Garden</div>
+</div>
+</body>
+</html>
