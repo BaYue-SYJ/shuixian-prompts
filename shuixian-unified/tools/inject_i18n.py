@@ -104,19 +104,19 @@ for k, v in P:
 MANUAL = [
     # 首页 hero 导语（数字随数据变化）
     ("index.html",
-     '<p class="lead">5,452 条精选提示词，按主题分成了 12 大分类、79 个小类——人物、动漫、海报、插画、产品、游戏……慢慢逛，总有一句能帮你出图。</p>',
-     '<p class="lead" data-i18n="idx_lead">5,452 条精选提示词，按主题分成了 12 大分类、79 个小类——人物、动漫、海报、插画、产品、游戏……慢慢逛，总有一句能帮你出图。</p>'),
+     '<p class="lead">5,430 条精选提示词，按主题分成了 12 大分类、79 个小类——人物、动漫、海报、插画、产品、游戏……慢慢逛，总有一句能帮你出图。</p>',
+     '<p class="lead" data-i18n="idx_lead">5,430 条精选提示词，按主题分成了 12 大分类、79 个小类——人物、动漫、海报、插画、产品、游戏……慢慢逛，总有一句能帮你出图。</p>'),
     ("index.html", '<p class="eyebrow">12 大分类 · 79 小类</p>',
      '<p class="eyebrow" data-i18n="idx_cats_eyebrow">12 大分类 · 79 小类</p>'),
-    ("index.html", '查看全部 5,452 条', '查看全部 5,452 条'),  # 由 data-i18n 处理下方 a 标签
-    ("index.html", '<a class="btn btn-primary" href="gallery.html?cat=全部">查看全部 5,452 条',
-     '<a class="btn btn-primary" href="gallery.html?cat=全部" data-i18n="idx_see_all">查看全部 5,452 条'),
+    ("index.html", '查看全部 5,430 条', '查看全部 5,430 条'),  # 由 data-i18n 处理下方 a 标签
+    ("index.html", '<a class="btn btn-primary" href="gallery.html?cat=全部">查看全部 5,430 条',
+     '<a class="btn btn-primary" href="gallery.html?cat=全部" data-i18n="idx_see_all">查看全部 5,430 条'),
     # 分类总览副标题（数字）
-    ("categories.html", '<p class="sub">12 大分类、79 个小类，共 5,452 条提示词。点任意小类即可进入对应画廊。</p>',
-     '<p class="sub" data-i18n="cat_sub">12 大分类、79 个小类，共 5,452 条提示词。点任意小类即可进入对应画廊。</p>'),
+    ("categories.html", '<p class="sub">12 大分类、79 个小类，共 5,430 条提示词。点任意小类即可进入对应画廊。</p>',
+     '<p class="sub" data-i18n="cat_sub">12 大分类、79 个小类，共 5,430 条提示词。点任意小类即可进入对应画廊。</p>'),
     # 赞赏正文（数字）
-    ("sponsor.html", '<p>整理 5,452 条提示词、维护这个花园花了不少心思。如果它帮到了你，欢迎量力赞赏，让花园长得更久。</p>',
-     '<p data-i18n="sp_p">整理 5,452 条提示词、维护这个花园花了不少心思。如果它帮到了你，欢迎量力赞赏，让花园长得更久。</p>'),
+    ("sponsor.html", '<p>整理 5,430 条提示词、维护这个花园花了不少心思。如果它帮到了你，欢迎量力赞赏，让花园长得更久。</p>',
+     '<p data-i18n="sp_p">整理 5,430 条提示词、维护这个花园花了不少心思。如果它帮到了你，欢迎量力赞赏，让花园长得更久。</p>'),
     # 输入框 placeholder
     ("gallery.html", '<input id="galSearch" type="text" placeholder="在结果里搜索…" autocomplete="off">',
      '<input id="galSearch" type="text" placeholder="在结果里搜索…" data-i18n-placeholder="gal_search_ph" autocomplete="off">'),
