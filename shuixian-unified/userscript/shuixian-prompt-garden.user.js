@@ -2,7 +2,7 @@
 // @name         水仙提示词 · 侧边栏 (Prompt Garden Sidebar)
 // @namespace    https://github.com/BaYue-SYJ
 // @version      1.0.0
-// @description  在 ChatGPT / Claude / Gemini / Midjourney 等页面召唤「水仙的AI提示词」侧边栏：搜索 5,430 条提示词，支持变量填空后一键复制到输入框。
+// @description  在 ChatGPT / Claude / Gemini / Midjourney 等页面召唤「水仙的AI提示词」侧边栏：搜索 6,011 条提示词，支持变量填空后一键复制到输入框。
 // @author       水仙
 // @match        https://chatgpt.com/*
 // @match        https://chat.openai.com/*

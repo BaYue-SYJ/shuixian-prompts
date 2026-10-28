@@ -1,7 +1,7 @@
 import io, os, re, sys
 
 ROOT = r'C:\Users\lianxiang\WorkBuddy\2026-07-23-09-09-54\shuixian-unified-0920'
-OLD, NEW = '16', '17'
+OLD, NEW = '26', '27'
 changed = []
 
 # 1) js/base.js  ->  ASSET_VERSION = 'N'

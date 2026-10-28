@@ -20,8 +20,6 @@
   const uid = p => (p || 'x') + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 
   const LS = {
-    notes: 'sx-notes-v1',
-    uses: 'sx-uses-v1',
     lang: 'sx-lang',
     prefs: 'sx-prefs-v1',
     boards: 'sx-boards-v2',
@@ -41,52 +39,42 @@
       nav_home: '首页', nav_gallery: '画廊', nav_categories: '分类', nav_search: '搜索',
       nav_favorites: '收藏', nav_about: '关于', nav_submit: '投稿',
       search_ph: '搜索提示词、标签…', palette: '命令面板', theme: '切换主题', lang: 'English',
-      vf_title: '填好变量，一次复制成品', vf_sub: '这条提示词带可替换参数，填完直接复制就是能用的成品。',
-      vf_empty: '这条提示词没有可替换变量，可直接复制。', vf_copy_done: '复制成品',
-      vf_copy_tpl: '复制模板', vf_reset: '恢复默认', vf_preview: '预览',
-      vf_all_default: '（全部留空则等同于原文）',
       palette_ph: '搜索提示词、分类，或输入命令…', palette_cmd: '功能', palette_prompt: '提示词',
       palette_cat: '分类', palette_empty: '没有结果',
       cmd_random: '随机漫游一条提示词', cmd_theme: '切换深浅主题', cmd_lang: '切换语言',
       cmd_export: '导出收藏合集', cmd_help: '键盘快捷键', cmd_gallery: '去画廊', cmd_search: '去搜索',
       cmd_cats: '去分类总览', cmd_fav: '去收藏合集', cmd_about: '去关于', cmd_submit: '去投稿',
       facet_medium: '媒介', facet_style: '风格', facet_tone: '色调', facet_clear: '清除筛选',
-      filter_only_img: '只看有图', filter_only_note: '只看有备注', filter_fav: '仅看已收藏',
-      filter_used: '仅看用过的', facet_more: '更多',
+      filter_only_img: '只看有图', filter_fav: '仅看已收藏',
+      facet_more: '更多',
       col_title: '我的收藏合集', col_new: '＋ 新建合集', col_rename: '重命名', col_dup: '复制合集',
       col_del: '删除合集', col_clear: '清空合集', col_empty: '这个合集还是空的，去画廊点 ❤ 收藏吧。',
       col_export: '导出', col_import: '导入 JSON', col_move: '移动到…', col_remove: '移出合集',
       col_download: '下载图片', col_downloadall: '批量下载图片', col_drag: '拖动可排序',
-      col_count: '条', note_title: '我的备注', note_ph: '记下这条提示词的用法、出图参数、改进想法…',
-      note_saved: '备注已保存', uses: '使用', times: '次', copied: '已复制', copy_prompt: '复制提示词',
-      copy_json: '复制 JSON', copy_md: '复制 Markdown', dl_img: '下载图片', share: '复制链接',
-      share_done: '链接已复制', used_mark: '标记已用',
+      col_count: '条',
+      copy_prompt: '复制提示词',
+      dl_img: '下载图片',
       help_title: '键盘快捷键', help_key: '按键', help_action: '动作',
     },
     en: {
       nav_home: 'Home', nav_gallery: 'Gallery', nav_categories: 'Categories', nav_search: 'Search',
       nav_favorites: 'Collections', nav_about: 'About', nav_submit: 'Submit',
       search_ph: 'Search prompts, tags…', palette: 'Command palette', theme: 'Toggle theme', lang: '中文',
-      vf_title: 'Fill the variables, copy a ready-to-use prompt', vf_sub: 'This prompt has replaceable parameters.',
-      vf_empty: 'No variables in this prompt — copy it directly.', vf_copy_done: 'Copy result',
-      vf_copy_tpl: 'Copy template', vf_reset: 'Reset', vf_preview: 'Preview',
-      vf_all_default: '(all empty = original text)',
       palette_ph: 'Search prompts, categories, or type a command…', palette_cmd: 'Actions', palette_prompt: 'Prompts',
       palette_cat: 'Categories', palette_empty: 'No results',
       cmd_random: 'Surprise me — random prompt', cmd_theme: 'Toggle light / dark', cmd_lang: 'Switch language',
       cmd_export: 'Export collections', cmd_help: 'Keyboard shortcuts', cmd_gallery: 'Go to gallery', cmd_search: 'Go to search',
       cmd_cats: 'Browse categories', cmd_fav: 'My collections', cmd_about: 'About', cmd_submit: 'Submit a prompt',
       facet_medium: 'Medium', facet_style: 'Style', facet_tone: 'Tone', facet_clear: 'Clear filters',
-      filter_only_img: 'With image', filter_only_note: 'With note', filter_fav: 'Favorited only',
-      filter_used: 'Used only', facet_more: 'more',
+      filter_only_img: 'With image', filter_fav: 'Favorited only',
+      facet_more: 'more',
       col_title: 'My collections', col_new: '＋ New collection', col_rename: 'Rename', col_dup: 'Duplicate',
       col_del: 'Delete', col_clear: 'Clear', col_empty: 'This collection is empty — tap ❤ in the gallery to add prompts.',
       col_export: 'Export', col_import: 'Import JSON', col_move: 'Move to…', col_remove: 'Remove',
       col_download: 'Download image', col_downloadall: 'Download all images', col_drag: 'Drag to reorder',
-      col_count: 'items', note_title: 'My notes', note_ph: 'Notes, settings, ideas for this prompt…',
-      note_saved: 'Note saved', uses: 'Used', times: '×', copied: 'Copied', copy_prompt: 'Copy prompt',
-      copy_json: 'Copy JSON', copy_md: 'Copy Markdown', dl_img: 'Download image', share: 'Copy link',
-      share_done: 'Link copied', used_mark: 'Mark as used',
+      col_count: 'items',
+      copy_prompt: 'Copy prompt',
+      dl_img: 'Download image',
       help_title: 'Keyboard shortcuts', help_key: 'Key', help_action: 'Action',
     },
   };
@@ -261,71 +249,6 @@
     } catch (e) { return safe; }
   }
 
-  /* ================= 变量填空 ================= */
-  const VAR_RE = /\{argument\s+name="([^"]+)"(?:\s+default="([^"]*)")?\s*\}/g;
-  const VAR_MUSTACHE = /\{\{\s*([A-Za-z0-9_\u4e00-\u9fff\- ]{1,40})\s*\}\}/g;
-  const VAR_BRACKET = /\[([A-Z][A-Z0-9_ ]{1,32})\]/g;
-
-  function parseVars(text) {
-    const src = text || '', found = new Map();
-    let m;
-    VAR_RE.lastIndex = 0;
-    while ((m = VAR_RE.exec(src))) if (!found.has(m[1])) found.set(m[1], m[2] || '');
-    VAR_MUSTACHE.lastIndex = 0;
-    while ((m = VAR_MUSTACHE.exec(src))) { const k = m[1].trim(); if (!found.has(k)) found.set(k, ''); }
-    VAR_BRACKET.lastIndex = 0;
-    while ((m = VAR_BRACKET.exec(src))) { const k = m[1].trim(); if (!found.has(k)) found.set(k, ''); }
-    return [...found.entries()].map(([name, def]) => ({ name, def }));
-  }
-  function resolveVars(text, values) {
-    let out = text || '';
-    out = out.replace(VAR_RE, (all, name, def) => {
-      const v = values && values[name];
-      return (v != null && v !== '') ? v : (def != null ? def : all);
-    });
-    out = out.replace(VAR_MUSTACHE, (all, name) => {
-      const v = values && values[name.trim()];
-      return (v != null && v !== '') ? v : all;
-    });
-    out = out.replace(VAR_BRACKET, (all, name) => {
-      const v = values && values[name.trim()];
-      return (v != null && v !== '') ? v : all;
-    });
-    return out;
-  }
-  // 带高亮的预览（空值标红）
-  function previewHTML(text, values) {
-    let html = esc(text || '');
-    html = html.replace(/\{argument\s+name=&quot;([^&]+)&quot;(?:\s+default=&quot;([^&]*)&quot;)?\s*\}/g, (all, name, def) => {
-      const v = values && values[name];
-      if (v != null && v !== '') return '<span class="fill">' + esc(v) + '</span>';
-      if (def != null && def !== '') return '<span class="fill">' + esc(def) + '</span>';
-      return '<span class="empty">' + name + '</span>';
-    });
-    html = html.replace(/\{\{\s*([A-Za-z0-9_\u4e00-\u9fff\- ]{1,40})\s*\}\}/g, (all, name) => {
-      const v = values && values[name.trim()];
-      return (v != null && v !== '') ? '<span class="fill">' + esc(v) + '</span>' : '<span class="empty">' + name.trim() + '</span>';
-    });
-    html = html.replace(/\[([A-Z][A-Z0-9_ ]{1,32})\]/g, (all, name) => {
-      const v = values && values[name.trim()];
-      return (v != null && v !== '') ? '<span class="fill">' + esc(v) + '</span>' : '<span class="empty">' + name.trim() + '</span>';
-    });
-    return html;
-  }
-
-  /* ================= 备注 / 使用次数 ================= */
-  function notes() { return store.get(LS.notes, {}); }
-  function noteFor(id) { const n = notes()[id]; return n && n.text ? n.text : ''; }
-  function setNote(id, text) {
-    const n = notes();
-    if (text && text.trim()) n[id] = { text: text.trim(), ts: Date.now() };
-    else delete n[id];
-    store.set(LS.notes, n);
-  }
-  function uses() { return store.get(LS.uses, {}); }
-  function useCount(id) { return uses()[id] || 0; }
-  function bumpUse(id) { const u = uses(); u[id] = (u[id] || 0) + 1; store.set(LS.uses, u); }
-
   /* ================= 合集（画板） ================= */
   function loadBoards() {
     const b = App.getBoards();
@@ -349,7 +272,6 @@
     const lines = ['## ' + (s.title || ''), '',
       '- 分类：' + (s.category || '') + ' · ID #' + s.id,
       '- 图片：' + (s.image ? App.imgUrl(s.image) : '—')];
-    const nt = noteFor(s.id); if (nt) lines.push('- 备注：' + nt.replace(/\n/g, ' '));
     const tg = flatTags(s); if (tg.length) lines.push('- 标签：' + tg.join(' / '));
     lines.push('', '```', (s.prompt || ''), '```', '');
     return lines.join('\n');
@@ -362,17 +284,17 @@
   }
   function csvCell(v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }
   function boardToCSV(board) {
-    const rows = [['id', 'title', 'category', 'tags', 'image', 'note', 'prompt'].map(csvCell).join(',')];
+    const rows = [['id', 'title', 'category', 'tags', 'image', 'prompt'].map(csvCell).join(',')];
     board.items.map(id => App.findSample(id)).filter(Boolean).forEach(s => {
       rows.push([s.id, s.title || '', s.category || '', flatTags(s).join(' '),
-        s.image ? App.imgUrl(s.image) : '', noteFor(s.id), s.prompt || ''].map(csvCell).join(','));
+        s.image ? App.imgUrl(s.image) : '', s.prompt || ''].map(csvCell).join(','));
     });
     return '\ufeff' + rows.join('\r\n');
   }
   function boardToJSON(board) {
     const items = board.items.map(id => App.findSample(id)).filter(Boolean).map(s => ({
       id: s.id, title: s.title, category: s.category, image: s.image,
-      tags: flatTags(s), note: noteFor(s.id), prompt: s.prompt || '',
+      tags: flatTags(s), prompt: s.prompt || '',
     }));
     return JSON.stringify({ app: '水仙的AI提示词', board: board.name, exportedAt: new Date().toISOString(), count: items.length, items }, null, 2);
   }
@@ -388,7 +310,6 @@
       if (!imported[key] && !App.findSample(key)) {
         imported[key] = { id: key, title: it.title || '(导入)', category: it.category || '其他/未归类', image: it.image || '', prompt: it.prompt };
       }
-      if (it.note) setNote(key, it.note);
       added++;
     });
     store.set(LS.imported, imported);
@@ -455,71 +376,11 @@
   function closeMenus() { if (openMenuEl) { openMenuEl.classList.remove('open'); openMenuEl = null; } }
   document.addEventListener('click', e => { if (openMenuEl && !openMenuEl.contains(e.target)) closeMenus(); });
 
-  /* ================= 变量填空弹窗 ================= */
-  let vfCtx = null;
-  function openVarFill(id, opts) {
-    const s = App.findSample(id); if (!s) return;
-    const vars = parseVars(s.prompt || '');
-    opts = opts || {};
-    if (!vars.length) {
-      App.copyText(s.prompt || ''); bumpUse(id);
-      App.toast(t('vf_empty'));
-      return;
-    }
-    vfCtx = { s, vars, values: {} };
-    const fields = vars.map(v => `
-      <div class="vf-field">
-        <label><span class="key">${esc(v.name)}</span>${v.def ? '<span style="color:var(--muted);font-weight:600;font-size:12px">' + esc(t('vf_default')) + ': ' + esc(v.def) + '</span>' : ''}</label>
-        <input type="text" data-var="${esc(v.name)}" placeholder="${esc(v.def || t('vf_ph'))}" value="">
-      </div>`).join('');
-    const html = `<div class="fx-panel">
-      <div class="fx-head">
-        <div><h3>${esc(t('vf_title'))}</h3><p class="sub">${esc(t('vf_sub'))}</p></div>
-        <button class="x" data-fxclose aria-label="关闭">✕</button>
-      </div>
-      <div class="fx-body">
-        <div class="vf-fields">${fields}</div>
-        <div class="vf-preview">
-          <div class="lbl">${esc(t('vf_preview'))}</div>
-          <pre id="vfPreview"></pre>
-        </div>
-        <p class="fx-note" style="margin-top:12px">${esc(t('vf_all_default'))}</p>
-      </div>
-      <div class="fx-foot">
-        <button class="btn btn-primary" id="vfCopyDone">${esc(t('vf_copy_done'))}</button>
-        <button class="btn btn-soft" id="vfCopyTpl">${esc(t('vf_copy_tpl'))}</button>
-        <span class="spacer"></span>
-        <button class="btn btn-ghost" id="vfReset">${esc(t('vf_reset'))}</button>
-      </div>
-    </div>`;
-    const el = overlay('fxVarFill', '', html);
-    const preview = () => {
-      const pre = $('#vfPreview', el);
-      if (pre) pre.innerHTML = previewHTML(vfCtx.s.prompt || '', collect());
-    };
-    function collect() {
-      const v = {};
-      $$('input[data-var]', el).forEach(i => { v[i.dataset.var] = i.value.trim(); });
-      return v;
-    }
-    $$('input[data-var]', el).forEach(i => i.addEventListener('input', preview));
-    $('#vfCopyDone', el).addEventListener('click', () => {
-      const out = resolveVars(vfCtx.s.prompt || '', collect());
-      App.copyText(out); bumpUse(vfCtx.s.id);
-      closeOverlay('fxVarFill'); openVarFill._refresh && openVarFill._refresh();
-    });
-    $('#vfCopyTpl', el).addEventListener('click', () => { App.copyText(vfCtx.s.prompt || ''); });
-    $('#vfReset', el).addEventListener('click', () => { $$('input[data-var]', el).forEach(i => i.value = ''); preview(); });
-    preview(); openOverlay('fxVarFill');
-    const first = $('input[data-var]', el); if (first) setTimeout(() => first.focus(), 60);
-  }
-
   /* ================= 命令面板 ================= */
   const COMMANDS = [
     { id: 'c-random', ico: '🎲', label: () => t('cmd_random'), run: () => randomPrompt() },
     { id: 'c-gallery', ico: '🖼️', label: () => t('cmd_gallery'), run: () => location.href = 'gallery.html' },
     { id: 'c-search', ico: '🔍', label: () => t('cmd_search'), run: () => location.href = 'search.html' },
-    { id: 'c-cats', ico: '🗂️', label: () => t('cmd_cats'), run: () => location.href = 'categories.html' },
     { id: 'c-fav', ico: '❤️', label: () => t('cmd_fav'), run: () => location.href = 'favorites.html' },
     { id: 'c-export', ico: '⬇️', label: () => t('cmd_export'), run: () => exportActiveBoard() },
     { id: 'c-theme', ico: '🌗', label: () => t('cmd_theme'), run: () => { const b = $('#themeBtn'); if (b) b.click(); } },
@@ -652,60 +513,20 @@
         chip.appendChild(b);
       });
     }
-    // 使用次数 + 备注
-    const uc = useCount(s.id);
-    const nt = noteFor(s.id);
+    // 翻页提示（备注 / 使用次数已按需求移除）
     const info = document.createElement('div');
     info.className = 'lb-meta';
-    info.innerHTML = `<span>${esc(t('uses'))} <b id="lbUseCount" style="color:var(--garden)">${uc}${esc(t('times'))}</b></span>
-      ${nt ? '<span style="color:var(--garden)">📝 ' + esc(t('has_note')) + '</span>' : ''}
-      <span style="opacity:.7">${esc(t('lb_navigate'))}</span>`;
+    info.innerHTML = `<span style="opacity:.7">${esc(t('lb_navigate'))}</span>`;
     body.insertBefore(info, body.querySelector('.lb-actions'));
-    // 动作栏增强
-    const acts = body.querySelector('.lb-actions');
-    if (acts) {
-      const mk = (label, fn, solid, ico) => {
-        const b = document.createElement('button');
-        b.className = 'mini-btn' + (solid ? ' solid' : '');
-        b.innerHTML = (ico || '') + esc(label);
-        b.addEventListener('click', fn); return b;
-      };
-      const vars = parseVars(s.prompt || '');
-      const bar = document.createElement('div'); bar.className = 'act-bar'; bar.style.marginTop = '10px';
-      bar.appendChild(mk(vars.length ? t('fill_and_copy') : t('copy_prompt'), () => openVarFill(s.id), true, '✍️ '));
-      bar.appendChild(mk('换一个', () => randomPrompt(), false, '🎲 '));
-      bar.appendChild(mk(t('dl_img'), () => downloadImage(s), false, '⬇️ '));
-      bar.appendChild(mk(t('share'), () => { App.copyText(location.origin + location.pathname + '#id=' + s.id); App.toast(t('share_done')); }, false, '🔗 '));
-      bar.appendChild(mk(t('used_mark'), () => {
-        bumpUse(s.id);
-        const el = document.getElementById('lbUseCount');
-        if (el) el.textContent = useCount(s.id) + t('times');
-        App.toast(t('uses') + ' ' + useCount(s.id) + t('times'));
-      }, false, '✅ '));
-      bar.appendChild(mk(t('copy_json'), () => App.copyText(JSON.stringify({ id: s.id, title: s.title, category: s.category, tags: tg, prompt: s.prompt || '' }, null, 2)), false, '{} '));
-      bar.appendChild(mk(t('copy_md'), () => App.copyText(itemToMD(s)), false, 'M↓ '));
-      const wrap = document.createElement('div');
-      wrap.style.cssText = 'margin-top:12px;border-top:1px dashed var(--line);padding-top:12px';
-      wrap.innerHTML = `<div class="note-box"><div class="nh">📝 ${esc(t('note_title'))}</div>
-        <textarea id="lbNote" placeholder="${esc(t('note_ph'))}"></textarea>
-        <div class="meta"><span id="lbNoteInfo"></span></div></div>`;
-      const ta = $('#lbNote', wrap);
-      ta.value = nt;
-      ta.addEventListener('input', () => {
-        setNote(s.id, ta.value);
-        const inf = $('#lbNoteInfo', wrap);
-        if (inf) inf.textContent = ta.value.trim() ? t('note_saved') : '';
-      });
-      body.appendChild(bar); body.appendChild(wrap);
-    }
+    // 动作栏增强：已按需求移除（填充变量/下载/复制链接/复制 JSON/复制 Markdown/我的备注）
     // 翻页按钮：左右大箭头压在图片两侧，并带位置计数
     const panel = $('.lb-panel');
     if (panel) {
       let nav = $('.lb-img-nav', panel);
       if (!nav) {
         nav = document.createElement('div'); nav.className = 'lb-img-nav';
-        const pb = document.createElement('button'); pb.className = 'lb-nav lb-prev'; pb.setAttribute('aria-label', t('lb_prev') || '上一张'); pb.innerHTML = '‹';
-        const nb = document.createElement('button'); nb.className = 'lb-nav lb-next'; nb.setAttribute('aria-label', t('lb_next') || '下一张'); nb.innerHTML = '›';
+        const pb = document.createElement('button'); pb.className = 'lb-nav lb-prev'; pb.setAttribute('aria-label', t('lb_prev') || '上一张'); pb.title = t('lb_prev') || '上一张'; pb.innerHTML = '‹';
+        const nb = document.createElement('button'); nb.className = 'lb-nav lb-next'; nb.setAttribute('aria-label', t('lb_next') || '下一张'); nb.title = t('lb_next') || '下一张'; nb.innerHTML = '›';
         pb.addEventListener('click', e => { e.stopPropagation(); lbStep(-1); });
         nb.addEventListener('click', e => { e.stopPropagation(); lbStep(1); });
         nav.appendChild(pb); nav.appendChild(nb);
@@ -721,11 +542,6 @@
       }
     }
   }
-  function decorateLightboxReset() {
-    const body = $('#lbBody'); if (body) body.dataset.decorated = '';
-    decorateLightbox();
-  }
-
   /* ================= 随机漫游 ================= */
   function randomPrompt() {
     const list = App.ALL; if (!list.length) return;
@@ -735,7 +551,7 @@
   }
 
   /* ================= 分面 / 筛选 UI ================= */
-  const filters = { facets: {}, hasImage: false, hasNote: false, favOnly: false, usedOnly: false };
+  const filters = { facets: {}, hasImage: false, favOnly: false };
   const hasFacet = () => Object.keys(filters.facets).some(k => (filters.facets[k] || []).length);
   function toggleFacet(facet, name) {
     const cur = filters.facets[facet] || (filters.facets[facet] = []);
@@ -760,9 +576,7 @@
       });
     }
     if (filters.hasImage) out = out.filter(s => !!s.image);
-    if (filters.hasNote) out = out.filter(s => !!noteFor(s.id));
     if (filters.favOnly) out = out.filter(s => App.isFav(s.id));
-    if (filters.usedOnly) out = out.filter(s => useCount(s.id) > 0);
     return out;
   }
   function renderFacets(container, pool, onChange) {
@@ -808,8 +622,8 @@
     const mk = (key, label) => `<button class="switch ${filters[key] ? 'on' : ''}" data-k="${key}"><span class="dot"></span>${esc(label)}</button>`;
     container.className = 'filter-bar';
     container.innerHTML = `<span class="fb-label">筛选</span>` +
-      mk('hasImage', t('filter_only_img')) + mk('hasNote', t('filter_only_note')) +
-      mk('favOnly', t('filter_fav')) + mk('usedOnly', t('filter_used'));
+      mk('hasImage', t('filter_only_img')) +
+      mk('favOnly', t('filter_fav'));
     $$('.switch', container).forEach(b => b.addEventListener('click', () => {
       filters[b.dataset.k] = !filters[b.dataset.k];
       b.classList.toggle('on', filters[b.dataset.k]);
@@ -832,10 +646,6 @@
           const tl = document.createElement('div'); tl.className = 'tagline';
           tl.innerHTML = tg.map(x => '<span>' + esc(x) + '</span>').join('');
           body.appendChild(tl);
-        }
-        if (noteFor(s.id)) {
-          const dot = document.createElement('span'); dot.className = 'note-dot'; dot.title = t('note_title');
-          card.appendChild(dot);
         }
         // 卡片级快捷操作（复制成品 / 下载）
         const thumb = $('.thumb', card);
@@ -862,22 +672,15 @@
   let facetsRefresh = null;
   function injectGalleryExtras() {
     const grid = $('#grid'); if (!grid) return;
-    let host = $('#fxFacetHost');
-    if (!host) {
-      host = document.createElement('div'); host.id = 'fxFacetHost';
-      const anchor = $('.gallery-layout > section') || grid.parentElement;
-      if (anchor && anchor.firstChild) anchor.insertBefore(host, anchor.firstChild);
-      else if (anchor) anchor.appendChild(host);
-    }
+    // 分面标签块已按需求移除：画廊只保留「筛选」开关条
     let fbar = $('#fxFilterBar');
     if (!fbar) {
       fbar = document.createElement('div'); fbar.id = 'fxFilterBar';
-      host.parentElement.insertBefore(fbar, host.nextSibling);
+      const anchor = $('.gallery-layout > section') || grid.parentElement;
+      if (anchor) anchor.insertBefore(fbar, anchor.firstChild);
     }
     const rebuild = () => {
       lastQuery = $('#galSearch') ? $('#galSearch').value.trim() : '';
-      const base = galleryPool();
-      renderFacets(host, base, () => { fbar._onChange && fbar._onChange(); });
       renderFilterBar(fbar, () => { fbar._onChange && fbar._onChange(); });
     };
     fbar._onChange = () => { if (typeof window.__fxGalleryRefresh === 'function') window.__fxGalleryRefresh(); };
@@ -885,11 +688,6 @@
     facetsRefresh = rebuild;
     rebuild();
   }
-  function galleryPool() {
-    // 画廊页可注入 window.__fxFacetPool 给出「当前分类下」的池子，让标签计数跟随分类变化
-    return (typeof window.__fxFacetPool === 'function') ? window.__fxFacetPool() : App.ALL;
-  }
-
   /* ================= 页面装配 ================= */
   function page() { return (document.body && document.body.dataset.page) || ''; }
 
@@ -997,7 +795,7 @@
 
     // 4) 导航（HTML 里已有 data-i18n 时是二次保险，同时也覆盖动态注入的项）
     const map = {
-      index: 'nav_home', gallery: 'nav_gallery', categories: 'nav_categories',
+      index: 'nav_home', gallery: 'nav_gallery',
       search: 'nav_search', favorites: 'nav_favorites', about: 'nav_about'
     };
     $$('.nav-link').forEach(a => { const k = map[a.dataset.page]; if (k) a.textContent = t(k); });
@@ -1013,17 +811,7 @@
     const mb = $('#mobilePaletteBtn'); if (mb) mb.textContent = t('palette');
     const ms = $('#mobileSubmitLink'); if (ms) ms.textContent = t('nav_submit');
     const langBtn = $('#langBtn'); if (langBtn) langBtn.textContent = lang === 'zh' ? 'EN' : '中';
-    // 版本切换按钮：base.js 会写文字，这里按它记录的语义纠正语言。
-    // 手机端这个按钮收成圆形「⇄」图标（文字被 CSS 藏起），故一并写 title，保证可读。
-    const ss = $('#skinSwitch');
-    if (ss) {
-      const label = ss.dataset.skin
-        ? t(ss.dataset.skin === 'classic' ? 'skin_classic' : 'skin_modern')
-        : ss.textContent.trim();
-      if (ss.dataset.skin) ss.textContent = label;
-      ss.title = t('title_skin') + (label ? ' · ' + label : '');
-      ss.setAttribute('aria-label', t('title_skin') + (label ? ' · ' + label : ''));
-    }
+    // 版本切换按钮已移除（经典版下线），此处不再处理 #skinSwitch
     const th = $('#themeBtn'); if (th) th.title = t('title_theme');
     const favA = $$('.nav-actions > a.icon-btn')[0];
     if (favA) favA.title = t('title_fav');
@@ -1042,9 +830,7 @@
   // 需要从运行数据补值的文案
   const PLACEHOLDER_KEYS = {
     idx_lead: () => ({ total: fmtNum(App.D.total), mj: App.D.majors.length, sb: App.D.subCount }),
-    idx_cats_eyebrow: () => ({ mj: App.D.majors.length, sb: App.D.subCount }),
     idx_see_all: () => ({ total: fmtNum(App.D.total) }),
-    cat_sub: () => ({ mj: App.D.majors.length, sb: App.D.subCount, total: fmtNum(App.D.total) }),
     sp_p: () => ({ total: fmtNum(App.D.total) })
   };
   const fmtNum = n => Number(n || 0).toLocaleString('en-US');
@@ -1088,26 +874,6 @@
         b.addEventListener('click', () => location.href = 'search.html?q=' + encodeURIComponent(x));
         tagRow.appendChild(b);
       });
-    }
-    // 动作增强
-    const acts = $('#detailMount .lb-actions');
-    if (acts && !$('#fxDetailBar')) {
-      const bar = document.createElement('div'); bar.className = 'act-bar'; bar.id = 'fxDetailBar'; bar.style.marginTop = '10px';
-      const mk = (label, fn, solid) => { const b = document.createElement('button'); b.className = 'mini-btn' + (solid ? ' solid' : ''); b.textContent = label; b.addEventListener('click', fn); return b; };
-      bar.appendChild(mk(t('fill_and_copy'), () => openVarFill(s.id), true));
-      bar.appendChild(mk(t('dl_img'), () => downloadImage(s)));
-      bar.appendChild(mk(t('share'), () => { App.copyText(location.origin + location.pathname + '#id=' + s.id); App.toast(t('share_done')); }));
-      bar.appendChild(mk(t('copy_json'), () => App.copyText(JSON.stringify({ id: s.id, title: s.title, category: s.category, tags: tg, prompt: s.prompt || '' }, null, 2))));
-      bar.appendChild(mk(t('copy_md'), () => App.copyText(itemToMD(s))));
-      acts.parentElement.insertBefore(bar, acts.nextSibling);
-      const nb = document.createElement('div'); nb.className = 'note-box'; nb.style.marginTop = '14px';
-      nb.innerHTML = `<div class="nh">📝 ${esc(t('note_title'))}</div>
-        <textarea id="fxDetailNote" placeholder="${esc(t('note_ph'))}"></textarea>
-        <div class="meta"><span id="fxNoteInfo"></span><span>${esc(t('uses'))} ${useCount(s.id)}${esc(t('times'))}</span></div>`;
-      bar.parentElement.insertBefore(nb, bar.nextSibling);
-      const ta = $('#fxDetailNote');
-      ta.value = noteFor(s.id);
-      ta.addEventListener('input', () => { setNote(s.id, ta.value); $('#fxNoteInfo').textContent = ta.value.trim() ? t('note_saved') : ''; });
     }
   }
 
@@ -1253,9 +1019,7 @@
     applyI18n, toggleLang, dict: I18N, catEn: CAT_EN,
     tagsFor, flatTags,
     clearTagCache,
-    parseVars, resolveVars, openVarFill,
     smartSearch, smartScore, highlight, initials, loadPinyin,
-    noteFor, setNote, useCount, bumpUse,
     loadBoards, saveBoards, activeBoard,
     itemToMD, boardToMD, boardToCSV, boardToJSON, importJSON,
     downloadImage, downloadBoardImages, downloadBlob,

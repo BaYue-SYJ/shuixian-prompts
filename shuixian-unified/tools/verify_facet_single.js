@@ -11,7 +11,11 @@ const ok = (n, c, ex) => { if (c) { pass++; console.log('  ✅', n); } else { fa
   const page = await browser.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(String(e)));
-  await page.goto(BASE + '/gallery.html?cat=' + encodeURIComponent('城市海报'), { waitUntil: 'networkidle2', timeout: 60000 });
+  // 画廊的分面块已按需求移除，单选逻辑改在搜索页验证（搜索页仍保留分面）
+  await page.goto(BASE + '/search.html', { waitUntil: 'networkidle2', timeout: 60000 });
+  await page.waitForSelector('#bigSearch', { timeout: 30000 });
+  await page.type('#bigSearch', '海报');
+  await page.click('#goBtn');
   await page.waitForSelector('#fxFacetHost .facet-chip', { timeout: 15000 });
   await new Promise(r => setTimeout(r, 400));
 

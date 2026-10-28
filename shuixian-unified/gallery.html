@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
 <link rel="dns-prefetch" href="https://r2.qqsrc.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=17">
-<link rel="stylesheet" href="css/features.css?v=17">
+<link rel="stylesheet" href="css/base.css?v=27">
+<link rel="stylesheet" href="css/features.css?v=27">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#2C8CAB">
 <style>
@@ -41,7 +41,7 @@
 
       <!-- RESULTS -->
       <section>
-        <div id="fxFacetHost"></div>
+        <!-- 分面标签块已按需求移除 -->
         <div class="gallery-bar">
           <span class="count" id="resultCount">—</span>
           <div class="nav-search" style="width:280px;height:44px;margin:0">
@@ -68,9 +68,9 @@
     </div>
   </div>
 </main>
-<script src="js/base.js?v=17"></script>
-<script src="js/i18n.js?v=17"></script>
-<script src="js/features.js?v=17"></script>
+<script src="js/base.js?v=27"></script>
+<script src="js/i18n.js?v=27"></script>
+<script src="js/features.js?v=27"></script>
 <script>
 App.init({ page:'gallery', onReady:function(){
   const D = App.D;
@@ -80,8 +80,19 @@ App.init({ page:'gallery', onReady:function(){
   let state = { cat: params.get('cat') || '全部', q: params.get('q') || '', sort:'random', view:'masonry', shown:24 };
 
   /* ---------- 左侧分类栏 ---------- */
+  const MULTI = '多图';                 // 跨类标签：一条提示词带多张图，原分类不变
+  const isMulti = App.isMulti;
+  const multiCount = D.samples.filter(isMulti).length;
   const fg = $('#filterGroup');
-  fg.innerHTML = D.majors.map(m => {
+  fg.innerHTML = `<div class="maj multi" data-maj="${MULTI}">
+      <button type="button"><span>${FX.esc(FX.t('multi_tag'))} <span style="color:var(--muted);font-weight:500">· ${multiCount}</span></span></button>
+    </div>` + D.majors.map(m => {
+    // 没有子类的大类（如「New欧美」）：本身就是可点选的一级入口
+    if (!m.subs.length) {
+      return `<div class="maj leaf" data-maj="${m.name}">
+        <button type="button"><span>${FX.esc(FX.catName(m.name))} <span style="color:var(--muted);font-weight:500">· ${m.count}</span></span></button>
+      </div>`;
+    }
     const open = (m.name === state.cat || sub2maj[state.cat] === m.name) ? 'open' : '';
     const activeSub = (sub2maj[state.cat] === m.name) ? state.cat : '';
     // data-cat / data-maj 保持中文原名（用于筛选与 URL），只有显示文字走翻译
@@ -91,13 +102,20 @@ App.init({ page:'gallery', onReady:function(){
         <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="sublist">${subs}</div></div>`;
   }).join('');
-  fg.querySelectorAll('.maj>button').forEach(b => b.addEventListener('click', () => b.parentElement.classList.toggle('open')));
+  // 一级可点选入口（多图 / 无子类的大类）
+  fg.querySelectorAll('.maj.multi>button, .maj.leaf>button').forEach(b => b.addEventListener('click', () => {
+    state.cat = b.parentElement.dataset.maj; state.shown = 24; syncFilterUI(); refreshAll();
+  }));
+  fg.querySelectorAll('.maj:not(.multi):not(.leaf)>button').forEach(b => b.addEventListener('click', () => b.parentElement.classList.toggle('open')));
   fg.querySelectorAll('.sublist button').forEach(b => b.addEventListener('click', () => {
     state.cat = b.dataset.cat; state.shown = 24; syncFilterUI(); refreshAll();
   }));
 
   function syncFilterUI(){
-    fg.querySelectorAll('.maj').forEach(mj => {
+    fg.querySelectorAll('.maj.multi>button, .maj.leaf>button').forEach(b => {
+      b.classList.toggle('active', b.parentElement.dataset.maj === state.cat);
+    });
+    fg.querySelectorAll('.maj:not(.multi):not(.leaf)').forEach(mj => {
       const open = (mj.dataset.maj === state.cat || sub2maj[state.cat] === mj.dataset.maj);
       mj.classList.toggle('open', open);
       mj.querySelectorAll('.sublist button').forEach(b => b.classList.toggle('active', b.dataset.cat === state.cat));
@@ -109,8 +127,9 @@ App.init({ page:'gallery', onReady:function(){
   function basePool(){
     let list = D.samples.slice();
     if (state.cat !== '全部'){
-      if (sub2maj[state.cat]) list = list.filter(s => s.category === state.cat);
-      else list = list.filter(s => sub2maj[s.category] === state.cat);
+      if (state.cat === MULTI) list = list.filter(isMulti);
+      // 大类名或小类名都能筛：小类精确匹配，大类含其全部子类
+      else list = list.filter(s => s.category === state.cat || sub2maj[s.category] === state.cat);
     }
     return list;
   }
@@ -160,8 +179,7 @@ App.init({ page:'gallery', onReady:function(){
   }));
   $('#clearFilter').addEventListener('click', () => {
     state.cat = '全部'; state.q = ''; gs.value = ''; state.shown = 24;
-    FX.filters.facets = {}; FX.filters.hasImage = false; FX.filters.hasNote = false;
-    FX.filters.favOnly = false; FX.filters.usedOnly = false;
+    FX.filters.facets = {}; FX.filters.hasImage = false; FX.filters.favOnly = false;
     syncFilterUI(); refreshAll();
   });
   $('#showMore').addEventListener('click', () => { state.shown += 24; render(true); });

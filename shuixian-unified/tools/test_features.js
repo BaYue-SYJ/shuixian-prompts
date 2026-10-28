@@ -66,26 +66,16 @@ function check(name, cond, extra) {
 }
 
 (async () => {
-  console.log('== 1. 变量解析 ==');
   const withVar = prompts.find(p => /\{argument\s+name=/.test(p.prompt || ''));
-  console.log('  样例: #' + withVar.id + ' ' + withVar.title);
-  const vars = FX.parseVars(withVar.prompt);
-  check('parseVars 至少解析出 1 个变量', vars.length >= 1, JSON.stringify(vars.slice(0, 3)));
-  const v0 = vars[0];
-  const filled = FX.resolveVars(withVar.prompt, { [v0.name]: '测试值ABC' });
-  check('resolveVars 把占位符替换成填写值', filled.includes('测试值ABC') && !filled.includes('{argument name="' + v0.name + '"'));
-  const untouched = FX.resolveVars(withVar.prompt, {});
-  check('空值回退到默认值', untouched.length > 0);
   const noVar = prompts.find(p => !/\{argument\s+name=/.test(p.prompt || '') && (p.prompt || '').length > 30);
-  check('无变量提示词 parseVars 返回空数组', FX.parseVars(noVar.prompt).length === 0);
 
-  console.log('== 2. 拼音首字母 ==');
+  console.log('== 1. 拼音首字母 ==');
   await FX.loadPinyin();
   const ini = FX.initials('赛博朋克');
   check('赛博朋克 → sbpk', ini === 'sbpk', '实际: ' + ini);
   check('分类「高端女性杂志」首字母非空', FX.initials('高端女性杂志').length >= 6, FX.initials('高端女性杂志'));
 
-  console.log('== 3. 智能搜索 ==');
+  console.log('== 2. 智能搜索 ==');
   const hits = FX.smartSearch(prompts, 'sbpk').slice(0, 8);
   console.log('  "sbpk" 前 4 条: ' + JSON.stringify(hits.slice(0, 4).map(x => x.title)));
   check('拼音缩写能召回结果', hits.length > 0);
@@ -96,7 +86,7 @@ function check(name, cond, extra) {
   check('高亮输出含 mark 标签', /<mark class="hl">赛博<\/mark>/.test(FX.highlight('赛博朋克城市', '赛博')));
   check('高亮对 HTML 转义', FX.highlight('<script>', '').includes('&lt;'));
 
-  console.log('== 4. 标签分面 ==');
+  console.log('== 3. 标签分面 ==');
   const poster = prompts.find(p => /海报/.test(p.title + p.category));
   const tg = FX.tagsFor(poster);
   console.log('  #' + poster.id + ' ' + poster.title + ' → ' + JSON.stringify(tg));
@@ -105,7 +95,7 @@ function check(name, cond, extra) {
   const anime = prompts.find(p => /动漫|二次元/.test(p.category));
   check('动漫类有风格标签', (FX.tagsFor(anime)['风格'] || []).length > 0);
 
-  console.log('== 5. 筛选器 ==');
+  console.log('== 4. 筛选器 ==');
   FX.filters.facets = { '媒介': ['海报'] };
   const f1 = FX.applyFilters(prompts);
   check('按分面筛选后数量变少且全部命中', f1.length > 0 && f1.length < prompts.length && f1.every(x => (FX.tagsFor(x)['媒介'] || []).includes('海报')), f1.length + '/' + prompts.length);
@@ -116,7 +106,7 @@ function check(name, cond, extra) {
   FX.filters.hasImage = false;
   check('重置后恢复全量', FX.applyFilters(prompts).length === prompts.length);
 
-  console.log('== 6. 导出 ==');
+  console.log('== 5. 导出 ==');
   AppStub.getBoards = () => ({ boards: [{ id: 'default', name: '测试合集', items: [withVar.id, noVar.id] }], active: 'default' });
   const B = FX.loadBoards();
   const board = FX.activeBoard(B);
@@ -134,16 +124,7 @@ function check(name, cond, extra) {
   const csv2 = FX.boardToCSV({ items: [999999] });
   const row2 = csv2.split('\r\n')[1] || '';
   check('CSV 引号转义为双引号', csv2.includes('""'), row2.slice(0, 80));
-  check('CSV 单行字段数 = 7', (row2.match(/","/g) || []).length === 6, row2.slice(0, 80));
-
-  console.log('== 7. 备注 / 使用次数 ==');
-  FX.setNote(withVar.id, '这是一条备注');
-  check('备注可写入并读回', FX.noteFor(withVar.id) === '这是一条备注');
-  FX.setNote(withVar.id, '');
-  check('空备注会被清除', FX.noteFor(withVar.id) === '');
-  const before = FX.useCount(noVar.id);
-  FX.bumpUse(noVar.id);
-  check('使用次数递增', FX.useCount(noVar.id) === before + 1);
+  check('CSV 单行字段数 = 6', (row2.match(/","/g) || []).length === 5, row2.slice(0, 80));
 
   console.log('\n通过 ' + pass + ' / 失败 ' + fail + '   （数据 ' + prompts.length + ' 条，汉字表 ' + pinyin.count + '）');
   process.exit(fail ? 1 : 0);

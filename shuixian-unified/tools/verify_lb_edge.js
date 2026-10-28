@@ -4,10 +4,11 @@
  * 3. 点击背景关闭是否仍然可用（overflow 改动后不要锁死）
  * 4. 键盘 Esc / 方向键翻页未受影响
  */
+const os = require('os');
 const p = require('puppeteer-core');
 const path = require('path');
 const fs = require('fs');
-const OUT = path.join(__dirname, '..', '.workbuddy-tmp');
+const OUT = path.join(os.tmpdir(), 'sx-audit-shots');
 
 let pass = 0, fail = 0; const bad = [];
 function ok(c, m) { if (c) pass++; else { fail++; bad.push(m); } }
@@ -97,12 +98,13 @@ function ok(c, m) { if (c) pass++; else { fail++; bad.push(m); } }
   // ---- 5. 方向键翻页 ----
   await pg.evaluate(() => document.querySelector('.card').click());
   await new Promise(r => setTimeout(r, 1200));
-  const before = await pg.evaluate(() => document.querySelector('.lb-title') ? document.querySelector('.lb-title').textContent.trim() : (document.querySelector('.lb-body h3') || {}).textContent || '');
+  const before = await pg.evaluate(() => { const t = [...document.querySelectorAll('.lb-tags .tag')].map(x => x.textContent.trim()).find(x => x.indexOf('ID') === 0); return t || ''; });
   await pg.keyboard.press('ArrowRight');
   await new Promise(r => setTimeout(r, 1200));
-  const after = await pg.evaluate(() => document.querySelector('.lb-title') ? document.querySelector('.lb-title').textContent.trim() : (document.querySelector('.lb-body h3') || {}).textContent || '');
+  const after = await pg.evaluate(() => { const t = [...document.querySelectorAll('.lb-tags .tag')].map(x => x.textContent.trim()).find(x => x.indexOf('ID') === 0); return t || ''; });
   console.log(`\n— 方向键翻页 —  "${before}" → "${after}"`);
-  ok(before !== after, `方向键未切换提示词（仍是 "${after}"）`);
+  // 比对 ID 而不是标题：数据里存在同名标题，比标题会偶发误报
+  ok(before !== after, `方向键未切换提示词（翻页前后 ID 相同：${after}）`);
 
   // 翻页后正文应回到顶部而不是继承上一条的滚动位置
   const scrollAfterNav = await pg.evaluate(() => {

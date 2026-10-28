@@ -11,7 +11,8 @@
 window.SX_I18N = {
   /* ---------- 分类名英文映射（12 大类 + 79 小类去重） ---------- */
   cat: {
-    // 12 大类
+    // 13 大类
+    "New欧美": "New Western",
     "（大凶）": "Bombshell",
     "人物写真": "Portraits",
     "其他/未归类": "Uncategorized",
@@ -107,33 +108,26 @@ window.SX_I18N = {
     zh: {
       /* --- 通用 / 导航 --- */
       brand_sub: "Prompt Garden · 提示词花园",
-      nav_home: "首页", nav_gallery: "画廊", nav_categories: "分类", nav_search: "搜索",
+      nav_home: "首页", nav_gallery: "画廊", nav_search: "搜索",
       nav_favorites: "收藏", nav_about: "关于", nav_submit: "投稿",
-      skin_classic: "经典版", skin_modern: "现代版",
-      title_theme: "切换主题", title_skin: "切换版本", title_fav: "收藏",
+      title_theme: "切换主题", title_fav: "收藏",
       title_palette: "命令面板", palette: "命令面板", search_ph: "搜索提示词、标签…",
       /* --- 命令面板 --- */
       palette_ph: "搜索提示词、分类，或输入命令…",
       palette_cmd: "功能", palette_prompt: "提示词", palette_cat: "分类", palette_empty: "没有结果",
       cmd_random: "随机漫游一条提示词", cmd_gallery: "去画廊", cmd_search: "去搜索",
-      cmd_cats: "去分类总览", cmd_fav: "去收藏合集", cmd_export: "导出收藏合集",
+      cmd_fav: "去收藏合集", cmd_export: "导出收藏合集",
       cmd_theme: "切换深浅主题", cmd_lang: "切换语言", cmd_help: "键盘快捷键",
       cmd_about: "去关于", cmd_submit: "去投稿",
       kbd_move: "移动", kbd_open: "打开", kbd_close: "关闭",
-      /* --- 变量填空 --- */
-      vf_title: "填好变量，一次复制成品", vf_sub: "这条提示词带可替换参数，填完直接复制就是能用的成品。",
-      vf_empty: "这条提示词没有可替换变量，可直接复制。", vf_copy_done: "复制成品",
-      vf_copy_tpl: "复制模板", vf_reset: "恢复默认", vf_preview: "预览",
-      vf_default: "默认", vf_ph: "填写…", vf_all_default: "（全部留空则等同于原文）",
       /* --- 分面 / 筛选 --- */
       facet_medium: "媒介", facet_style: "风格", facet_tone: "色调", facet_clear: "清除筛选", facet_more: "更多",
-      filter_only_img: "只看有图", filter_only_note: "只看有备注", filter_fav: "仅看已收藏", filter_used: "仅看用过的",
+      filter_only_img: "只看有图", filter_fav: "仅看已收藏",
       /* --- 灯箱 / 详情 / 卡片 --- */
-      uses: "使用", times: "次", copied: "已复制", copy_prompt: "复制提示词", copy_plain: "复制原文",
-      copy_json: "复制 JSON", copy_md: "复制 Markdown", dl_img: "下载图片", share: "复制链接", share_done: "链接已复制",
-      used_mark: "标记已用", fill_and_copy: "填变量并复制", has_note: "有备注",
+      copy_prompt: "复制提示词", copy_plain: "复制原文", dl_img: "下载图片",
+      multi_tag: "多图",
       fav_add: "收藏", fav_added: "已收藏",
-      note_title: "我的备注", note_ph: "记下这条提示词的用法、出图参数、改进想法…", note_saved: "备注已保存",
+      lb_prev: "上一张", lb_next: "下一张",
       lb_navigate: "← → 可翻页", tip_detail_page: "提示：本页为灯箱详情的页面版；在画廊里点卡片可直接唤起全屏灯箱。",
       /* --- 提示语 --- */
       empty_no_match: "没有匹配的提示词，换个关键词或分类试试。",
@@ -143,7 +137,6 @@ window.SX_I18N = {
       toast_copied_img: "图片已开始下载", toast_no_img: "这条没有图片",
       toast_cors: "跨域受限，已在新标签打开图片，请右键另存",
       toast_imported: "已导入 {n} 条（来源：{name}）", toast_import_fail: "JSON 解析失败", toast_import_empty: "文件里没有条目",
-      toast_first_copy: "已复制提示词",
       /* --- 收藏合集 --- */
       col_title: "我的收藏合集",
       col_sub: "无需登录，全部保存在本机浏览器。可建多个合集分门别类，拖拽排序、跨合集移动、导出 JSON / Markdown / CSV，也能批量下载图片。",
@@ -174,19 +167,13 @@ window.SX_I18N = {
       exp_md: "Markdown (.md)", exp_json: "JSON (.json)", exp_csv: "CSV (.csv，Excel)", exp_copy: "复制全部提示词",
       exp_label: "导出「{name}」· {n} 条", exp_all_label: "全部收藏合集",
       /* --- 页面：首页 --- */
-      idx_kicker: "Prompt Garden · 提示词花园",
       idx_h1: "把灵感种进<span class=\"hl\">水仙</span>的<br class=\"hide-mobile\">AI 提示词花园",
       idx_lead: "{total} 条精选提示词，按主题分成了 {mj} 大分类、{sb} 个小类——人物、动漫、海报、插画、产品、游戏……慢慢逛，总有一句能帮你出图。",
-      idx_cta_gallery: "开始逛画廊", idx_cta_cats: "浏览全部分类",
       idx_stat_prompts: "精选提示词", idx_stat_majors: "大分类", idx_stat_subs: "小分类",
       idx_qr: "扫码关注公众号",
-      idx_cats_eyebrow: "{mj} 大分类 · {sb} 小类",
-      idx_cats_h2: "挑一个主题，慢慢逛",
-      idx_cats_p: "点开任意一栏，进入对应画廊；每一类都按风格聚合了上百条提示词。",
-      idx_more_cats: "查看分类总览",
       idx_pick_eyebrow: "Editor's Pick", idx_pick_h2: "每日精选",
       idx_pick_p: "从各路主题里随机捞了几条，点开看详情；不喜欢这波，点「换一批」。",
-      idx_shuffle: "换一批", idx_see_all: "查看全部 {total} 条",
+idx_see_all: "查看全部 {total} 条",
       idx_cta1_h3: "有好的提示词？投给我们",
       idx_cta1_p: "你的作品会出现在水仙的花园里，被更多人看到、使用、喜欢。",
       idx_cta1_btn: "立即投稿",
@@ -196,7 +183,7 @@ window.SX_I18N = {
       /* --- 页面：画廊 --- */
       gal_eyebrow: "Gallery", gal_h1: "提示词画廊",
       gal_sub: "按大类、小类筛选，或用关键词搜索（支持拼音首字母，如 <b>sbpk</b> → 赛博朋克）；点卡片看完整提示词，心仪的收进合集。",
-      gal_all_cats: "全部分类", gal_clear: "清除筛选",
+gal_clear: "清除筛选",
       gal_search_ph: "在结果里搜索…",
       gal_view_masonry: "瀑布流", gal_view_list: "列表",
       gal_sort_latest: "最新", gal_sort_hot: "最热", gal_sort_random: "随机",
@@ -204,17 +191,13 @@ window.SX_I18N = {
       gal_count: "共 {n} 条",
       gal_legend: "关键词 <b>{q}</b> 已高亮 · 支持模糊匹配与拼音首字母（示例：sbpk → 赛博朋克）",
       /* --- 页面：分类 --- */
-      cat_eyebrow: "All Categories", cat_h1: "分类总览",
-      cat_sub: "{mj} 大分类、{sb} 个小类，共 {total} 条提示词。点任意小类即可进入对应画廊。",
-      cat_major_meta: "{n} 条 · {sub} 小类",
       /* --- 页面：搜索 --- */
       se_eyebrow: "Search", se_h1: "搜你喜欢的那一句",
       se_ph: "试试「赛博朋克」「角色立绘」「电影感」，也支持拼音缩写 sbpk…",
-      se_btn: "搜索", se_recent: "最近搜索", se_hot: "大家都在搜", se_tags: "按标签逛", se_none: "暂无",
+se_recent: "最近搜索", se_hot: "大家都在搜", se_tags: "按标签逛", se_none: "暂无",
       se_placeholder_count: "输入关键词开始搜索",
       se_count: "「{q}」相关结果", se_reco: "推荐 · 热门提示词",
       se_hit: "命中 <b>{n}</b> 条 · 关键词已高亮 · 支持模糊匹配与拼音首字母",
-      se_empty: "没有匹配的提示词，换个关键词试试。",
       se_sort_rel: "相关度",
       /* --- 页面：详情 --- */
       de_back: "← 返回画廊", de_crumb_gallery: "画廊", de_related: "同类推荐", de_more: "查看更多",
@@ -223,7 +206,7 @@ window.SX_I18N = {
       ab_lead: "「水仙的AI提示词」是一个持续收集、整理的中文 AI 图像生成提示词花园。我们把散落在各处的好句子按主题分门别类，让想出图的人能更快找到合适的那一句话。",
       ab_h2_what: "我们做了什么",
       ab_p_what: "提示词是和 AI 绘画模型沟通的语言。一句好的提示词，往往决定了出图的质量和风格。我们从大量实践里筛选出表达清晰、可复用、风格鲜明的提示词，并为每条标注了分类与预览图，方便你按场景检索。",
-      ab_li1: "<b>按主题聚合</b>：人物写真、动漫二次元、海报广告、插画艺术、产品电商、游戏、建筑空间、车辆机械 3D、随手拍、晓兰 等 12 大类。",
+      ab_li1: "<b>按主题聚合</b>：New欧美、人物写真、动漫二次元、海报广告、插画艺术、产品电商、游戏、建筑空间、车辆机械 3D、随手拍、晓兰 等 13 大类。",
       ab_li2: "<b>可直接复制</b>：点开任意卡片即可查看完整提示词，一键复制使用。",
       ab_li3: "<b>本地收藏</b>：支持多画板收藏，无需登录，存在你自己的浏览器里。",
       ab_h2_rights: "图片与版权",
@@ -238,7 +221,7 @@ window.SX_I18N = {
       sp_eyebrow: "Sponsor", sp_h1: "请作者喝杯咖啡", sp_sub: "你的支持，是水仙持续更新的动力 ☕",
       sp_h2: "赞赏水仙 🌼",
       sp_p: "整理 {total} 条提示词、维护这个花园花了不少心思。如果它帮到了你，欢迎量力赞赏，让花园长得更久。",
-      sp_qr_alt: "微信赞赏码", sp_qr_cap: "微信扫一扫 · 赞赏作者",
+sp_qr_cap: "微信扫一扫 · 赞赏作者",
       sp_alt: "没有微信也没关系，欢迎在 <a href=\"about.html#contact\">关于页</a> 找到我们，或去 <a href=\"submit.html\">投稿</a> 用一条好提示词来支持——那同样是很暖的鼓励。",
       /* --- 页面：投稿 --- */
       sb_eyebrow: "Submit", sb_h1: "投稿好提示词",
@@ -265,41 +248,32 @@ window.SX_I18N = {
       doc_detail: "详情 · 水仙的AI提示词", doc_favorites: "收藏合集 · 水仙的AI提示词",
       doc_about: "关于 · 水仙的AI提示词", doc_sponsor: "赞赏 · 水仙的AI提示词",
       doc_submit: "投稿 · 水仙的AI提示词", doc_404: "页面走丢了 · 水仙的AI提示词",
-      lang_switched: "已切换为中文"
     },
 
     /* ================= English ================= */
     en: {
       /* --- Common / nav --- */
       brand_sub: "Prompt Garden",
-      nav_home: "Home", nav_gallery: "Gallery", nav_categories: "Categories", nav_search: "Search",
+      nav_home: "Home", nav_gallery: "Gallery", nav_search: "Search",
       nav_favorites: "Collections", nav_about: "About", nav_submit: "Submit",
-      skin_classic: "Classic", skin_modern: "Modern",
-      title_theme: "Toggle theme", title_skin: "Switch version", title_fav: "Collections",
+      title_theme: "Toggle theme", title_fav: "Collections",
       title_palette: "Command palette", palette: "Command palette", search_ph: "Search prompts, tags…",
       /* --- Command palette --- */
       palette_ph: "Search prompts, categories, or type a command…",
       palette_cmd: "Actions", palette_prompt: "Prompts", palette_cat: "Categories", palette_empty: "No results",
       cmd_random: "Surprise me — random prompt", cmd_gallery: "Go to gallery", cmd_search: "Go to search",
-      cmd_cats: "Browse all categories", cmd_fav: "My collections", cmd_export: "Export collections",
+      cmd_fav: "My collections", cmd_export: "Export collections",
       cmd_theme: "Toggle light / dark", cmd_lang: "Switch language", cmd_help: "Keyboard shortcuts",
       cmd_about: "About", cmd_submit: "Submit a prompt",
       kbd_move: "move", kbd_open: "open", kbd_close: "close",
-      /* --- Variable fill --- */
-      vf_title: "Fill the variables, copy a ready-to-use prompt",
-      vf_sub: "This prompt has replaceable parameters — fill them in and copy the finished text.",
-      vf_empty: "No variables in this prompt — copied as is.", vf_copy_done: "Copy result",
-      vf_copy_tpl: "Copy template", vf_reset: "Reset", vf_preview: "Preview",
-      vf_default: "default", vf_ph: "Type…", vf_all_default: "(leave all blank to keep the original text)",
       /* --- Facets / filters --- */
       facet_medium: "Medium", facet_style: "Style", facet_tone: "Tone", facet_clear: "Clear filters", facet_more: "more",
-      filter_only_img: "With image", filter_only_note: "With note", filter_fav: "Favourited", filter_used: "Used",
+      filter_only_img: "With image", filter_fav: "Favourited",
       /* --- Lightbox / detail / card --- */
-      uses: "Used", times: "×", copied: "Copied", copy_prompt: "Copy prompt", copy_plain: "Copy raw",
-      copy_json: "Copy JSON", copy_md: "Copy Markdown", dl_img: "Download image", share: "Copy link", share_done: "Link copied",
-      used_mark: "Mark as used", fill_and_copy: "Fill & copy", has_note: "Has note",
+      copy_prompt: "Copy prompt", copy_plain: "Copy raw", dl_img: "Download image",
+      multi_tag: "Multi-image",
       fav_add: "Save", fav_added: "Saved",
-      note_title: "My notes", note_ph: "Notes, generation settings, ideas for this prompt…", note_saved: "Note saved",
+      lb_prev: "Previous", lb_next: "Next",
       lb_navigate: "← → to browse", tip_detail_page: "Tip: this is the page version of the detail view; clicking a card in the gallery opens the full-screen lightbox.",
       /* --- Messages --- */
       empty_no_match: "No matching prompts — try another keyword or category.",
@@ -309,7 +283,6 @@ window.SX_I18N = {
       toast_copied_img: "Download started", toast_no_img: "No image for this item",
       toast_cors: "Cross-origin blocked — opened in a new tab, right-click to save",
       toast_imported: "Imported {n} items (from {name})", toast_import_fail: "Failed to parse JSON", toast_import_empty: "No items in this file",
-      toast_first_copy: "Prompt copied",
       /* --- Collections --- */
       col_title: "My collections",
       col_sub: "No sign-up — everything is stored in your browser. Create multiple collections, drag to reorder, move items between them, export to JSON / Markdown / CSV, or download all images at once.",
@@ -340,19 +313,13 @@ window.SX_I18N = {
       exp_md: "Markdown (.md)", exp_json: "JSON (.json)", exp_csv: "CSV (.csv, Excel)", exp_copy: "Copy all prompts",
       exp_label: "Export “{name}” · {n} items", exp_all_label: "All collections",
       /* --- Page: home --- */
-      idx_kicker: "Prompt Garden",
       idx_h1: "Plant your ideas in <span class=\"hl\">Daffodil</span>'s<br class=\"hide-mobile\">AI prompt garden",
       idx_lead: "{total} curated prompts organised into {mj} categories and {sb} subcategories — portraits, anime, posters, illustration, product, games… Take your time; there's always a line that works.",
-      idx_cta_gallery: "Browse the gallery", idx_cta_cats: "All categories",
       idx_stat_prompts: "Featured prompts", idx_stat_majors: "Categories", idx_stat_subs: "Subcategories",
       idx_qr: "Scan to follow on WeChat",
-      idx_cats_eyebrow: "{mj} categories · {sb} subcategories",
-      idx_cats_h2: "Pick a theme and wander",
-      idx_cats_p: "Open any category to enter its gallery; each one gathers hundreds of prompts by style.",
-      idx_more_cats: "See all categories",
       idx_pick_eyebrow: "Editor's Pick", idx_pick_h2: "Daily picks",
       idx_pick_p: "A few random prompts from every corner of the garden. Open one for details, or shuffle for another batch.",
-      idx_shuffle: "Shuffle", idx_see_all: "See all {total} prompts",
+idx_see_all: "See all {total} prompts",
       idx_cta1_h3: "Got a great prompt? Send it in",
       idx_cta1_p: "Your work will appear in Daffodil's garden, seen and used by more people.",
       idx_cta1_btn: "Submit now",
@@ -362,7 +329,7 @@ window.SX_I18N = {
       /* --- Page: gallery --- */
       gal_eyebrow: "Gallery", gal_h1: "Prompt gallery",
       gal_sub: "Filter by category, or search by keyword (pinyin initials work too — <b>sbpk</b> → 赛博朋克). Click a card for the full prompt, and save the ones you like into a collection.",
-      gal_all_cats: "All categories", gal_clear: "Clear filters",
+gal_clear: "Clear filters",
       gal_search_ph: "Search within results…",
       gal_view_masonry: "Masonry", gal_view_list: "List",
       gal_sort_latest: "Newest", gal_sort_hot: "Most liked", gal_sort_random: "Random",
@@ -370,17 +337,13 @@ window.SX_I18N = {
       gal_count: "{n} prompts",
       gal_legend: "Keyword <b>{q}</b> highlighted · fuzzy match and pinyin initials supported (e.g. sbpk → 赛博朋克)",
       /* --- Page: categories --- */
-      cat_eyebrow: "All Categories", cat_h1: "All categories",
-      cat_sub: "{mj} categories, {sb} subcategories, {total} prompts in total. Click any subcategory to open its gallery.",
-      cat_major_meta: "{n} prompts · {sub} subcategories",
       /* --- Page: search --- */
       se_eyebrow: "Search", se_h1: "Find the line you like",
       se_ph: "Try “赛博朋克”, “角色立绘”, “电影感” — pinyin initials like sbpk work too…",
-      se_btn: "Search", se_recent: "Recent", se_hot: "Trending", se_tags: "Browse by tag", se_none: "None yet",
+se_recent: "Recent", se_hot: "Trending", se_tags: "Browse by tag", se_none: "None yet",
       se_placeholder_count: "Type a keyword to start",
       se_count: "Results for “{q}”", se_reco: "Recommended · popular prompts",
       se_hit: "<b>{n}</b> matches · keyword highlighted · fuzzy match and pinyin initials supported",
-      se_empty: "No matching prompts — try another keyword.",
       se_sort_rel: "Relevance",
       /* --- Page: detail --- */
       de_back: "← Back to gallery", de_crumb_gallery: "Gallery", de_related: "You may also like", de_more: "View more",
@@ -389,7 +352,7 @@ window.SX_I18N = {
       ab_lead: "“Daffodil's AI Prompts” is a steadily growing garden of Chinese AI image generation prompts. We sort good lines scattered across the web by theme, so anyone who wants to make images can find the right one faster.",
       ab_h2_what: "What we do",
       ab_p_what: "Prompts are how you talk to an image model. A good prompt often decides the quality and style of the result. From a lot of hands-on practice we picked prompts that are clear, reusable and distinctive, and tagged each with a category and a preview image so you can search by scenario.",
-      ab_li1: "<b>Grouped by theme</b>: 12 categories including portraits, anime & manga, posters & ads, illustration & art, product & e-commerce, games, architecture & scenes, vehicles & 3D, snapshots and Xiaolan.",
+      ab_li1: "<b>Grouped by theme</b>: 13 categories including New Western, portraits, anime & manga, posters & ads, illustration & art, product & e-commerce, games, architecture & scenes, vehicles & 3D, snapshots and Xiaolan.",
       ab_li2: "<b>Copy and go</b>: open any card to read the full prompt and copy it in one click.",
       ab_li3: "<b>Local favourites</b>: multiple collections, no sign-up, stored in your own browser.",
       ab_h2_rights: "Images & copyright",
@@ -404,7 +367,7 @@ window.SX_I18N = {
       sp_eyebrow: "Sponsor", sp_h1: "Buy the author a coffee", sp_sub: "Your support keeps Daffodil growing ☕",
       sp_h2: "Support Daffodil 🌼",
       sp_p: "Organising {total} prompts and tending this garden took real effort. If it helped you, a small tip keeps it alive longer.",
-      sp_qr_alt: "WeChat tip QR code", sp_qr_cap: "Scan with WeChat · tip the author",
+sp_qr_cap: "Scan with WeChat · tip the author",
       sp_alt: "No WeChat? You can also reach us via the <a href=\"about.html#contact\">About page</a>, or support us by <a href=\"submit.html\">submitting</a> a good prompt — that's just as encouraging.",
       /* --- Page: submit --- */
       sb_eyebrow: "Submit", sb_h1: "Submit a prompt",
@@ -431,7 +394,6 @@ window.SX_I18N = {
       doc_detail: "Detail · Daffodil's AI Prompts", doc_favorites: "Collections · Daffodil's AI Prompts",
       doc_about: "About · Daffodil's AI Prompts", doc_sponsor: "Sponsor · Daffodil's AI Prompts",
       doc_submit: "Submit · Daffodil's AI Prompts", doc_404: "Page not found · Daffodil's AI Prompts",
-      lang_switched: "Switched to English"
     }
   }
 };

@@ -6,7 +6,6 @@
    ========================================================= */
 
 /* ---------- 顶栏工具按钮 ---------- */
-.nav-tools{display:flex;align-items:center;gap:10px}
 .tool-btn{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 14px;border-radius:999px;
   background:var(--surface);border:1px solid var(--line);color:var(--ink-2);font-size:13px;font-weight:600;
   box-shadow:var(--shadow-sm);transition:.18s;white-space:nowrap}
@@ -38,16 +37,6 @@
   .tool-btn.icon-only.lang-btn{
     width:42px;height:42px;padding:0;border-radius:999px;
     font-size:13px;font-weight:800;letter-spacing:.02em;gap:0}
-  /* 版本按钮收成圆形图标，省掉最占宽度的文字 */
-  .nav-actions .skin-switch{
-    width:42px;height:42px;padding:0;border-radius:999px;flex:none;
-    font-size:0;color:transparent;background:var(--surface);border:1px solid var(--line)}
-  .nav-actions .skin-switch::after{
-    content:'⇄';font-size:17px;font-weight:700;color:var(--ink-2);
-    display:block;text-align:center;line-height:1}
-  .nav-actions .skin-switch:hover{border-color:var(--garden)}
-  .nav-actions .skin-switch:hover::after{color:var(--garden)}
-
   /* 菜单里的新增项：投稿 / 收藏 / 命令面板 */
   .nav-links.open .only-mobile{display:flex !important}
   .nav-links.open{animation:fxMenuIn .2s var(--ease)}
@@ -75,7 +64,6 @@
   .brand .mark{width:30px;height:30px}
   .brand .mark svg{width:19px;height:19px}
   .tool-btn.icon-only{width:38px;height:38px}
-  .nav-actions .skin-switch{width:38px;height:38px}
   .tool-btn.icon-only.lang-btn{width:38px;height:38px}
   #openPaletteBtn{padding:0 10px}
   #openPaletteBtn kbd{display:none}
@@ -105,28 +93,8 @@
   color:var(--muted);transition:.18s}
 .fx-head .x:hover{color:var(--coral);background:var(--surface-2);transform:rotate(90deg)}
 .fx-body{padding:20px 24px;overflow:auto;flex:1}
-.fx-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:16px 24px;
-  border-top:1px solid var(--line);background:var(--surface-2)}
-.fx-foot .spacer{flex:1}
 .fx-note{font-size:12px;color:var(--muted);line-height:1.6}
 
-/* ---------- 变量填空 ---------- */
-.vf-fields{display:flex;flex-direction:column;gap:14px}
-.vf-field{display:flex;flex-direction:column;gap:7px}
-.vf-field label{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
-.vf-field .key{font-family:"DM Mono",ui-monospace,monospace;font-size:11.5px;color:var(--garden);
-  background:var(--garden-050);padding:2px 8px;border-radius:6px;font-weight:600}
-.vf-field input,.vf-field textarea{padding:11px 14px;border-radius:12px;border:1px solid var(--line);
-  background:var(--surface);color:var(--ink);font-size:14px;font-family:inherit;transition:.18s}
-.vf-field input:focus,.vf-field textarea:focus{border-color:var(--garden);box-shadow:0 0 0 4px var(--garden-050);outline:none}
-.vf-preview{margin-top:18px}
-.vf-preview .lbl{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
-.vf-preview pre{margin:0;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;
-  padding:14px 16px;font-family:"DM Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.7;
-  color:var(--ink);white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto}
-.vf-preview pre .fill{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0 4px;font-weight:700}
-.vf-preview pre .empty{background:transparent;color:var(--coral);border-bottom:1px dashed var(--coral);padding:0}
-[data-theme="dark"] .vf-preview pre .fill{color:var(--daffodil)}
 
 /* ---------- 命令面板 ---------- */
 .cmdk{align-items:flex-start;padding-top:10vh}
@@ -179,8 +147,6 @@
 .card .tagline{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
 .card .tagline span{font-size:10.5px;padding:2px 8px;border-radius:999px;background:var(--surface-2);
   color:var(--muted);font-weight:600}
-.card .note-dot{position:absolute;top:12px;right:12px;z-index:3;width:8px;height:8px;border-radius:50%;
-  background:var(--daffodil);box-shadow:0 0 0 3px rgba(79,179,201,.25)}
 
 /* ---------- 搜索高亮 ---------- */
 mark.hl{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0 3px;font-weight:700}
@@ -214,10 +180,6 @@ mark.hl{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0
 .col-tab:hover .x{opacity:1}
 .col-tools{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
 .col-tools .btn{padding:9px 16px;font-size:13px}
-.col-item{position:relative}
-.col-item .drag{cursor:grab}
-.col-item.dragging{opacity:.45}
-.col-item .move-menu{position:absolute;inset:auto 0 0 0;z-index:4}
 
 /* 通用下拉菜单 */
 .menu{position:absolute;z-index:5;min-width:190px;background:var(--surface);border:1px solid var(--line);
@@ -226,7 +188,6 @@ mark.hl{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0
 .menu button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 12px;
   border-radius:10px;font-size:13.5px;font-weight:600;color:var(--ink);transition:.14s}
 .menu button:hover{background:var(--garden-050);color:var(--garden)}
-.menu button.danger:hover{background:rgba(226,85,106,.1);color:var(--coral)}
 .menu .sep{height:1px;background:var(--line);margin:5px 8px}
 .menu .mh{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;
   padding:8px 12px 4px}
@@ -234,35 +195,10 @@ mark.hl{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0
 /* 锚定菜单容器 */
 .menu-wrap{position:relative;display:inline-block}
 
-/* ---------- 备注 ---------- */
-.note-box{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.note-box .nh{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--muted);
-  letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
-.note-box textarea{width:100%;min-height:74px;resize:vertical;border:1px solid var(--line);border-radius:10px;
-  padding:10px 12px;background:var(--surface);color:var(--ink);font-family:inherit;font-size:13.5px;
-  line-height:1.6}
-.note-box textarea:focus{border-color:var(--garden);box-shadow:0 0 0 4px var(--garden-050);outline:none}
-.note-box .meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;
-  font-size:12px;color:var(--muted)}
-
-/* ---------- 复制 / 下载 按钮组 ---------- */
-.act-bar{display:flex;gap:8px;flex-wrap:wrap}
-.mini-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;
-  border:1px solid var(--line);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--ink-2);
-  box-shadow:var(--shadow-sm);transition:.16s}
-.mini-btn:hover{border-color:var(--garden);color:var(--garden);transform:translateY(-1px)}
-.mini-btn.solid{background:var(--garden);border-color:var(--garden);color:#fff}
-.mini-btn.solid:hover{background:var(--garden-600);color:#fff}
-.mini-btn[disabled]{opacity:.5;pointer-events:none}
 
 /* ---------- LQIP 图片加载 ---------- */
 .ph-img.lqip{filter:blur(14px);transform:scale(1.04);transition:filter .5s var(--ease),transform .5s var(--ease)}
 .ph-img.lqip.done{filter:none;transform:none}
-.ph.shimmer::before{content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.28) 50%,transparent 80%);
-  background-size:220% 100%;animation:shimmer 1.5s linear infinite}
-@keyframes shimmer{from{background-position:180% 0}to{background-position:-80% 0}}
-@media(prefers-reduced-motion:reduce){.ph.shimmer::before{animation:none}}
 
 /* ---------- 语言切换 ---------- */
 .lang-btn{font-size:12px;font-weight:800;letter-spacing:.04em}
@@ -283,5 +219,3 @@ mark.hl{background:var(--daffodil-050);color:#1F6A85;border-radius:4px;padding:0
 @media(max-width:600px){.kbd-grid{grid-template-columns:1fr}}
 
 /* ---------- 轻提示（复用 toast，追加图标位） ---------- */
-.toast.rich{display:flex;align-items:center;gap:9px}
-.toast .tact{color:var(--garden);font-weight:800;text-decoration:underline}

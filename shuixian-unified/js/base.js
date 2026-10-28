@@ -10,7 +10,7 @@
    ========================================================= */
 const App = (() => {
   // ---------- 配置 ----------
-  const ASSET_VERSION = '17';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
+  const ASSET_VERSION = '27';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
   const IMG_BASE = "https://r2.qqsrc.com";          // Cloudflare R2 公共图床
   const FAV_KEY = 'sx-boards-v2';
   const REC_KEY = 'sx-recent-v2';
@@ -24,7 +24,6 @@ const App = (() => {
   // ---------- 语言钩子（features.js 提供实现；未加载时回退中文） ----------
   // 只影响「显示」；数据的 category、URL 的 ?cat= 一律保持中文原名。
   const T = (k, d) => (window.FX && typeof FX.t === 'function') ? FX.t(k) : (d != null ? d : k);
-  const TF = (k, o) => (window.FX && typeof FX.tf === 'function') ? FX.tf(k, o) : k;
   const catLabel = c => {
     if (c === '其他/未归类') return '杂项';   // 显示名改「杂项」，数据 key 不变（URL/筛选/数据引用不受影响）
     return (window.FX && typeof FX.catName === 'function') ? FX.catName(c) : c;
@@ -150,6 +149,16 @@ const App = (() => {
 
   function observeImages(c){ c.querySelectorAll('img.ph-img[data-src]').forEach(img => io.observe(img)); }
 
+  // 一条提示词可能对应多张图：images 数组为准，缺省回退到 image 单图字段
+  const imageList = s => {
+    if (!s) return [];
+    let arr = Array.isArray(s.images) ? s.images.filter(Boolean).slice() : [];
+    if (!arr.length) return s.image ? [s.image] : [];
+    if (s.image && arr.indexOf(s.image) < 0) arr.unshift(s.image);
+    return arr;
+  };
+  const isMulti = s => imageList(s).length > 1;
+
   function thumb(s){
     const category = s.category || '';
     const img = s.image;
@@ -168,6 +177,7 @@ const App = (() => {
       <a class="thumb" href="detail.html?id=${s.id}" style="--cc:${main}">
         ${thumb(s)}
         <span class="cat-pill" style="--cc:${main}">${esc(catLabel(s.category))}</span>
+        ${isMulti(s) ? `<span class="multi-badge">${esc(T('multi_tag', '多图'))} · ${imageList(s).length}</span>` : ''}
         <span class="hover-actions">
           <button class="act fav ${isFav(s.id) ? 'on' : ''}" data-id="${s.id}" title="${esc(T('title_fav', '收藏'))}">${heartSvg(isFav(s.id))}</button>
           <button class="act" data-copy="${s.id}" title="${esc(T('copy_prompt', '复制提示词'))}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke-linecap="round"/></svg></button>
@@ -245,24 +255,6 @@ const App = (() => {
   let _rzT;
   window.addEventListener('resize', () => { clearTimeout(_rzT); _rzT = setTimeout(relayoutMasonryAll, 150); });
 
-  // 12 大分类卡片
-  const MAJ_EMOJI = {'（大凶）':'🔥','人物写真':'👤','其他/未归类':'🗂️','随手拍':'📸','动漫二次元':'🌸','产品电商':'🛍️','海报广告':'🖼️','插画艺术':'🎨','车辆机械3D':'🚗','游戏':'🎮','建筑空间场景':'🏛️','晓兰':'🌿'};
-  function renderCategories(container){
-    if (!container || !META) return;
-    container.innerHTML = META.majors.map(m => {
-      const { bg, main } = catColor(m.name);
-      const subs = m.subs.slice(0, 4).map(s => `<span>${esc(catLabel(s.name))}</span>`).join('') + (m.subs.length > 4 ? `<span class="more">+${m.subs.length - 4}</span>` : '');
-      return `<a class="cat-card" href="gallery.html?cat=${encodeURIComponent(m.name)}" style="--cc:${main};--cc-bg:${bg}">
-        <div class="ctop">
-          <span class="cico" style="--cc-bg:${bg}">${MAJ_EMOJI[m.name] || '📁'}</span>
-          <div><h3>${esc(catLabel(m.name))}</h3><div class="ccount">${esc(TF('cat_major_meta', { n: m.count, sub: m.subs.length }))}</div></div>
-        </div>
-        <div class="subs">${subs}</div>
-        <span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </a>`;
-    }).join('');
-  }
-
   // ---------- 灯箱（完整显示整图 + R2 原图） ----------
   function buildLightbox(){
     let lb = document.getElementById('sx-lightbox');
@@ -276,6 +268,38 @@ const App = (() => {
     document.body.appendChild(lb);
     return lb;
   }
+  // 多图缩略图条：挂到任意图片容器上（灯箱 / 详情页共用），点哪张换哪张
+  function attachThumbs(container, s){
+    const imgs = imageList(s);
+    if (!container || imgs.length < 2) return null;
+    const strip = document.createElement('div');
+    strip.className = 'lb-thumbs';
+    const setSrc = p => {
+      let im = container.querySelector('img.ph-img');
+      if (!im){
+        container.insertAdjacentHTML('afterbegin', `<img class="ph-img" src="${esc(imgUrl(p))}" alt="">`);
+        im = container.querySelector('img.ph-img');
+      } else {
+        im.src = imgUrl(p);
+      }
+      const h = container.querySelector('.load-hint'); if (h) h.remove();
+    };
+    imgs.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'lb-thumb' + (i === 0 ? ' on' : '');
+      b.title = (i + 1) + ' / ' + imgs.length;
+      b.innerHTML = `<img src="${esc(imgUrl(p))}" alt="" loading="lazy">`;
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        setSrc(p);
+        strip.querySelectorAll('.lb-thumb').forEach(x => x.classList.toggle('on', x === b));
+      });
+      strip.appendChild(b);
+    });
+    container.appendChild(strip);
+    return strip;
+  }
+
   function openLightbox(id){
     const s = findSample(id); if (!s) return;
     const lb = buildLightbox();
@@ -287,11 +311,17 @@ const App = (() => {
       lbImg.innerHTML = `${hint}<img class="ph-img" src="${esc(imgUrl(s.image))}" alt="${esc(catLabel(s.category))}">`;
       const im = lbImg.querySelector('img');
       im.addEventListener('load', () => { const h = lbImg.querySelector('.load-hint'); if (h) h.remove(); });
-      im.addEventListener('error', () => { lbImg.innerHTML = fallback; });
+      im.addEventListener('error', () => {
+        if (im.isConnected) im.remove();
+        const h = lbImg.querySelector('.load-hint'); if (h) h.remove();
+        if (!lbImg.querySelector('.ph')) lbImg.insertAdjacentHTML('afterbegin', fallback);
+      });
       if (im.complete && im.naturalWidth){ const h = lbImg.querySelector('.load-hint'); if (h) h.remove(); }
     } else {
       lbImg.innerHTML = fallback;
     }
+    // 多图：图片区左下角缩略图条，点哪张换哪张（不影响左右箭头翻提示词）
+    attachThumbs(lbImg, s);
     const tokPrompt = esc(s.prompt || T('loading_dots', '（加载中…）')).replace(/(\{argument[^}]*\})/g, '<span class="tok">$1</span>');
     $('#lbBody').innerHTML = `
       <div class="lb-crumb"><a href="gallery.html">${esc(T('de_crumb_gallery', '画廊'))}</a> › <a href="gallery.html?cat=${encodeURIComponent(s.category)}" style="--cc:${main}">${esc(catLabel(s.category))}</a></div>
@@ -314,26 +344,7 @@ const App = (() => {
   }
   function closeLightbox(){ const lb = document.getElementById('sx-lightbox'); if (lb){ lb.classList.remove('open'); document.body.style.overflow = ''; } }
 
-  // ---------- 版本切换按钮 ----------
-  function setupSkinSwitch(){
-    const btn = document.getElementById('skinSwitch');
-    if(!btn) return;
-    const inClassic = location.pathname.indexOf('/classic/') !== -1;
-    const file = location.pathname.split('/').pop() || 'index.html';
-    const rootPages = ['index.html','gallery.html','categories.html','search.html','detail.html','favorites.html','about.html','sponsor.html','submit.html','404.html'];
-    const classicPages = ['index.html','gallery.html','favorites.html','classify.html'];
-    // 记下语义，交给 features.js 按当前语言显示文字
-    btn.dataset.skin = inClassic ? 'modern' : 'classic';
-    btn.textContent = inClassic ? '现代版' : '经典版';
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      if(inClassic){
-        location.href = (rootPages.indexOf(file) !== -1) ? ('/' + file) : '/index.html';
-      } else {
-        location.href = (classicPages.indexOf(file) !== -1) ? ('/classic/' + file) : '/classic/index.html';
-      }
-    });
-  }
+  // ---------- 版本切换按钮：已按需求移除（经典版下线） ----------
 
   // ---------- 初始化 ----------
   function init(opts){
@@ -341,7 +352,6 @@ const App = (() => {
     applyTheme(localStorage.getItem('sx-theme') || 'light');
     loadComponents()
       .then(wireCommon)
-      .then(setupSkinSwitch)
       .then(loadData)
       .then(() => {
         if (typeof options.onReady === 'function') options.onReady();
@@ -358,7 +368,7 @@ const App = (() => {
     get ALL(){ return SAMPLES; },
     IMG_BASE, ASSET_VERSION,
     $, $$, imgUrl,
-    findSample, catColor, thumb, cardHTML, renderCards, renderCategories,
+    findSample, catColor, thumb, cardHTML, renderCards, imageList, isMulti, attachThumbs,
     openLightbox, closeLightbox, ensureFull,
     toggleFav, isFav, toast, copyText, getBoards, saveBoards
   };

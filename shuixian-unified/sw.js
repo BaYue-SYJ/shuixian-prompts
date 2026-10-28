@@ -8,7 +8,7 @@
      · R2 图片：cache-first 并按条数修剪，避免无限膨胀
    更新：改动静态资源后递增 CACHE 版本号即可触发换新
    ========================================================= */
-const VERSION = 'sx-v17';
+const VERSION = 'sx-v27';
 const SHELL = VERSION + '-shell';
 const DATA = VERSION + '-data';
 const IMG = VERSION + '-img';
@@ -18,7 +18,6 @@ const PRECACHE = [
   './',
   './index.html',
   './gallery.html',
-  './categories.html',
   './search.html',
   './detail.html',
   './favorites.html',
@@ -29,17 +28,16 @@ const PRECACHE = [
   './manifest.webmanifest',
   './images/icon.svg',
   './images/wechat-qr.jpg',
-  './css/base.css?v=17',
-  './css/features.css?v=17',
-  './js/i18n.js?v=17',
-  './js/base.js?v=17',
-  './js/features.js?v=17',
-  './components/header.html?v=17',
-  './components/footer.html?v=17',
-  './components/lightbox.html?v=17',
-  './components/modals.html?v=17',
+  './css/base.css?v=27',
+  './css/features.css?v=27',
+  './js/i18n.js?v=27',
+  './js/base.js?v=27',
+  './js/features.js?v=27',
+  './components/header.html?v=27',
+  './components/footer.html?v=27',
+  './components/lightbox.html?v=27',
+  './components/modals.html?v=27',
   './data/meta.json',
-  './data/categories.json',
   './data/pinyin.json',
   './data/list.part1.json',
   './data/list.part2.json',

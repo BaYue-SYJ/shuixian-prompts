@@ -1,7 +1,7 @@
 /* i18n 一致性校验：
    ① 所有页面 data-i18n / data-i18n-placeholder / data-i18n-title 的 key 必须在 zh 和 en 里都存在
    ② features.js / base.js 里用到的 t('x') / tf('x') key 也要存在
-   ③ 分类英文映射必须覆盖 meta.json 里全部 12 大类 + 79 小类
+   ③ 分类英文映射必须覆盖 meta.json 里全部 13 大类 + 79 小类
    退出码非 0 表示有问题 */
 const fs = require('fs'), path = require('path'), vm = require('vm'), glob = require('fs');
 
@@ -53,7 +53,7 @@ ok('代码 t()/tf() 的 key 在 zh/en 均存在');
 const meta = JSON.parse(read(path.join(ROOT, 'data', 'meta.json')));
 const names = new Set();
 meta.majors.forEach(m => { names.add(m.name); m.subs.forEach(s => names.add(s.name)); });
-console.log('\n分类名共 ' + names.size + ' 个（12 大类 + 79 小类去重）');
+console.log('\n分类名共 ' + names.size + ' 个（13 大类 + 79 小类去重）');
 const missing = [...names].filter(n => !cat[n]);
 missing.forEach(n => fail('分类缺少英文：' + n));
 if (!missing.length) ok('全部 ' + names.size + ' 个分类都有英文名');

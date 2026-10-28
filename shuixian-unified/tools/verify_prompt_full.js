@@ -5,10 +5,11 @@
  *   ③ 滚到正文底部时，提示词最后一行必须进入视口，且动作按钮也可达
  *   ④ 全站最长的若干条提示词都不能被截断
  */
+const os = require('os');
 const p = require('puppeteer-core');
 const path = require('path');
 const fs = require('fs');
-const OUT = path.join(__dirname, '..', '.workbuddy-tmp');
+const OUT = path.join(os.tmpdir(), 'sx-audit-shots');
 
 let pass = 0, fail = 0; const bad = [];
 function ok(c, m) { if (c) pass++; else { fail++; bad.push(m); } }

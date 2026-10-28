@@ -9,19 +9,28 @@
 <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
 <link rel="dns-prefetch" href="https://r2.qqsrc.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=17">
-<link rel="stylesheet" href="css/features.css?v=17">
+<link rel="stylesheet" href="css/base.css?v=27">
+<link rel="stylesheet" href="css/features.css?v=27">
 <style>
 .detail-panel{display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:var(--surface);
   border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);margin-top:8px}
 .detail-img{position:relative;background:var(--surface-2);min-height:460px;display:grid;place-items:center;
-  overflow:auto;max-height:88vh;padding:18px}
+  overflow:auto;max-height:88vh;padding:18px;align-self:start}   /* start：不被右侧长正文拉高 */
 .detail-img .ph{position:absolute;inset:0}
 .detail-img .ph-img{position:static;inset:auto;width:auto;max-width:100%;max-height:calc(88vh - 36px);
   height:auto;object-fit:contain;display:block;border-radius:14px;box-shadow:var(--shadow)}
 .detail-img .wm{position:absolute;font-family:var(--serif);font-weight:900;font-size:130px;color:rgba(255,255,255,.35);mix-blend-mode:overlay}
-.detail-body{padding:34px 36px;display:flex;flex-direction:column;gap:16px}
-@media(max-width:780px){.detail-panel{grid-template-columns:1fr}.detail-img{min-height:260px}}
+/* 正文列：高度由 JS 跟图片列同步（不高于图片）。
+   滚动条收进「提示词框」内部，标题/按钮/提示文字固定不动 —— 按钮永不被滚动内容遮住。 */
+.detail-body{padding:34px 36px;display:flex;flex-direction:column;gap:16px;
+  min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.detail-body > *{flex:none}
+.detail-body > .lb-prompt{flex:1 1 auto;min-height:110px;overflow-y:auto;
+  overscroll-behavior:contain;scrollbar-gutter:stable}
+@media(max-width:780px){.detail-panel{grid-template-columns:1fr}.detail-img{min-height:260px}
+  /* 窄屏是上下堆叠，正文按自然高度展开，提示词框也不再内层滚动 */
+  .detail-body{max-height:none!important;overflow:visible}
+  .detail-body > .lb-prompt{min-height:0;overflow:visible}}
 </style>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#2C8CAB">
@@ -37,9 +46,9 @@
     <div class="masonry" id="related"></div>
   </div></section>
 </main>
-<script src="js/base.js?v=17"></script>
-<script src="js/i18n.js?v=17"></script>
-<script src="js/features.js?v=17"></script>
+<script src="js/base.js?v=27"></script>
+<script src="js/i18n.js?v=27"></script>
+<script src="js/features.js?v=27"></script>
 <script>
 App.init({ page:'detail', onReady:function(){
   const D = App.D;
@@ -77,8 +86,12 @@ App.init({ page:'detail', onReady:function(){
         </div>
       </div>`;
     $('#copyBtn').addEventListener('click', () => App.copyText(s.prompt || ''));
+    App.attachThumbs($('#dImg'), s);   // 多图：左下角缩略图切换
     const di = $('#dImg').querySelector('img');
-    if (di) di.addEventListener('error', () => { $('#dImg').innerHTML = `<div class="ph" style="background:linear-gradient(140deg,${bg},${main})"></div><span class="wm">${esc(wm)}</span>`; });
+    if (di) di.addEventListener('error', () => {
+      di.remove();
+      if (!$('#dImg').querySelector('.ph')) $('#dImg').insertAdjacentHTML('afterbegin', `<div class="ph" style="background:linear-gradient(140deg,${bg},${main})"></div><span class="wm">${esc(wm)}</span>`);
+    });
     const fb = $('#detailMount').querySelector('.fav-btn');
     if (App.isFav(s.id)) fb.classList.add('on'), fb.innerHTML = heart + ' ' + esc(FX.t('fav_added'));
     fb.addEventListener('click', function(){ const on = App.toggleFav(s.id); this.classList.toggle('on', on); this.innerHTML = heart + ' ' + esc(on ? FX.t('fav_added') : FX.t('fav_add')); });
@@ -88,6 +101,25 @@ App.init({ page:'detail', onReady:function(){
   }
 
   build();
+
+  /* 正文高度跟随图片列：永远不超过图片高度，超出部分在正文列内滚动 */
+  (function fitBodyToImage(){
+    const bodyCol = $('#detailMount .detail-body');
+    const imgCol = $('#dImg');
+    if (!bodyCol || !imgCol) return;
+    const sync = () => {
+      // 窄屏是上下堆叠，交给 CSS（max-height:none）处理
+      if (window.innerWidth <= 780){ bodyCol.style.maxHeight = ''; return; }
+      const h = Math.round(imgCol.getBoundingClientRect().height);
+      bodyCol.style.maxHeight = h > 0 ? h + 'px' : '';
+    };
+    sync();
+    window.addEventListener('resize', sync);
+    // 图片加载完 / 切换缩略图导致图片列高度变化时，重新对齐
+    if (window.ResizeObserver) new ResizeObserver(sync).observe(imgCol);
+    window.__syncDetailFit = sync;
+  })();
+
   // 轻量数据无 prompt：按需补齐后刷新正文
   if (!s.prompt){
     App.ensureFull().then(() => {

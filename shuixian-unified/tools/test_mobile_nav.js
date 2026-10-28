@@ -83,15 +83,13 @@ function buildNav() {
   const inner = El('div'); inner.className = 'sx-nav-inner'; header.appendChild(inner);
 
   const navLinks = El('nav'); navLinks.id = 'navLinks'; navLinks.className = 'nav-links';
-  ['index', 'gallery', 'categories', 'search', 'favorites', 'about'].forEach(p => {
+  ['index', 'gallery', 'favorites', 'about'].forEach(p => {
     const a = El('a'); a.className = 'nav-link'; a.dataset.page = p; a.textContent = p;
     navLinks.appendChild(a);
   });
   inner.appendChild(navLinks);
 
   const actions = El('div'); actions.className = 'nav-actions';
-  const skin = El('button'); skin.id = 'skinSwitch'; skin.className = 'skin-switch';
-  skin.textContent = '经典版'; actions.appendChild(skin);
 
   const theme = El('button'); theme.id = 'themeBtn'; theme.className = 'icon-btn';
   actions.appendChild(theme);
@@ -106,7 +104,7 @@ function buildNav() {
   actions.appendChild(toggle);
 
   inner.appendChild(actions);
-  return { header, inner, navLinks, actions, skin, theme, fav, submit, toggle };
+  return { header, inner, navLinks, actions, theme, fav, submit, toggle };
 }
 
 /* ---------- 加载真实 features.js ---------- */
@@ -182,7 +180,7 @@ try { vm.runInContext(src, sandbox, { filename: 'features.js' }); } catch (e) { 
 console.log('== 0. 加载 ==');
 ok('features.js 可加载', !loadErr, loadErr && loadErr.message);
 
-console.log('== 1. 顶栏按钮的三个常驻项 ==');
+console.log('== 1. 顶栏常驻按钮（语言 / 主题）==');
 const T = win.__FX_TEST__ || {};
 ok('内部函数已暴露', typeof T.wireHeader === 'function', JSON.stringify(T.error || ''));
 if (typeof T.wireHeader !== 'function') { console.log(`\n通过 ${pass} / 失败 ${fail}`); process.exit(1); }
@@ -196,13 +194,11 @@ ok('语言按钮带 lang-btn 类', !!langBtn && langBtn._cls.has('lang-btn'));
 ok('语言按钮是 icon-only 圆形', !!langBtn && langBtn._cls.has('icon-only'));
 ok('语言按钮文案为 EN', !!langBtn && langBtn.textContent === 'EN');
 
-ok('版本按钮存在 (#skinSwitch)', !!byId(doc.body, 'skinSwitch'));
 ok('主题按钮存在 (#themeBtn)', !!byId(doc.body, 'themeBtn'));
 
 console.log('== 2. 桌面端的投稿 / 收藏打上 only-desktop ==');
 ok('投稿链接带 only-desktop', nodes.submit._cls.has('only-desktop'));
 ok('收藏链接带 only-desktop', nodes.fav._cls.has('only-desktop'));
-ok('版本按钮没有 only-desktop（移动端要留）', !nodes.skin._cls.has('only-desktop'));
 ok('主题按钮没有 only-desktop（移动端要留）', !nodes.theme._cls.has('only-desktop'));
 ok('语言按钮没有 only-desktop（移动端要留）', !!langBtn && !langBtn._cls.has('only-desktop'));
 
@@ -225,7 +221,9 @@ console.log('== 4. 菜单项顺序（命令面板 → 投稿） ==');
 const kids = nodes.navLinks.children;
 const iMb = kids.indexOf(mb), iMs = kids.indexOf(ms);
 ok('命令面板在投稿之前', iMb >= 0 && iMs > iMb, `${iMb} vs ${iMs}`);
-ok('两项都在原有导航链接之后', iMb >= 6, String(iMb));
+const origLinks = kids.filter(k => k._cls && k._cls.has('nav-link') && !k._cls.has('only-mobile'));
+const lastOrigIdx = origLinks.reduce((m, k) => Math.max(m, kids.indexOf(k)), -1);
+ok('两项都在原有导航链接之后', iMb > lastOrigIdx, `${iMb} > ${lastOrigIdx}`);
 
 console.log('== 5. 点击菜单项后收起菜单 ==');
 nodes.navLinks._cls.add('open');

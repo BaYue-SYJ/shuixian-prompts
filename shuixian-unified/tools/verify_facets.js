@@ -35,35 +35,17 @@ function clickRarest(page) {
 (async () => {
   const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
 
-  // ---------- 画廊页 ----------
+  // ---------- 画廊页：分面块已按需求移除（回归：不得再出现）----------
   {
     const page = await browser.newPage();
     await page.setViewport({ width: 1440, height: 900 });
     await page.goto(BASE + '/gallery.html?cat=' + encodeURIComponent('城市海报'), { waitUntil: 'networkidle2', timeout: 60000 });
-    await waitFacets(page);
-    await new Promise(r => setTimeout(r, 900));
-    const onBefore = await page.evaluate(() => document.querySelectorAll('#fxFacetHost .facet-chip.on').length);
-    const before = await totalCount(page);
-    const bn = await clickRarest(page);
-    await new Promise(r => setTimeout(r, 350));
-    const onAfter = await page.evaluate(() => { const c = document.querySelector('#fxFacetHost .facet-chip.on'); return !!c; });
-    const onCount = await page.evaluate(() => document.querySelectorAll('#fxFacetHost .facet-chip.on').length);
-    const after = await totalCount(page);
-    check('[gallery] 点击前无 .on 高亮', onBefore === 0, 'on=' + onBefore);
-    check('[gallery] 点击后 .on 高亮出现', onAfter === true);
-    check('[gallery] 点击后 .on 数量=1', onCount === 1, 'on=' + onCount);
-    check('[gallery] 筛选后总数下降', after < before, 'before=' + before + ' after=' + after + ' chipN=' + bn);
-    check('[gallery] 筛选后总数=被点 chip 计数', after === bn, 'after=' + after + ' chipN=' + bn);
-    // 再点一次取消
-    await page.evaluate(() => { const c = document.querySelector('#fxFacetHost .facet-chip.on'); if (c) c.click(); });
-    await new Promise(r => setTimeout(r, 350));
-    const onAgain = await page.evaluate(() => document.querySelectorAll('#fxFacetHost .facet-chip.on').length);
-    check('[gallery] 再次点击取消高亮', onAgain === 0);
-    // 清除筛选
-    await page.evaluate(() => { const b = document.querySelector('#fxFacetClear'); if (b) b.click(); });
-    await new Promise(r => setTimeout(r, 350));
-    const onClear = await page.evaluate(() => document.querySelectorAll('#fxFacetHost .facet-chip.on').length);
-    check('[gallery] 清除筛选后 .on 清零', onClear === 0, 'on=' + onClear);
+    await page.waitForSelector('#grid .m-col', { timeout: 15000 }).catch(() => {});
+    await new Promise(r => setTimeout(r, 800));
+    const facetHost = await page.evaluate(() => !!document.querySelector('#fxFacetHost'));
+    const filterBar = await page.evaluate(() => !!document.querySelector('#fxFilterBar'));
+    check('[gallery] 分面块已移除（无 #fxFacetHost）', facetHost === false);
+    check('[gallery] 筛选开关条仍保留（有 #fxFilterBar）', filterBar === true);
     await page.close();
   }
 

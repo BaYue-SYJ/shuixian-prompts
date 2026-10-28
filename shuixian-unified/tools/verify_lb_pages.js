@@ -41,18 +41,6 @@ const gotoFor = (page) => {
     await pg.goto('http://127.0.0.1:8140/' + gotoFor(page), { waitUntil: 'networkidle2', timeout: 60000 });
     await new Promise(r => setTimeout(r, 2500));
 
-    // 分类页：先点一个分类 chip 进入该分类的列表
-    if (page === 'categories.html') {
-      const jumped = await pg.evaluate(async () => {
-        const a = document.querySelector('a[href*="gallery.html"], .cat-card, [data-cat]');
-        if (!a) return false;
-        a.click();
-        return true;
-      }).catch(() => false);
-      await new Promise(r => setTimeout(r, 3200));
-      if (!jumped) { ok(false, `${page}: 分类页无法进入列表`); await pg.close(); continue; }
-    }
-
     // detail.html 用 ?id= 直接开灯箱；其余页面点第一张卡
     const opened = await pg.evaluate(async () => {
       const lb = document.querySelector('#sx-lightbox');
