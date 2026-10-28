@@ -16,7 +16,7 @@
 
 </div>
 
-<img src="docs/screenshots/features/01-home.png" alt="Home" width="100%">
+<img src="docs/screenshots/features/01-home.png?v=20260921" alt="Home" width="100%">
 
 ## What is this
 
@@ -75,22 +75,22 @@ Same dataset, two ways to browse. The switch tries to stay on the same kind of p
 
 | Modern — one page per view | Classic — 13-category card wall |
 | --- | --- |
-| <img src="docs/screenshots/features/01-home.png" alt="Modern home"> | <img src="docs/screenshots/unified/home-classic.png" alt="Classic home"> |
+| <img src="docs/screenshots/features/01-home.png?v=20260921" alt="Modern home"> | <img src="docs/screenshots/unified/home-classic.png?v=20260921" alt="Classic home"> |
 
 <details>
 <summary>More screenshots (prompt detail / command palette / facets / collections / English UI / mobile)</summary>
 
 | Prompt detail · copy & save | Command palette ⌘K |
 | --- | --- |
-| <img src="docs/screenshots/features/07-detail.png" alt="Prompt detail"> | <img src="docs/screenshots/features/02-command-palette.png" alt="Command palette"> |
+| <img src="docs/screenshots/features/07-detail.png?v=20260921" alt="Prompt detail"> | <img src="docs/screenshots/features/02-command-palette.png?v=20260921" alt="Command palette"> |
 
 | Facet tags | Collections manager |
 | --- | --- |
-| <img src="docs/screenshots/features/03-facets.png" alt="Facet tags"> | <img src="docs/screenshots/features/08-collections.png" alt="Collections"> |
+| <img src="docs/screenshots/features/03-facets.png?v=20260921" alt="Facet tags"> | <img src="docs/screenshots/features/08-collections.png?v=20260921" alt="Collections"> |
 
 | English UI | Mobile |
 | --- | --- |
-| <img src="docs/screenshots/features/10-english-home.png" alt="English UI"> | <img src="docs/screenshots/features/16-mobile-nav.png" alt="Mobile"> |
+| <img src="docs/screenshots/features/10-english-home.png?v=20260921" alt="English UI"> | <img src="docs/screenshots/features/16-mobile-nav.png?v=20260921" alt="Mobile"> |
 
 </details>
 

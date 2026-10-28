@@ -16,7 +16,7 @@
 
 </div>
 
-<img src="docs/screenshots/features/01-home.png" alt="首页" width="100%">
+<img src="docs/screenshots/features/01-home.png?v=20260921" alt="首页" width="100%">
 
 ## 这是什么
 
@@ -76,22 +76,22 @@ python -m http.server 8094 --directory shuixian-unified
 
 | 现代版 — 页面级拆分 | 经典版 — 13 大类卡片墙 |
 | --- | --- |
-| <img src="docs/screenshots/features/01-home.png" alt="现代版首页"> | <img src="docs/screenshots/unified/home-classic.png" alt="经典版首页"> |
+| <img src="docs/screenshots/features/01-home.png?v=20260921" alt="现代版首页"> | <img src="docs/screenshots/unified/home-classic.png?v=20260921" alt="经典版首页"> |
 
 <details>
 <summary>更多截图（提示词详情 / 命令面板 / 标签分面 / 收藏合集 / 英文版 / 手机端）</summary>
 
 | 提示词详情 · 复制与收藏 | 命令面板 ⌘K |
 | --- | --- |
-| <img src="docs/screenshots/features/07-detail.png" alt="提示词详情"> | <img src="docs/screenshots/features/02-command-palette.png" alt="命令面板"> |
+| <img src="docs/screenshots/features/07-detail.png?v=20260921" alt="提示词详情"> | <img src="docs/screenshots/features/02-command-palette.png?v=20260921" alt="命令面板"> |
 
 | 标签分面 | 收藏合集管理 |
 | --- | --- |
-| <img src="docs/screenshots/features/03-facets.png" alt="标签分面"> | <img src="docs/screenshots/features/08-collections.png" alt="收藏合集"> |
+| <img src="docs/screenshots/features/03-facets.png?v=20260921" alt="标签分面"> | <img src="docs/screenshots/features/08-collections.png?v=20260921" alt="收藏合集"> |
 
 | 英文版 | 手机端 |
 | --- | --- |
-| <img src="docs/screenshots/features/10-english-home.png" alt="英文版"> | <img src="docs/screenshots/features/16-mobile-nav.png" alt="手机端"> |
+| <img src="docs/screenshots/features/10-english-home.png?v=20260921" alt="英文版"> | <img src="docs/screenshots/features/16-mobile-nav.png?v=20260921" alt="手机端"> |
 
 </details>
 
