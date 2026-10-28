@@ -4,9 +4,9 @@
 
 # 水仙的AI提示词 · Shuixian's AI Prompts
 
-**5,430 curated Chinese AI-art prompts — search, browse, copy in one click. Fully open source.**
+**6,011 curated Chinese AI-art prompts — search, browse, copy in one click. Fully open source.**
 
-12 categories · 79 subcategories · a preview image for every prompt · no login required
+13 categories · 79 subcategories · a preview image for every prompt · no login required
 
 [🖥 Live site](https://prompt.qqsrc.com/) ·
 [✨ Features](#-features) ·
@@ -38,7 +38,7 @@ The prompts cover Midjourney, Stable Diffusion, Flux, ChatGPT and Gemini, plus C
 
 **Use**
 
-- One-click copy; prompts with parameters open a form and copy a **ready-to-use** result instead of a template
+- One-click copy; `{parameter}` placeholders are left as-is so you can fill them in (the classic skin also has a fill-in form that yields a ready-to-use prompt)
 - Image download (filename auto-built from title + ID), `#id=` deep links, context-aware ‹ › paging in the lightbox
 - Notes and a “used” counter — saved as you type, kept in your browser only
 
@@ -49,8 +49,8 @@ The prompts cover Midjourney, Stable Diffusion, Flux, ChatGPT and Gemini, plus C
 
 **More**
 
-- Two skins: modern (page-per-view) and classic (12-category card wall) — one button in the header switches
-- Full bilingual UI: click `EN / 中` to translate the whole site, including all 87 category names; the choice is remembered
+- Two skins: modern (page-per-view) and classic (13-category card wall) — one button in the header switches
+- Full bilingual UI: click `EN / 中` to translate the whole site, including all 92 category names (13 categories + 79 subcategories); the choice is remembered
 - PWA: installable to desktop, browse the shell and lightweight data offline; press `?` for shortcuts
 - Userscript: summon a sidebar to search and copy from ChatGPT / Claude / Gemini / Midjourney / 即梦 pages
 
@@ -73,16 +73,16 @@ Caching rules live in `_headers`; after changing CSS / JS bump the `?v=` and `AS
 
 Same dataset, two ways to browse. The switch tries to stay on the same kind of page (home↔home, gallery↔gallery, favourites↔favourites).
 
-| Modern — one page per view | Classic — 12-category card wall |
+| Modern — one page per view | Classic — 13-category card wall |
 | --- | --- |
 | <img src="docs/screenshots/features/01-home.png" alt="Modern home"> | <img src="docs/screenshots/unified/home-classic.png" alt="Classic home"> |
 
 <details>
-<summary>More screenshots (variable filling / command palette / facets / collections / English UI / mobile)</summary>
+<summary>More screenshots (prompt detail / command palette / facets / collections / English UI / mobile)</summary>
 
-| Variable filling → ready-to-use copy | Command palette ⌘K |
+| Prompt detail · copy & save | Command palette ⌘K |
 | --- | --- |
-| <img src="docs/screenshots/features/07-varfill.png" alt="Variable filling"> | <img src="docs/screenshots/features/02-command-palette.png" alt="Command palette"> |
+| <img src="docs/screenshots/features/07-detail.png" alt="Prompt detail"> | <img src="docs/screenshots/features/02-command-palette.png" alt="Command palette"> |
 
 | Facet tags | Collections manager |
 | --- | --- |
@@ -105,7 +105,7 @@ shuixian-unified/          The site (self-contained, deployable as-is)
 ├── js/
 │   ├── base.js            Data loading, cards, lightbox, favourites
 │   ├── features.js        Variable filling / facets / search / palette / collections / i18n
-│   └── i18n.js            261 UI strings + 87 category names
+│   └── i18n.js            122 UI strings + 92 category names
 ├── data/                  Dataset (shared by both skins)
 ├── tools/                 Maintenance scripts (pinyin table, version bump, i18n injection, tests)
 ├── userscript/            Tampermonkey sidebar script

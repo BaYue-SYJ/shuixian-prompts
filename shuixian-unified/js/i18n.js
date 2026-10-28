@@ -9,7 +9,7 @@
    带 {n} / {q} / {name} 的文案用 FX.tf(key, {...}) 格式化。
    ========================================================= */
 window.SX_I18N = {
-  /* ---------- 分类名英文映射（12 大类 + 79 小类去重） ---------- */
+  /* ---------- 分类名英文映射（13 大类 + 79 小类去重） ---------- */
   cat: {
     // 13 大类
     "New欧美": "New Western",
@@ -174,6 +174,7 @@ window.SX_I18N = {
       idx_pick_eyebrow: "Editor's Pick", idx_pick_h2: "每日精选",
       idx_pick_p: "从各路主题里随机捞了几条，点开看详情；不喜欢这波，点「换一批」。",
 idx_see_all: "查看全部 {total} 条",
+      idx_cta_gallery: "开始逛画廊",
       idx_cta1_h3: "有好的提示词？投给我们",
       idx_cta1_p: "你的作品会出现在水仙的花园里，被更多人看到、使用、喜欢。",
       idx_cta1_btn: "立即投稿",
@@ -320,6 +321,7 @@ sp_qr_cap: "微信扫一扫 · 赞赏作者",
       idx_pick_eyebrow: "Editor's Pick", idx_pick_h2: "Daily picks",
       idx_pick_p: "A few random prompts from every corner of the garden. Open one for details, or shuffle for another batch.",
 idx_see_all: "See all {total} prompts",
+      idx_cta_gallery: "Browse the gallery",
       idx_cta1_h3: "Got a great prompt? Send it in",
       idx_cta1_p: "Your work will appear in Daffodil's garden, seen and used by more people.",
       idx_cta1_btn: "Submit now",
