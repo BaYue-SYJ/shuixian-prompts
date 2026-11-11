@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
 <link rel="dns-prefetch" href="https://r2.qqsrc.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=27">
-<link rel="stylesheet" href="css/features.css?v=27">
+<link rel="stylesheet" href="css/base.css?v=43">
+<link rel="stylesheet" href="css/features.css?v=43">
 <style>
 .detail-panel{display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:var(--surface);
   border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);margin-top:8px}
@@ -32,6 +32,9 @@
   .detail-body{max-height:none!important;overflow:visible}
   .detail-body > .lb-prompt{min-height:0;overflow:visible}}
 </style>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png?v=1">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#2C8CAB">
 </head>
@@ -46,17 +49,40 @@
     <div class="masonry" id="related"></div>
   </div></section>
 </main>
-<script src="js/base.js?v=27"></script>
-<script src="js/i18n.js?v=27"></script>
-<script src="js/features.js?v=27"></script>
+<script src="js/base.js?v=43"></script>
+<script src="js/i18n.js?v=43"></script>
+<script src="js/features.js?v=43"></script>
 <script>
 App.init({ page:'detail', onReady:function(){
   const D = App.D;
-  const id = +new URLSearchParams(location.search).get('id');
-  let s = App.findSample(id) || D.samples[0];
+  const rawId = new URLSearchParams(location.search).get('id');
+  // 先按对外连续编号解析，再回退内部 id（老链接继续可用）
+  const hit = rawId ? App.resolveId(rawId) : null;
+  const esc = t => (t == null ? '' : String(t)).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+  const T = (k, d) => (window.FX && FX.t) ? FX.t(k) : d;
+
+  // 链接里的 id 不存在时，不再静默显示第一条（会让人误以为那就是该 ID 的内容）
+  if (rawId !== null && rawId !== '' && !hit){
+    $('#detailMount').innerHTML = `
+      <a class="link-more" href="gallery.html" style="margin-bottom:14px;display:inline-flex">${esc(T('de_back', '← 返回画廊'))}</a>
+      <div class="detail-panel" style="grid-template-columns:1fr">
+        <div class="detail-body" style="align-items:flex-start;padding:56px 44px">
+          <p class="eyebrow" style="margin:0">Not found</p>
+          <h1 class="lb-title" style="margin:0">${esc(T('de_nf_title', '没有找到这条提示词'))}</h1>
+          <p style="color:var(--muted);margin:0;max-width:560px">
+            ID #${esc(rawId)} ${esc(T('de_nf_sub', '在数据集里不存在，可能已被移除，或链接里的编号有误。回画廊重新找，或用搜索框按关键词 / ID 搜索。'))}
+          </p>
+          <a class="btn btn-primary" href="gallery.html">${esc(T('de_nf_back', '返回画廊'))}</a>
+        </div>
+      </div>`;
+    document.title = 'Not found · 水仙的AI提示词';
+    setTimeout(() => { document.title = 'Not found · 水仙的AI提示词'; }, 80);   // 覆盖 applyI18n 的标题
+    return;
+  }
+
+  let s = hit || D.samples[0];
   const { bg, main } = App.catColor(s.category);
   const wm = (s.category || '图').slice(0, 1);
-  const esc = t => (t == null ? '' : String(t)).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
   const heart = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.3 8.4 2 5 5.3 5c2 0 3.4 1.2 4.7 3 1.3-1.8 2.7-3 4.7-3C18 5 19.7 8.4 22 11.7 19.5 16.4 12 21 12 21z"/></svg>`;
 
   function detailImgHTML(s){
@@ -76,7 +102,7 @@ App.init({ page:'detail', onReady:function(){
         <div class="detail-body">
           <div class="lb-crumb"><a data-i18n="nav_gallery" href="gallery.html">画廊</a> › <a href="gallery.html?cat=${encodeURIComponent(s.category)}" style="color:${main}">${esc(FX.catName(s.category))}</a></div>
           <h1 class="lb-title">${esc(s.title)}</h1>
-          <div class="lb-tags"><span class="tag cc" style="background:${bg};color:${main}">${esc(FX.catName(s.category))}</span><span class="tag">ID #${s.id}</span></div>
+          <div class="lb-tags"><span class="tag cc" style="background:${bg};color:${main}">${esc(FX.catName(s.category))}</span><span class="tag">ID #${App.seqOf(s)}</span></div>
           <div class="lb-prompt" id="dPrompt">${tok}</div>
           <div class="lb-actions">
             <button class="btn btn-primary" id="copyBtn">${esc(FX.t('copy_prompt'))}</button>
@@ -124,7 +150,7 @@ App.init({ page:'detail', onReady:function(){
   if (!s.prompt){
     App.ensureFull().then(() => {
       if (window.FX) FX.clearTagCache();
-      const f = App.findSample(id);
+      const f = App.resolveId(rawId);
       if (f && f.prompt){ s = f; const p = $('#dPrompt'); if (p) p.innerHTML = tokPrompt(f.prompt); }
     });
   }

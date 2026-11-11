@@ -2,14 +2,32 @@
 import subprocess, sys, os
 
 ROOT = r"C:\Users\lianxiang\WorkBuddy\2026-07-23-09-09-54\shuixian-unified-0920"
-NODE = r"C:\Users\lianxiang\.workbuddy\binaries\node\versions\22.22.2-3\node.exe"
-NMP = r"C:\Users\lianxiang\.workbuddy\binaries\node\workspace\node_modules"
+NBASE = r"C:\Users\lianxiang\.workbuddy\binaries\node"
+NMP = os.path.join(NBASE, "workspace", "node_modules")
+
+
+def pick_node():
+    """node 版本目录会变（22.22.2-3 → -6），自动挑一个能用的。"""
+    cands = []
+    vdir = os.path.join(NBASE, "versions")
+    if os.path.isdir(vdir):
+        for d in sorted(os.listdir(vdir), reverse=True):
+            exe = os.path.join(vdir, d, "node.exe")
+            if os.path.exists(exe):
+                cands.append(exe)
+    exe = os.path.join(NBASE, "current", "node.exe")
+    if os.path.exists(exe):
+        cands.append(exe)
+    return cands[0] if cands else "node"
+
+
+NODE = pick_node()
 
 SUITES = [
     "test_features", "test_i18n", "test_mobile_nav",
     "verify_lb_scroll", "verify_lb_edge", "verify_lb_pages",
     "verify_masonry", "verify_masonry_append", "verify_facets", "verify_facet_single",
-    "verify_multi", "verify_import_newcat", "verify_detail_fit", "verify_prompt_full",
+    "verify_multi", "verify_brand", "verify_search", "verify_import_newcat", "verify_new_sfw", "verify_detail_fit", "verify_prompt_full",
 ]
 
 env = os.environ.copy()

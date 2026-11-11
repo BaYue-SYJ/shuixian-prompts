@@ -41,7 +41,7 @@ const ok = (c, m, x) => { if (c) { pass++; console.log('  OK   ' + m); } else { 
   await pg.goto(BASE + 'gallery.html', { waitUntil: 'networkidle2', timeout: 60000 });
   await new Promise(r => setTimeout(r, 3000));
   const rail = await pg.evaluate(() => {
-    const leaf = document.querySelector('#filterGroup .maj.leaf');
+    const leaf = document.querySelector('#filterGroup .maj[data-maj="New欧美"]');
     const multi = document.querySelector('#filterGroup .maj.multi');
     return {
       leafExists: !!leaf,
@@ -57,12 +57,12 @@ const ok = (c, m, x) => { if (c) { pass++; console.log('  OK   ' + m); } else { 
   ok(rail.leafExists && rail.leafMaj === 'New欧美', '左栏出现大类入口「New欧美」', JSON.stringify(rail));
   ok(rail.leafLabel.indexOf(String(rail.leafCount)) >= 0, '「New欧美」计数 ' + rail.leafCount + '：' + rail.leafLabel);
 
-  await pg.click('#filterGroup .maj.leaf > button');
+  await pg.click('#filterGroup .maj[data-maj="New欧美"] > button');
   await new Promise(r => setTimeout(r, 1500));
   const filtered = await pg.evaluate(() => ({
     count: (document.querySelector('#resultCount') || {}).textContent || '',
     cards: document.querySelectorAll('#grid .card').length,
-    active: !!document.querySelector('.maj.leaf > button.active'),
+    active: !!document.querySelector('.maj[data-maj="New欧美"] > button.active'),
     badges: document.querySelectorAll('#grid .multi-badge').length,
   }));
   ok(filtered.count.replace(/[^0-9]/g, '') === String(rail.leafCount), '点「New欧美」结果数 = ' + rail.leafCount, filtered.count);

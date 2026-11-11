@@ -9,9 +9,10 @@
    带 {n} / {q} / {name} 的文案用 FX.tf(key, {...}) 格式化。
    ========================================================= */
 window.SX_I18N = {
-  /* ---------- 分类名英文映射（13 大类 + 79 小类去重） ---------- */
+  /* ---------- 分类名英文映射（14 大类 + 79 小类去重） ---------- */
   cat: {
-    // 13 大类
+    // 14 大类
+    "New-SFW": "New SFW",
     "New欧美": "New Western",
     "（大凶）": "Bombshell",
     "人物写真": "Portraits",
@@ -122,7 +123,7 @@ window.SX_I18N = {
       kbd_move: "移动", kbd_open: "打开", kbd_close: "关闭",
       /* --- 分面 / 筛选 --- */
       facet_medium: "媒介", facet_style: "风格", facet_tone: "色调", facet_clear: "清除筛选", facet_more: "更多",
-      filter_only_img: "只看有图", filter_fav: "仅看已收藏",
+      filter_fav: "仅看已收藏",
       /* --- 灯箱 / 详情 / 卡片 --- */
       copy_prompt: "复制提示词", copy_plain: "复制原文", dl_img: "下载图片",
       multi_tag: "多图",
@@ -183,18 +184,18 @@ idx_see_all: "查看全部 {total} 条",
       idx_cta2_btn: "去赞赏",
       /* --- 页面：画廊 --- */
       gal_eyebrow: "Gallery", gal_h1: "提示词画廊",
-      gal_sub: "按大类、小类筛选，或用关键词搜索（支持拼音首字母，如 <b>sbpk</b> → 赛博朋克）；点卡片看完整提示词，心仪的收进合集。",
-gal_clear: "清除筛选",
-      gal_search_ph: "在结果里搜索…",
+gal_all_cats: "全部分类", gal_clear: "清除筛选",
+      gal_search_ph: "搜提示词、标签，或输入 ID（如 1234）",
       gal_view_masonry: "瀑布流", gal_view_list: "列表",
       gal_sort_latest: "最新", gal_sort_hot: "最热", gal_sort_random: "随机",
       gal_more: "显示更多",
       gal_count: "共 {n} 条",
       gal_legend: "关键词 <b>{q}</b> 已高亮 · 支持模糊匹配与拼音首字母（示例：sbpk → 赛博朋克）",
+      gal_legend_id: "按 ID 精确匹配 <b>#{q}</b>",
       /* --- 页面：分类 --- */
       /* --- 页面：搜索 --- */
       se_eyebrow: "Search", se_h1: "搜你喜欢的那一句",
-      se_ph: "试试「赛博朋克」「角色立绘」「电影感」，也支持拼音缩写 sbpk…",
+      se_ph: "试试「赛博朋克」「角色立绘」「电影感」，也支持拼音缩写 sbpk，或直接输入 ID（如 1234）…",
 se_recent: "最近搜索", se_hot: "大家都在搜", se_tags: "按标签逛", se_none: "暂无",
       se_placeholder_count: "输入关键词开始搜索",
       se_count: "「{q}」相关结果", se_reco: "推荐 · 热门提示词",
@@ -202,12 +203,14 @@ se_recent: "最近搜索", se_hot: "大家都在搜", se_tags: "按标签逛", s
       se_sort_rel: "相关度",
       /* --- 页面：详情 --- */
       de_back: "← 返回画廊", de_crumb_gallery: "画廊", de_related: "同类推荐", de_more: "查看更多",
+      de_nf_title: "没有找到这条提示词", de_nf_back: "返回画廊",
+      de_nf_sub: "在数据集里不存在，可能已被移除，或链接里的编号有误。回画廊重新找，或用搜索框按关键词 / ID 搜索。",
       /* --- 页面：关于 --- */
       ab_eyebrow: "About", ab_h1: "关于水仙的提示词花园", ab_sub: "一个慢慢长起来的中文 AI 图像提示词合集",
       ab_lead: "「水仙的AI提示词」是一个持续收集、整理的中文 AI 图像生成提示词花园。我们把散落在各处的好句子按主题分门别类，让想出图的人能更快找到合适的那一句话。",
       ab_h2_what: "我们做了什么",
       ab_p_what: "提示词是和 AI 绘画模型沟通的语言。一句好的提示词，往往决定了出图的质量和风格。我们从大量实践里筛选出表达清晰、可复用、风格鲜明的提示词，并为每条标注了分类与预览图，方便你按场景检索。",
-      ab_li1: "<b>按主题聚合</b>：New欧美、人物写真、动漫二次元、海报广告、插画艺术、产品电商、游戏、建筑空间、车辆机械 3D、随手拍、晓兰 等 13 大类。",
+      ab_li1: "<b>按主题聚合</b>：New-SFW、New欧美、人物写真、动漫二次元、海报广告、插画艺术、产品电商、游戏、建筑空间、车辆机械 3D、随手拍、晓兰 等 14 大类。",
       ab_li2: "<b>可直接复制</b>：点开任意卡片即可查看完整提示词，一键复制使用。",
       ab_li3: "<b>本地收藏</b>：支持多画板收藏，无需登录，存在你自己的浏览器里。",
       ab_h2_rights: "图片与版权",
@@ -269,7 +272,7 @@ sp_qr_cap: "微信扫一扫 · 赞赏作者",
       kbd_move: "move", kbd_open: "open", kbd_close: "close",
       /* --- Facets / filters --- */
       facet_medium: "Medium", facet_style: "Style", facet_tone: "Tone", facet_clear: "Clear filters", facet_more: "more",
-      filter_only_img: "With image", filter_fav: "Favourited",
+      filter_fav: "Favourited",
       /* --- Lightbox / detail / card --- */
       copy_prompt: "Copy prompt", copy_plain: "Copy raw", dl_img: "Download image",
       multi_tag: "Multi-image",
@@ -330,18 +333,18 @@ idx_see_all: "See all {total} prompts",
       idx_cta2_btn: "Sponsor",
       /* --- Page: gallery --- */
       gal_eyebrow: "Gallery", gal_h1: "Prompt gallery",
-      gal_sub: "Filter by category, or search by keyword (pinyin initials work too — <b>sbpk</b> → 赛博朋克). Click a card for the full prompt, and save the ones you like into a collection.",
-gal_clear: "Clear filters",
-      gal_search_ph: "Search within results…",
+gal_all_cats: "All categories", gal_clear: "Clear filters",
+      gal_search_ph: "Search prompts, tags, or an ID (e.g. 1234)",
       gal_view_masonry: "Masonry", gal_view_list: "List",
       gal_sort_latest: "Newest", gal_sort_hot: "Most liked", gal_sort_random: "Random",
       gal_more: "Show more",
       gal_count: "{n} prompts",
       gal_legend: "Keyword <b>{q}</b> highlighted · fuzzy match and pinyin initials supported (e.g. sbpk → 赛博朋克)",
+      gal_legend_id: "Exact match by ID <b>#{q}</b>",
       /* --- Page: categories --- */
       /* --- Page: search --- */
       se_eyebrow: "Search", se_h1: "Find the line you like",
-      se_ph: "Try “赛博朋克”, “角色立绘”, “电影感” — pinyin initials like sbpk work too…",
+      se_ph: "Try “赛博朋克”, “角色立绘”, “电影感” — pinyin initials like sbpk, or type an ID such as 1234…",
 se_recent: "Recent", se_hot: "Trending", se_tags: "Browse by tag", se_none: "None yet",
       se_placeholder_count: "Type a keyword to start",
       se_count: "Results for “{q}”", se_reco: "Recommended · popular prompts",
@@ -349,12 +352,14 @@ se_recent: "Recent", se_hot: "Trending", se_tags: "Browse by tag", se_none: "Non
       se_sort_rel: "Relevance",
       /* --- Page: detail --- */
       de_back: "← Back to gallery", de_crumb_gallery: "Gallery", de_related: "You may also like", de_more: "View more",
+      de_nf_title: "Prompt not found", de_nf_back: "Back to gallery",
+      de_nf_sub: "is not in the dataset — it may have been removed, or the id in the link is wrong. Go back to the gallery, or search by keyword / ID.",
       /* --- Page: about --- */
       ab_eyebrow: "About", ab_h1: "About this prompt garden", ab_sub: "A Chinese AI image prompt collection, growing slowly",
       ab_lead: "“Daffodil's AI Prompts” is a steadily growing garden of Chinese AI image generation prompts. We sort good lines scattered across the web by theme, so anyone who wants to make images can find the right one faster.",
       ab_h2_what: "What we do",
       ab_p_what: "Prompts are how you talk to an image model. A good prompt often decides the quality and style of the result. From a lot of hands-on practice we picked prompts that are clear, reusable and distinctive, and tagged each with a category and a preview image so you can search by scenario.",
-      ab_li1: "<b>Grouped by theme</b>: 13 categories including New Western, portraits, anime & manga, posters & ads, illustration & art, product & e-commerce, games, architecture & scenes, vehicles & 3D, snapshots and Xiaolan.",
+      ab_li1: "<b>Grouped by theme</b>: 14 categories including New SFW, New Western, portraits, anime & manga, posters & ads, illustration & art, product & e-commerce, games, architecture & scenes, vehicles & 3D, snapshots and Xiaolan.",
       ab_li2: "<b>Copy and go</b>: open any card to read the full prompt and copy it in one click.",
       ab_li3: "<b>Local favourites</b>: multiple collections, no sign-up, stored in your own browser.",
       ab_h2_rights: "Images & copyright",

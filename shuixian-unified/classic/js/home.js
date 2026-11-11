@@ -115,10 +115,11 @@
 
   document.getElementById('refreshFeatured').onclick = () => { renderFeatured(); };
 
-  /* ---------- 全部分类：13 大类桶网格 ---------- */
+  /* ---------- 全部分类：14 大类桶网格 ---------- */
 
   // 每个大类的图标、颜色、描述
   const BUCKET_META = {
+    "New-SFW": {icon:"🛡", color:"#3E7D6A", desc:"安全向精选（SFW），不放擦边内容。"},
     "New欧美": {icon:"🌍", color:"#B5654A", desc:"欧美系人物与场景的当红派系。"},
     "动漫二次元": {icon:"🌟", color:"#9B5BC4", desc:"二次元角色、立绘、日漫风，还有各种动漫插画。"},
     "海报广告":   {icon:"📢", color:"#E0892F", desc:"海报、banner、封面和社媒配图，拿来就能用。"},

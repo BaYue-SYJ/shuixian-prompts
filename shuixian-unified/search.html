@@ -9,8 +9,11 @@
 <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
 <link rel="dns-prefetch" href="https://r2.qqsrc.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=27">
-<link rel="stylesheet" href="css/features.css?v=27">
+<link rel="stylesheet" href="css/base.css?v=43">
+<link rel="stylesheet" href="css/features.css?v=43">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png?v=1">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#2C8CAB">
 </head>
@@ -21,7 +24,7 @@
     <h1 data-i18n="se_h1" class="serif" style="font-size:clamp(28px,4vw,42px);font-weight:900;margin:0">搜你喜欢的那一句</h1>
     <div class="big-search">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <input id="bigSearch" type="text" placeholder="试试「赛博朋克」「角色立绘」「电影感」，也支持拼音缩写 sbpk…" data-i18n-placeholder="se_ph" autocomplete="off">
+      <input id="bigSearch" type="text" placeholder="试试「赛博朋克」「角色立绘」「电影感」，也支持拼音缩写 sbpk，或直接输入 ID（如 1234）…" data-i18n-placeholder="se_ph" autocomplete="off">
       <button data-i18n="nav_search" class="btn btn-primary" id="goBtn">搜索</button>
     </div>
     <div class="recent-row" id="recentRow"><span data-i18n="se_recent" class="lbl">最近搜索</span></div>
@@ -41,9 +44,9 @@
     <div class="empty" id="empty" style="display:none"><div class="big">🔍</div>没有匹配的提示词，换个关键词试试。</div>
   </div></section>
 </main>
-<script src="js/base.js?v=27"></script>
-<script src="js/i18n.js?v=27"></script>
-<script src="js/features.js?v=27"></script>
+<script src="js/base.js?v=43"></script>
+<script src="js/i18n.js?v=43"></script>
+<script src="js/features.js?v=43"></script>
 <script>
 App.init({ page:'search', onReady:function(){
   const D = App.D;
@@ -92,6 +95,12 @@ App.init({ page:'search', onReady:function(){
     if (state.sort === 'hot') list.sort((a,b) => b.likes - a.likes);
     else if (state.sort === 'latest') list.sort((a,b) => b.id - a.id);
     else if (state.q && ranked) list.sort((a,b) => ranked.indexOf(a.id) - ranked.indexOf(b.id));
+    // 按编号搜索：精确命中的那条置顶
+    const idq = state.q.replace(/^#/, '').trim();
+    if (/^\d{1,7}$/.test(idq)) {
+      const i = list.findIndex(s => String(App.seqOf(s)) === idq || String(s.id) === idq);
+      if (i > 0) list.unshift(list.splice(i, 1)[0]);
+    }
     $('#empty').style.display = list.length ? 'none' : 'block';
     const lg = $('#hlLegend');
     if (lg){

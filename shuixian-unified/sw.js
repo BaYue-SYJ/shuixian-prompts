@@ -8,7 +8,7 @@
      · R2 图片：cache-first 并按条数修剪，避免无限膨胀
    更新：改动静态资源后递增 CACHE 版本号即可触发换新
    ========================================================= */
-const VERSION = 'sx-v27';
+const VERSION = 'sx-v43';
 const SHELL = VERSION + '-shell';
 const DATA = VERSION + '-data';
 const IMG = VERSION + '-img';
@@ -26,17 +26,18 @@ const PRECACHE = [
   './submit.html',
   './404.html',
   './manifest.webmanifest',
-  './images/icon.svg',
+  './images/icon-192.png',
+  './images/icon-512.png',
   './images/wechat-qr.jpg',
-  './css/base.css?v=27',
-  './css/features.css?v=27',
-  './js/i18n.js?v=27',
-  './js/base.js?v=27',
-  './js/features.js?v=27',
-  './components/header.html?v=27',
-  './components/footer.html?v=27',
-  './components/lightbox.html?v=27',
-  './components/modals.html?v=27',
+  './css/base.css?v=43',
+  './css/features.css?v=43',
+  './js/i18n.js?v=43',
+  './js/base.js?v=43',
+  './js/features.js?v=43',
+  './components/header.html?v=43',
+  './components/footer.html?v=43',
+  './components/lightbox.html?v=43',
+  './components/modals.html?v=43',
   './data/meta.json',
   './data/pinyin.json',
   './data/list.part1.json',

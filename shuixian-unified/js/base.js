@@ -10,7 +10,7 @@
    ========================================================= */
 const App = (() => {
   // ---------- 配置 ----------
-  const ASSET_VERSION = '27';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
+  const ASSET_VERSION = '43';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
   const IMG_BASE = "https://r2.qqsrc.com";          // Cloudflare R2 公共图床
   const FAV_KEY = 'sx-boards-v2';
   const REC_KEY = 'sx-recent-v2';
@@ -55,12 +55,37 @@ const App = (() => {
 
   function findSample(id){ return DETAIL[id] || SAMPLES.find(s => s.id == id); }
 
+  /* ---------- 连续编号 ----------
+     内部 id（13443 / 29413 / 36001…）只用于存储与逻辑，不对外暴露。
+     对外统一用 seq：按 id 升序编 1..N，新增数据只在末尾追加，老编号不漂移。 */
+  const SEQ = new Map();          // id -> seq
+  const SEQ_ID = new Map();       // seq -> id
+  function buildSeq(){
+    const sorted = SAMPLES.slice().sort((a, b) => a.id - b.id);
+    sorted.forEach((s, i) => {
+      const n = i + 1;
+      s.seq = n;
+      SEQ.set(String(s.id), n);
+      SEQ_ID.set(String(n), s.id);
+    });
+  }
+  const seqOf = s => (s && (s.seq || SEQ.get(String(s.id)))) || (s ? s.id : '');
+  // 外部传入的编号：先按 seq 解析，再回退内部 id（老链接仍然可用）
+  function resolveId(raw){
+    const key = String(raw == null ? '' : raw).replace(/^#/, '').trim();
+    if (!key) return null;
+    const bySeq = SEQ_ID.get(key);
+    if (bySeq != null) return findSample(bySeq);
+    return findSample(key);
+  }
+
   async function loadData(){
     const meta = await (await fetch('data/meta.json')).json();
     META = meta;
     const parts = await Promise.all(LIST_PARTS.map(u => fetch(u).then(x => x.json()).catch(() => [])));
     SAMPLES = [].concat(...parts);
     SAMPLES.forEach(s => { DETAIL[s.id] = s; });
+    buildSeq();
   }
   // 按需加载完整数据（含 prompt），供灯箱 / 详情 / 全文搜索使用
   function ensureFull(){
@@ -69,6 +94,7 @@ const App = (() => {
     fullPromise = (async () => {
       const parts = await Promise.all(FULL_PARTS.map(u => fetch(u).then(x => x.json()).catch(() => [])));
       [].concat(...parts).forEach(e => {
+        e.seq = SEQ.get(String(e.id)) || e.seq;      // 完整数据替换时保留连续编号
         DETAIL[e.id] = e;
         const orig = SAMPLES.find(s => s.id == e.id);   // 把 prompt 回填进轻量列表，供搜索/画廊正文命中
         if (orig) orig.prompt = e.prompt;
@@ -174,7 +200,7 @@ const App = (() => {
   function cardHTML(s){
     const { main } = catColor(s.category);
     return `<article class="card" data-id="${s.id}">
-      <a class="thumb" href="detail.html?id=${s.id}" style="--cc:${main}">
+      <a class="thumb" href="detail.html?id=${seqOf(s)}" style="--cc:${main}">
         ${thumb(s)}
         <span class="cat-pill" style="--cc:${main}">${esc(catLabel(s.category))}</span>
         ${isMulti(s) ? `<span class="multi-badge">${esc(T('multi_tag', '多图'))} · ${imageList(s).length}</span>` : ''}
@@ -184,7 +210,7 @@ const App = (() => {
         </span>
       </a>
       <div class="body">
-        <a class="title" href="detail.html?id=${s.id}">${esc(s.title)}</a>
+        <a class="title" href="detail.html?id=${seqOf(s)}">${esc(s.title)}</a>
         <div class="prompt-line">${esc(s.prompt || '')}</div>
       </div>
     </article>`;
@@ -326,7 +352,7 @@ const App = (() => {
     $('#lbBody').innerHTML = `
       <div class="lb-crumb"><a href="gallery.html">${esc(T('de_crumb_gallery', '画廊'))}</a> › <a href="gallery.html?cat=${encodeURIComponent(s.category)}" style="--cc:${main}">${esc(catLabel(s.category))}</a></div>
       <h2 class="lb-title">${esc(s.title)}</h2>
-      <div class="lb-tags"><span class="tag cc" style="--cc:${main};--cc-bg:${bg}">${esc(catLabel(s.category))}</span><span class="tag">ID #${s.id}</span></div>
+      <div class="lb-tags"><span class="tag cc" style="--cc:${main};--cc-bg:${bg}">${esc(catLabel(s.category))}</span><span class="tag">ID #${seqOf(s)}</span></div>
       <div class="lb-prompt" id="lbPrompt">${tokPrompt}</div>
       <div class="lb-actions">
         <button class="btn btn-primary" id="lbCopy">${esc(T('copy_prompt', '复制提示词'))}</button>
@@ -369,6 +395,7 @@ const App = (() => {
     IMG_BASE, ASSET_VERSION,
     $, $$, imgUrl,
     findSample, catColor, thumb, cardHTML, renderCards, imageList, isMulti, attachThumbs,
+    seqOf, resolveId,
     openLightbox, closeLightbox, ensureFull,
     toggleFav, isFav, toast, copyText, getBoards, saveBoards
   };

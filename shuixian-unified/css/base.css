@@ -80,9 +80,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .sx-nav-inner{max-width:var(--maxw);margin:0 auto;height:100%;padding:20px;
   display:flex;align-items:center;gap:22px}
 .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:.2px;white-space:nowrap}
-.brand .mark{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:11px;color:var(--garden);
-  background:linear-gradient(140deg,var(--daffodil),var(--garden));box-shadow:var(--shadow-sm)}
-.brand .mark svg{width:22px;height:22px}
+/* 品牌标记：完整原图等比缩放（不裁剪），白色圆角卡片托底 */
+.brand .mark{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:8px;padding:0;
+  background:#fff;box-shadow:var(--shadow-sm);overflow:hidden}
+.brand .mark img{width:100%;height:100%;display:block;object-fit:contain}
 .brand small{display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:11px;color:var(--muted);letter-spacing:0}
 .nav-links{display:flex;align-items:center;gap:4px;margin-left:8px}
 .nav-links a{padding:8px 14px;border-radius:999px;font-size:14.5px;font-weight:500;color:var(--ink-2);transition:.18s}
@@ -112,7 +113,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .nav-search{width:200px}.nav-links a{padding:8px 10px}
 }
 @media(max-width:1000px){
-  .nav-links,.nav-search{display:none}.nav-toggle{display:grid}
+  /* 导航里的搜索框在窄屏隐藏；画廊自己的搜索框（.gal-search）必须保留 */
+  .nav-links,.nav-search:not(.gal-search){display:none}.nav-toggle{display:grid}
   .nav-links.open{display:flex;position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;
     background:var(--surface);border-bottom:1px solid var(--line);padding:14px 20px;gap:4px;
     box-shadow:var(--shadow);z-index:60}
@@ -448,5 +450,3 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   border:1px solid var(--line);font-weight:700;box-shadow:var(--shadow-sm)}
 .show-more:hover{border-color:var(--garden);color:var(--garden)}
 
-/* 品牌标记小圆点跟随主色 */
-.brand .mark svg circle{ fill: var(--garden); }

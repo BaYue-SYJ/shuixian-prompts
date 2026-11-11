@@ -40,6 +40,7 @@ const windowStub = {
 const AppStub = {
   getBoards: () => ({ boards: [{ id: 'default', name: '我的收藏', items: [] }], active: 'default' }),
   saveBoards: noop, findSample: id => prompts.find(p => p.id == id),
+  seqOf: s => (s && (s.seq || s.id)) || '', resolveId: raw => prompts.find(p => p.id == raw),
   ALL: prompts, D: { samples: prompts }, toast: noop, copyText: noop, isFav: () => false,
   imgUrl: p => 'https://r2.qqsrc.com/' + p, ensureFull: () => Promise.resolve(),
   openLightbox: noop, renderCards: noop,
@@ -100,10 +101,12 @@ function check(name, cond, extra) {
   const f1 = FX.applyFilters(prompts);
   check('按分面筛选后数量变少且全部命中', f1.length > 0 && f1.length < prompts.length && f1.every(x => (FX.tagsFor(x)['媒介'] || []).includes('海报')), f1.length + '/' + prompts.length);
   FX.filters.facets = {};
-  FX.filters.hasImage = true;
+  // 「只看有图」已按需求移除，改测「仅看已收藏」开关
+  AppStub.isFav = id => id === prompts[0].id;
+  FX.filters.favOnly = true;
   const f2 = FX.applyFilters(prompts);
-  check('「只看有图」过滤生效', f2.length > 0 && f2.every(x => !!x.image), f2.length + '/' + prompts.length);
-  FX.filters.hasImage = false;
+  check('「仅看已收藏」过滤生效', f2.length === 1 && f2[0].id === prompts[0].id, f2.length + '/' + prompts.length);
+  FX.filters.favOnly = false;
   check('重置后恢复全量', FX.applyFilters(prompts).length === prompts.length);
 
   console.log('== 5. 导出 ==');

@@ -9,8 +9,11 @@
 <link rel="preconnect" href="https://r2.qqsrc.com" crossorigin>
 <link rel="dns-prefetch" href="https://r2.qqsrc.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=27">
-<link rel="stylesheet" href="css/features.css?v=27">
+<link rel="stylesheet" href="css/base.css?v=43">
+<link rel="stylesheet" href="css/features.css?v=43">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icon-32.png?v=1">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png?v=1">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#2C8CAB">
 <style>
@@ -20,6 +23,28 @@
 .masonry.uniform .card .thumb .ph{height:150px}
 .masonry.uniform .card .body{justify-content:center}
 @media(max-width:560px){.masonry.uniform .card{grid-template-columns:1fr}.masonry.uniform .card .thumb .ph{height:180px}}
+
+/* 筛选条 + 搜索框 同一行 */
+.gallery-tools{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.gallery-tools #fxFilterBarSlot{flex:1 1 300px;min-width:0}
+.gallery-tools .filter-bar{margin-bottom:0}
+.gallery-tools .gal-search{flex:0 0 auto;width:320px;height:44px}
+/* 桌面端：分类栏常开，折叠按钮不出现 */
+.filter-rail .rail-toggle{display:none}
+.rail-body{display:block}
+@media(max-width:860px){
+  .gallery-tools .gal-search{width:100%}
+
+  /* 分类栏折叠：默认收起成一行，点标题展开 */
+  .filter-rail{padding:0;overflow:hidden;max-height:none}
+  .filter-rail h4{display:none}
+  .filter-rail .rail-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;
+    padding:15px 18px;font-size:15px;font-weight:700;color:var(--ink);background:none}
+  .filter-rail .rail-toggle .chev{color:var(--muted);transition:transform .22s}
+  .filter-rail.open .rail-toggle .chev{transform:rotate(180deg)}
+  .filter-rail .rail-body{display:none;padding:0 14px 14px}
+  .filter-rail.open .rail-body{display:block}
+}
 </style>
 </head>
 <body data-page="gallery">
@@ -27,27 +52,35 @@
   <div class="page-head"><div class="shell">
     <p data-i18n="gal_eyebrow" class="eyebrow">Gallery</p>
     <h1 data-i18n="gal_h1">提示词画廊</h1>
-    <p data-i18n="gal_sub" class="sub">按大类、小类筛选，或用关键词搜索（支持拼音首字母，如 <b>sbpk</b> → 赛博朋克）；点卡片看完整提示词，心仪的收进合集。</p>
   </div></div>
 
   <div class="shell">
     <div class="gallery-layout">
-      <!-- FILTER RAIL -->
+      <!-- FILTER RAIL：窄屏折叠成一行，点标题展开 -->
       <aside class="filter-rail" id="filterRail">
-        <h4>全部分类</h4>
-        <div class="filter-group" id="filterGroup"></div>
-        <div style="margin-top:6px"><button data-i18n="gal_clear" class="chip" id="clearFilter">清除筛选</button></div>
+        <button class="rail-toggle" id="railToggle" type="button" aria-expanded="false" aria-controls="railBody">
+          <span data-i18n="gal_all_cats">全部分类</span>
+          <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="rail-body" id="railBody">
+          <h4>全部分类</h4>
+          <div class="filter-group" id="filterGroup"></div>
+          <div style="margin-top:6px"><button data-i18n="gal_clear" class="chip" id="clearFilter">清除筛选</button></div>
+        </div>
       </aside>
 
       <!-- RESULTS -->
       <section>
-        <!-- 分面标签块已按需求移除 -->
+        <!-- 筛选条 + 搜索框同一行：筛选开关在左，搜索框占右侧 -->
+        <div class="gallery-tools" id="galleryTools">
+          <div id="fxFilterBarSlot"></div>
+          <div class="nav-search gal-search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="galSearch" type="text" placeholder="搜提示词、标签，或输入 ID（如 1234）" data-i18n-placeholder="gal_search_ph" autocomplete="off">
+          </div>
+        </div>
         <div class="gallery-bar">
           <span class="count" id="resultCount">—</span>
-          <div class="nav-search" style="width:280px;height:44px;margin:0">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input id="galSearch" type="text" placeholder="在结果里搜索…" data-i18n-placeholder="gal_search_ph" autocomplete="off">
-          </div>
           <span class="spacer"></span>
           <div class="view-toggles" id="viewToggle">
             <button data-view="masonry" class="active" title="瀑布流" data-i18n-title="gal_view_masonry">
@@ -68,9 +101,9 @@
     </div>
   </div>
 </main>
-<script src="js/base.js?v=27"></script>
-<script src="js/i18n.js?v=27"></script>
-<script src="js/features.js?v=27"></script>
+<script src="js/base.js?v=43"></script>
+<script src="js/i18n.js?v=43"></script>
+<script src="js/features.js?v=43"></script>
 <script>
 App.init({ page:'gallery', onReady:function(){
   const D = App.D;
@@ -102,13 +135,27 @@ App.init({ page:'gallery', onReady:function(){
         <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="sublist">${subs}</div></div>`;
   }).join('');
+  // 窄屏：分类栏折叠/展开
+  const railEl = $('#filterRail'), railBtn = $('#railToggle');
+  const collapseRail = () => {
+    if (!railEl) return;
+    railEl.classList.remove('open');
+    if (railBtn) railBtn.setAttribute('aria-expanded', 'false');
+  };
+  if (railBtn) railBtn.addEventListener('click', () => {
+    const open = railEl.classList.toggle('open');
+    railBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
   // 一级可点选入口（多图 / 无子类的大类）
   fg.querySelectorAll('.maj.multi>button, .maj.leaf>button').forEach(b => b.addEventListener('click', () => {
     state.cat = b.parentElement.dataset.maj; state.shown = 24; syncFilterUI(); refreshAll();
+    if (window.innerWidth <= 860) collapseRail();     // 选完自动收起，直接看结果
   }));
   fg.querySelectorAll('.maj:not(.multi):not(.leaf)>button').forEach(b => b.addEventListener('click', () => b.parentElement.classList.toggle('open')));
   fg.querySelectorAll('.sublist button').forEach(b => b.addEventListener('click', () => {
     state.cat = b.dataset.cat; state.shown = 24; syncFilterUI(); refreshAll();
+    if (window.innerWidth <= 860) collapseRail();
   }));
 
   function syncFilterUI(){
@@ -143,6 +190,12 @@ App.init({ page:'gallery', onReady:function(){
     if (state.sort === 'hot') list.sort((a,b) => b.likes - a.likes);
     else if (state.sort === 'random') list.sort((a,b) => (a.id * rndSeed) % 1 - (b.id * rndSeed) % 1);
     else list.sort((a,b) => b.id - a.id);
+    // 按编号搜索时，精确命中的那条永远置顶（不受「随机/最热」排序影响）
+    const idq = state.q.replace(/^#/, '').trim();
+    if (/^\d{1,7}$/.test(idq)) {
+      const i = list.findIndex(s => String(App.seqOf(s)) === idq || String(s.id) === idq);
+      if (i > 0) list.unshift(list.splice(i, 1)[0]);
+    }
     return list;
   }
 
@@ -156,7 +209,11 @@ App.init({ page:'gallery', onReady:function(){
     if (lg){
       if (state.q){
         lg.style.display = 'block';
-        lg.innerHTML = FX.tf('gal_legend', { q: FX.esc(state.q) });
+        // 纯数字（可带 #）按 ID 搜索，提示语换成「按 ID 精确匹配」
+        const idq = state.q.replace(/^#/, '');
+        lg.innerHTML = /^\d{1,7}$/.test(idq)
+          ? FX.tf('gal_legend_id', { q: FX.esc(idq) })
+          : FX.tf('gal_legend', { q: FX.esc(state.q) });
       } else lg.style.display = 'none';
     }
   }
@@ -179,7 +236,7 @@ App.init({ page:'gallery', onReady:function(){
   }));
   $('#clearFilter').addEventListener('click', () => {
     state.cat = '全部'; state.q = ''; gs.value = ''; state.shown = 24;
-    FX.filters.facets = {}; FX.filters.hasImage = false; FX.filters.favOnly = false;
+    FX.filters.facets = {}; FX.filters.favOnly = false;
     syncFilterUI(); refreshAll();
   });
   $('#showMore').addEventListener('click', () => { state.shown += 24; render(true); });

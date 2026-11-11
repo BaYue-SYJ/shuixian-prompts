@@ -45,7 +45,7 @@
       cmd_export: '导出收藏合集', cmd_help: '键盘快捷键', cmd_gallery: '去画廊', cmd_search: '去搜索',
       cmd_cats: '去分类总览', cmd_fav: '去收藏合集', cmd_about: '去关于', cmd_submit: '去投稿',
       facet_medium: '媒介', facet_style: '风格', facet_tone: '色调', facet_clear: '清除筛选',
-      filter_only_img: '只看有图', filter_fav: '仅看已收藏',
+      filter_fav: '仅看已收藏',
       facet_more: '更多',
       col_title: '我的收藏合集', col_new: '＋ 新建合集', col_rename: '重命名', col_dup: '复制合集',
       col_del: '删除合集', col_clear: '清空合集', col_empty: '这个合集还是空的，去画廊点 ❤ 收藏吧。',
@@ -66,7 +66,7 @@
       cmd_export: 'Export collections', cmd_help: 'Keyboard shortcuts', cmd_gallery: 'Go to gallery', cmd_search: 'Go to search',
       cmd_cats: 'Browse categories', cmd_fav: 'My collections', cmd_about: 'About', cmd_submit: 'Submit a prompt',
       facet_medium: 'Medium', facet_style: 'Style', facet_tone: 'Tone', facet_clear: 'Clear filters',
-      filter_only_img: 'With image', filter_fav: 'Favorited only',
+      filter_fav: 'Favorited only',
       facet_more: 'more',
       col_title: 'My collections', col_new: '＋ New collection', col_rename: 'Rename', col_dup: 'Duplicate',
       col_del: 'Delete', col_clear: 'Clear', col_empty: 'This collection is empty — tap ❤ in the gallery to add prompts.',
@@ -206,6 +206,10 @@
   function smartScore(item, q) {
     if (!q) return 1;
     const needle = q.toLowerCase().trim();
+    // ID 搜索：#1234 / 1234 都直接命中最前
+    const idq = needle.replace(/^#/, '');
+    // ID 搜索走对外连续编号（seq），老链接里的内部 id 也照样命中
+    if (/^\d{1,7}$/.test(idq) && (String(App.seqOf(item)) === idq || String(item.id) === idq)) return 100000;
     const title = (item.title || '').toLowerCase();
     const cat = (item.category || '').toLowerCase();
     const prompt = (item.prompt || '').toLowerCase();
@@ -270,7 +274,7 @@
   }
   function itemToMD(s) {
     const lines = ['## ' + (s.title || ''), '',
-      '- 分类：' + (s.category || '') + ' · ID #' + s.id,
+      '- 分类：' + (s.category || '') + ' · ID #' + App.seqOf(s),
       '- 图片：' + (s.image ? App.imgUrl(s.image) : '—')];
     const tg = flatTags(s); if (tg.length) lines.push('- 标签：' + tg.join(' / '));
     lines.push('', '```', (s.prompt || ''), '```', '');
@@ -424,7 +428,7 @@
         });
         smartSearch(App.ALL, q).slice(0, 12).forEach(s => {
           items.push({
-            ico: '💡', t1: s.title || ('#' + s.id), t2: s.category + ' · ID #' + s.id,
+            ico: '💡', t1: s.title || ('#' + App.seqOf(s)), t2: s.category + ' · ID #' + App.seqOf(s),
             run: () => { closeOverlay('fxPalette'); App.openLightbox(s.id); }, sec: t('palette_prompt')
           });
         });
@@ -536,9 +540,9 @@
       }
       const cntEl = window.__lbCount;
       if (cntEl) {
-        const ids = lastList.ids.length ? lastList.ids : App.ALL.map(x => x.id);
-        const i = ids.indexOf(LB.id);
-        cntEl.textContent = (i >= 0 ? i + 1 : '?') + ' / ' + ids.length;
+        // 底部计数改用对外连续编号：ID 1426 / 6011，与上方 ID 标签一致
+        const cur = App.findSample(LB.id);
+        cntEl.textContent = 'ID ' + (cur ? App.seqOf(cur) : '?') + ' / ' + App.ALL.length;
       }
     }
   }
@@ -551,7 +555,7 @@
   }
 
   /* ================= 分面 / 筛选 UI ================= */
-  const filters = { facets: {}, hasImage: false, favOnly: false };
+  const filters = { facets: {}, favOnly: false };
   const hasFacet = () => Object.keys(filters.facets).some(k => (filters.facets[k] || []).length);
   function toggleFacet(facet, name) {
     const cur = filters.facets[facet] || (filters.facets[facet] = []);
@@ -575,7 +579,6 @@
         });
       });
     }
-    if (filters.hasImage) out = out.filter(s => !!s.image);
     if (filters.favOnly) out = out.filter(s => App.isFav(s.id));
     return out;
   }
@@ -622,7 +625,6 @@
     const mk = (key, label) => `<button class="switch ${filters[key] ? 'on' : ''}" data-k="${key}"><span class="dot"></span>${esc(label)}</button>`;
     container.className = 'filter-bar';
     container.innerHTML = `<span class="fb-label">筛选</span>` +
-      mk('hasImage', t('filter_only_img')) +
       mk('favOnly', t('filter_fav'));
     $$('.switch', container).forEach(b => b.addEventListener('click', () => {
       filters[b.dataset.k] = !filters[b.dataset.k];
@@ -676,8 +678,12 @@
     let fbar = $('#fxFilterBar');
     if (!fbar) {
       fbar = document.createElement('div'); fbar.id = 'fxFilterBar';
-      const anchor = $('.gallery-layout > section') || grid.parentElement;
-      if (anchor) anchor.insertBefore(fbar, anchor.firstChild);
+      const slot = $('#fxFilterBarSlot');            // 画廊：与搜索框同一行
+      if (slot) slot.appendChild(fbar);
+      else {
+        const anchor = $('.gallery-layout > section') || grid.parentElement;
+        if (anchor) anchor.insertBefore(fbar, anchor.firstChild);
+      }
     }
     const rebuild = () => {
       lastQuery = $('#galSearch') ? $('#galSearch').value.trim() : '';
