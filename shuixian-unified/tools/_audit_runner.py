@@ -27,7 +27,7 @@ SUITES = [
     "test_features", "test_i18n", "test_mobile_nav",
     "verify_lb_scroll", "verify_lb_edge", "verify_lb_pages",
     "verify_masonry", "verify_masonry_append", "verify_facets", "verify_facet_single",
-    "verify_multi", "verify_brand", "verify_search", "verify_import_newcat", "verify_new_sfw", "verify_detail_fit", "verify_prompt_full",
+    "verify_multi", "verify_brand", "verify_search", "verify_import_newcat", "verify_new_cats", "verify_detail_fit", "verify_prompt_full",
 ]
 
 env = os.environ.copy()

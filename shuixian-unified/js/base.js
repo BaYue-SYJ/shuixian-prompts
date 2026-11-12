@@ -10,7 +10,7 @@
    ========================================================= */
 const App = (() => {
   // ---------- 配置 ----------
-  const ASSET_VERSION = '43';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
+  const ASSET_VERSION = '44';                        // 每次更新静态资源请 +1，并同步 HTML 里的 ?v=
   const IMG_BASE = "https://r2.qqsrc.com";          // Cloudflare R2 公共图床
   const FAV_KEY = 'sx-boards-v2';
   const REC_KEY = 'sx-recent-v2';

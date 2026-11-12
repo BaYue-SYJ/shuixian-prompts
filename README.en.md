@@ -4,9 +4,9 @@
 
 # 水仙的AI提示词 · Shuixian's AI Prompts
 
-**6,320 curated Chinese AI-art prompts — search, browse, copy in one click. Fully open source.**
+**6,601 curated Chinese AI-art prompts — search, browse, copy in one click. Fully open source.**
 
-14 categories · 79 subcategories · a preview image for every prompt · no login required
+15 categories · 79 subcategories · a preview image for every prompt · no login required
 
 [🖥 Live site](https://prompt.qqsrc.com/) ·
 [✨ Features](#-features) ·
@@ -16,7 +16,7 @@
 
 </div>
 
-<img src="docs/screenshots/features/01-home.png?v=20261112" alt="Home" width="100%">
+<img src="docs/screenshots/features/01-home.png?v=20261112b" alt="Home" width="100%">
 
 ## What is this
 
@@ -49,8 +49,8 @@ The prompts cover Midjourney, Stable Diffusion, Flux, ChatGPT and Gemini, plus C
 
 **More**
 
-- Two skins: modern (page-per-view) and classic (14-category card wall) — one button in the header switches
-- Full bilingual UI: click `EN / 中` to translate the whole site, including all 93 category names (14 categories + 79 subcategories); the choice is remembered
+- Two skins: modern (page-per-view) and classic (15-category card wall) — one button in the header switches
+- Full bilingual UI: click `EN / 中` to translate the whole site, including all 94 category names (15 categories + 79 subcategories); the choice is remembered
 - PWA: installable to desktop, browse the shell and lightweight data offline; press `?` for shortcuts
 - Userscript: summon a sidebar to search and copy from ChatGPT / Claude / Gemini / Midjourney / 即梦 pages
 
@@ -73,24 +73,24 @@ Caching rules live in `_headers`; after changing CSS / JS bump the `?v=` and `AS
 
 Same dataset, two ways to browse. The switch tries to stay on the same kind of page (home↔home, gallery↔gallery, favourites↔favourites).
 
-| Modern — one page per view | Classic — 14-category card wall |
+| Modern — one page per view | Classic — 15-category card wall |
 | --- | --- |
-| <img src="docs/screenshots/features/01-home.png?v=20261112" alt="Modern home"> | <img src="docs/screenshots/unified/home-classic.png?v=20261112" alt="Classic home"> |
+| <img src="docs/screenshots/features/01-home.png?v=20261112b" alt="Modern home"> | <img src="docs/screenshots/unified/home-classic.png?v=20261112b" alt="Classic home"> |
 
 <details>
 <summary>More screenshots (prompt detail / command palette / facets / collections / English UI / mobile)</summary>
 
 | Prompt detail · copy & save | Command palette ⌘K |
 | --- | --- |
-| <img src="docs/screenshots/features/07-detail.png?v=20261112" alt="Prompt detail"> | <img src="docs/screenshots/features/02-command-palette.png?v=20261112" alt="Command palette"> |
+| <img src="docs/screenshots/features/07-detail.png?v=20261112b" alt="Prompt detail"> | <img src="docs/screenshots/features/02-command-palette.png?v=20261112b" alt="Command palette"> |
 
 | Facet tags | Collections manager |
 | --- | --- |
-| <img src="docs/screenshots/features/03-facets.png?v=20261112" alt="Facet tags"> | <img src="docs/screenshots/features/08-collections.png?v=20261112" alt="Collections"> |
+| <img src="docs/screenshots/features/03-facets.png?v=20261112b" alt="Facet tags"> | <img src="docs/screenshots/features/08-collections.png?v=20261112b" alt="Collections"> |
 
 | English UI | Mobile |
 | --- | --- |
-| <img src="docs/screenshots/features/10-english-home.png?v=20261112" alt="English UI"> | <img src="docs/screenshots/features/16-mobile-nav.png?v=20261112" alt="Mobile"> |
+| <img src="docs/screenshots/features/10-english-home.png?v=20261112b" alt="English UI"> | <img src="docs/screenshots/features/16-mobile-nav.png?v=20261112b" alt="Mobile"> |
 
 </details>
 
@@ -105,7 +105,7 @@ shuixian-unified/          The site (self-contained, deployable as-is)
 ├── js/
 │   ├── base.js            Data loading, cards, lightbox, favourites
 │   ├── features.js        Variable filling / facets / search / palette / collections / i18n
-│   └── i18n.js            124 UI strings + 93 category names
+│   └── i18n.js            124 UI strings + 94 category names
 ├── data/                  Dataset (shared by both skins)
 ├── tools/                 Maintenance scripts (pinyin table, version bump, i18n injection, tests)
 ├── userscript/            Tampermonkey sidebar script

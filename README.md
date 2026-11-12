@@ -4,9 +4,9 @@
 
 # 水仙的AI提示词
 
-**6,320 条中文 AI 绘画提示词，检索 / 分类 / 一键复制，全部开源**
+**6,601 条中文 AI 绘画提示词，检索 / 分类 / 一键复制，全部开源**
 
-14 大类 · 79 细类 · 每条配效果图 · 无需登录
+15 大类 · 79 细类 · 每条配效果图 · 无需登录
 
 [🖥 在线逛库](https://prompt.qqsrc.com/) ·
 [✨ 功能](#-功能) ·
@@ -16,7 +16,7 @@
 
 </div>
 
-<img src="docs/screenshots/features/01-home.png?v=20261112" alt="首页" width="100%">
+<img src="docs/screenshots/features/01-home.png?v=20261112b" alt="首页" width="100%">
 
 ## 这是什么
 
@@ -50,8 +50,8 @@
 
 **其他**
 
-- 两套皮肤：现代版（页面级拆分）与经典版（14 大类卡片墙），右上角一键切换
-- 中英双语：点 `EN / 中` 整站换语言，含 93 个分类名（14 大类 + 79 小类）；选择会被记住
+- 两套皮肤：现代版（页面级拆分）与经典版（15 大类卡片墙），右上角一键切换
+- 中英双语：点 `EN / 中` 整站换语言，含 94 个分类名（15 大类 + 79 小类）；选择会被记住
 - PWA：可安装到桌面，离线能浏览外壳与轻量数据；快捷键按 `?` 查看
 - 油猴脚本：在 ChatGPT / Claude / Gemini / Midjourney / 即梦 页面召唤侧边栏搜索并复制
 
@@ -74,24 +74,24 @@ python -m http.server 8094 --directory shuixian-unified
 
 同一份数据，两种逛法。切换时会尽量停在同一类页面（首页↔首页、画廊↔画廊、收藏↔收藏）。
 
-| 现代版 — 页面级拆分 | 经典版 — 14 大类卡片墙 |
+| 现代版 — 页面级拆分 | 经典版 — 15 大类卡片墙 |
 | --- | --- |
-| <img src="docs/screenshots/features/01-home.png?v=20261112" alt="现代版首页"> | <img src="docs/screenshots/unified/home-classic.png?v=20261112" alt="经典版首页"> |
+| <img src="docs/screenshots/features/01-home.png?v=20261112b" alt="现代版首页"> | <img src="docs/screenshots/unified/home-classic.png?v=20261112b" alt="经典版首页"> |
 
 <details>
 <summary>更多截图（提示词详情 / 命令面板 / 标签分面 / 收藏合集 / 英文版 / 手机端）</summary>
 
 | 提示词详情 · 复制与收藏 | 命令面板 ⌘K |
 | --- | --- |
-| <img src="docs/screenshots/features/07-detail.png?v=20261112" alt="提示词详情"> | <img src="docs/screenshots/features/02-command-palette.png?v=20261112" alt="命令面板"> |
+| <img src="docs/screenshots/features/07-detail.png?v=20261112b" alt="提示词详情"> | <img src="docs/screenshots/features/02-command-palette.png?v=20261112b" alt="命令面板"> |
 
 | 标签分面 | 收藏合集管理 |
 | --- | --- |
-| <img src="docs/screenshots/features/03-facets.png?v=20261112" alt="标签分面"> | <img src="docs/screenshots/features/08-collections.png?v=20261112" alt="收藏合集"> |
+| <img src="docs/screenshots/features/03-facets.png?v=20261112b" alt="标签分面"> | <img src="docs/screenshots/features/08-collections.png?v=20261112b" alt="收藏合集"> |
 
 | 英文版 | 手机端 |
 | --- | --- |
-| <img src="docs/screenshots/features/10-english-home.png?v=20261112" alt="英文版"> | <img src="docs/screenshots/features/16-mobile-nav.png?v=20261112" alt="手机端"> |
+| <img src="docs/screenshots/features/10-english-home.png?v=20261112b" alt="英文版"> | <img src="docs/screenshots/features/16-mobile-nav.png?v=20261112b" alt="手机端"> |
 
 </details>
 
@@ -106,7 +106,7 @@ shuixian-unified/          站点（自包含，可直接部署）
 ├── js/
 │   ├── base.js            数据加载、卡片、灯箱、收藏
 │   ├── features.js        变量填空 / 分面 / 搜索 / 命令面板 / 合集 / i18n 装配
-│   └── i18n.js            124 组文案 + 93 个分类名
+│   └── i18n.js            124 组文案 + 94 个分类名
 ├── data/                  数据集（两套皮肤共用）
 ├── tools/                 维护脚本（拼音表 / 版本号 / i18n 注入 / 回归测试）
 ├── userscript/            油猴侧边栏脚本

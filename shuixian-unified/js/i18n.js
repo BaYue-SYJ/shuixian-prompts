@@ -9,9 +9,10 @@
    带 {n} / {q} / {name} 的文案用 FX.tf(key, {...}) 格式化。
    ========================================================= */
 window.SX_I18N = {
-  /* ---------- 分类名英文映射（14 大类 + 79 小类去重） ---------- */
+  /* ---------- 分类名英文映射（15 大类 + 79 小类去重） ---------- */
   cat: {
-    // 14 大类
+    // 15 大类
+    "New-OM": "New OM",
     "New-SFW": "New SFW",
     "New欧美": "New Western",
     "（大凶）": "Bombshell",
@@ -210,7 +211,7 @@ se_recent: "最近搜索", se_hot: "大家都在搜", se_tags: "按标签逛", s
       ab_lead: "「水仙的AI提示词」是一个持续收集、整理的中文 AI 图像生成提示词花园。我们把散落在各处的好句子按主题分门别类，让想出图的人能更快找到合适的那一句话。",
       ab_h2_what: "我们做了什么",
       ab_p_what: "提示词是和 AI 绘画模型沟通的语言。一句好的提示词，往往决定了出图的质量和风格。我们从大量实践里筛选出表达清晰、可复用、风格鲜明的提示词，并为每条标注了分类与预览图，方便你按场景检索。",
-      ab_li1: "<b>按主题聚合</b>：New-SFW、New欧美、人物写真、动漫二次元、海报广告、插画艺术、产品电商、游戏、建筑空间、车辆机械 3D、随手拍、晓兰 等 14 大类。",
+      ab_li1: "<b>按主题聚合</b>：New-OM、New-SFW、New欧美、人物写真、动漫二次元、海报广告、插画艺术、产品电商、游戏、建筑空间、车辆机械 3D、随手拍、晓兰 等 15 大类。",
       ab_li2: "<b>可直接复制</b>：点开任意卡片即可查看完整提示词，一键复制使用。",
       ab_li3: "<b>本地收藏</b>：支持多画板收藏，无需登录，存在你自己的浏览器里。",
       ab_h2_rights: "图片与版权",
@@ -359,7 +360,7 @@ se_recent: "Recent", se_hot: "Trending", se_tags: "Browse by tag", se_none: "Non
       ab_lead: "“Daffodil's AI Prompts” is a steadily growing garden of Chinese AI image generation prompts. We sort good lines scattered across the web by theme, so anyone who wants to make images can find the right one faster.",
       ab_h2_what: "What we do",
       ab_p_what: "Prompts are how you talk to an image model. A good prompt often decides the quality and style of the result. From a lot of hands-on practice we picked prompts that are clear, reusable and distinctive, and tagged each with a category and a preview image so you can search by scenario.",
-      ab_li1: "<b>Grouped by theme</b>: 14 categories including New SFW, New Western, portraits, anime & manga, posters & ads, illustration & art, product & e-commerce, games, architecture & scenes, vehicles & 3D, snapshots and Xiaolan.",
+      ab_li1: "<b>Grouped by theme</b>: 15 categories including New OM, New SFW, New Western, portraits, anime & manga, posters & ads, illustration & art, product & e-commerce, games, architecture & scenes, vehicles & 3D, snapshots and Xiaolan.",
       ab_li2: "<b>Copy and go</b>: open any card to read the full prompt and copy it in one click.",
       ab_li3: "<b>Local favourites</b>: multiple collections, no sign-up, stored in your own browser.",
       ab_h2_rights: "Images & copyright",
